@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c05.nhahodau.net</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- 🌸 Header -->
+    <header>
+      <h1 class="logo">🌸 Flower Connect</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
+          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
+          <li>
+            <a href="category-hoangayle.html" class="active">Hoa Ngày Lễ</a>
+          </li>
+          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a href="login.html" class="btn">Đăng nhập</a>
+        <a href="register.html" class="btn">Đăng ký</a>
+      </div>
+    </header>
+
+    <!-- 🔍 Thanh tìm kiếm -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Tìm kiếm hoa ngày lễ..."
+        onkeyup="searchFlowers()"
+      />
+      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
+    </div>
+
+    <!-- 🎉 Banner khuyến mãi -->
+    <div class="promo-banner">
+      <h2>🎉 Hoa rực rỡ cho ngày lễ đặc biệt 🎉</h2>
+      <p>Ưu đãi 25% cho các bó hoa lễ hội 🎈</p>
+    </div>
+
+    <!-- 🌷 Danh sách sản phẩm Hoa Ngày Lễ -->
+    <main class="product-container">
+      <div class="product">
+        <img src="images/hoangayle1.jpg" alt="Hoa Ngày Lễ 1" />
+        <h3>Bó hoa lễ Giáng Sinh</h3>
+        <p>Giá: 650.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa lễ Giáng Sinh', 650000, 'hoangayle1.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle2.jpg" alt="Hoa Ngày Lễ 2" />
+        <h3>Hộp hoa Tết rực rỡ</h3>
+        <p>Giá: 780.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa Tết rực rỡ', 780000, 'hoangayle2.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle3.jpg" alt="Hoa Ngày Lễ 3" />
+        <h3>Bó hoa Valentine lãng mạn</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Valentine lãng mạn', 600000, 'hoangayle3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle4.jpg" alt="Hoa Ngày Lễ 4" />
+        <h3>Giỏ hoa 8/3 yêu thương</h3>
+        <p>Giá: 550.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Giỏ hoa 8/3 yêu thương', 550000, 'hoangayle4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle5.jpg" alt="Hoa Ngày Lễ 5" />
+        <h3>Hộp hoa Trung Thu ấm áp</h3>
+        <p>Giá: 700.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa Trung Thu ấm áp', 700000, 'hoangayle5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle6.jpg" alt="Hoa Ngày Lễ 6" />
+        <h3>Bó hoa 20/10 rực rỡ</h3>
+        <p>Giá: 620.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa 20/10 rực rỡ', 620000, 'hoangayle6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle7.jpg" alt="Hoa Ngày Lễ 7" />
+        <h3>Giỏ hoa lễ hội mùa xuân</h3>
+        <p>Giá: 800.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Giỏ hoa lễ hội mùa xuân', 800000, 'hoangayle7.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle8.jpg" alt="Hoa Ngày Lễ 8" />
+        <h3>Hộp hoa Noel sang trọng</h3>
+        <p>Giá: 750.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa Noel sang trọng', 750000, 'hoangayle8.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoangayle9.jpg" alt="Hoa Ngày Lễ 9" />
+        <h3>Bó hoa lễ hội pháo hoa</h3>
+        <p>Giá: 680.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa lễ hội pháo hoa', 680000, 'hoangayle9.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+    </main>
+
+    <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
+    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
+
+    <script>
+      function addToCart(name, price, image) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let existingItem = cart.find((item) => item.name === name);
+        if (existingItem) {
+          existingItem.quantity = (existingItem.quantity || 1) + 1;
+        } else {
+          cart.push({ name, price, image, quantity: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(`${name} đã được thêm vào giỏ hàng!`);
+      }
+
+      function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartIconMini = document.getElementById("cartIconMini");
+        if (cartIconMini) {
+          cartIconMini.dataset.count = cart.length > 0 ? cart.length : "";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+  </body>
+</html>

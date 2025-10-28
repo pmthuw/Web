@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c05.nhahodau.net</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 🌸 Header -->
+    <header>
+      <h1 class="logo">🌸 Flower Connect</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li>
+            <a href="category-hoatinhyeu-html" class="active">Hoa Tình Yêu</a>
+          </li>
+          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
+          <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
+          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a href="login.html" class="btn">Đăng nhập</a>
+        <a href="register.html" class="btn">Đăng ký</a>
+      </div>
+    </header>
+
+    <!-- 🔍 Thanh tìm kiếm -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Tìm kiếm hoa hồng..."
+        onkeyup="searchFlowers()"
+      />
+      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
+    </div>
+
+    <!-- 🎉 Banner khuyến mãi -->
+    <div class="promo-banner">
+      <h2>🎁 Giảm giá 30% cho tất cả hoa ngày 20/11 🎁</h2>
+      <p>Ưu đãi đặc biệt cho những bó hoa hồng tươi thắm 💖</p>
+    </div>
+
+    <!-- 🌷 Danh sách sản phẩm Hoa Hồng -->
+    <main class="product-container">
+      <div class="product">
+        <img src="images/hoahong1.jpg" alt="Hoa Hồng 1" />
+        <h3>Bó hoa Hồng đỏ tình yêu</h3>
+        <p>Giá: 450.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong2.jpg" alt="Hoa Hồng 2" />
+        <h3>Hộp hoa Hồng pastel sang trọng</h3>
+        <p>Giá: 580.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong3.jpg" alt="Hoa Hồng 3" />
+        <h3>Giỏ hoa Hồng hồng nhẹ nhàng</h3>
+        <p>Giá: 520.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong4.jpg" alt="Hoa Hồng 4" />
+        <h3>Bó hoa Hồng trắng tinh khôi</h3>
+        <p>Giá: 490.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong5.jpg" alt="Hoa Hồng 5" />
+        <h3>Bó hoa Hồng kem sang trọng</h3>
+        <p>Giá: 560.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong6.jpg" alt="Hoa Hồng 6" />
+        <h3>Hoa Hồng đỏ và Baby trắng</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong7.jpg" alt="Hoa Hồng 7" />
+        <h3>Giỏ hoa Hồng mix nhiều màu</h3>
+        <p>Giá: 720.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong8.jpg" alt="Hoa Hồng 8" />
+        <h3>Bó Hồng đỏ - quà tặng kỷ niệm</h3>
+        <p>Giá: 510.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong9.jpg" alt="Hoa Hồng 9" />
+        <h3>Giỏ hoa Hồng pastel tinh tế</h3>
+        <p>Giá: 640.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a href="#" class="cart-btn">Thêm vào giỏ</a>
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong10.jpg" alt="Hoa Hồng 10" />
+        <h3>Bó</h3>
+      </div>
+    </main>
+  </body>
+</html>
