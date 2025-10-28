@@ -18,10 +18,12 @@
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
           <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
-          <li><a href="category-hoavieng.html">Hoa Viếng</a></li>
+          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
-          <li><a href="category-hoadacbiet.html">Hoa Dịp Đặc Biệt</a></li>
-          <li><a href="category-phukien.html" class="active">Phụ Kiện</a></li>
+          <li>
+            <a href="category-hoagio.html" class="active">Hoa Gio</a>
+          </li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
         </ul>
       </nav>
       <div class="auth">
@@ -35,7 +37,7 @@
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Tìm kiếm phụ kiện..."
+        placeholder="🔍 Tìm kiếm hoa dịp đặc biệt..."
         onkeyup="searchFlowers()"
       />
       <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
@@ -43,125 +45,125 @@
 
     <!-- 🎉 Banner khuyến mãi -->
     <div class="promo-banner">
-      <h2>🎀 Phụ kiện làm đẹp bó hoa của bạn 🎀</h2>
-      <p>Mua 2 tặng 1 cho tất cả phụ kiện trong tuần này 🛒</p>
+      <h2>💍 Hoa cho những khoảnh khắc đáng nhớ 💍</h2>
+      <p>Ưu đãi 15% cho hoa cưới và sinh nhật 🎂</p>
     </div>
 
-    <!-- 🌷 Danh sách sản phẩm Phụ Kiện -->
+    <!-- 🌷 Danh sách sản phẩm Hoa Dịp Đặc Biệt -->
     <main class="product-container">
       <div class="product">
-        <img src="images/phukien1.jpg" alt="Phụ Kiện 1" />
-        <h3>Ruy băng lụa cao cấp</h3>
-        <p>Giá: 50.000đ</p>
+        <img src="images/hoadacbiet1.jpg" alt="Hoa Dịp Đặc Biệt 1" />
+        <h3>Bó hoa cưới trắng tinh khôi</h3>
+        <p>Giá: 1.000.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Ruy băng lụa cao cấp', 50000, 'phukien1.jpg')"
+          onclick="addToCart('Bó hoa cưới trắng tinh khôi', 1000000, 'hoadacbiet1.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien2.jpg" alt="Phụ Kiện 2" />
-        <h3>Thiệp chúc mừng hoa văn</h3>
-        <p>Giá: 20.000đ</p>
+        <img src="images/hoadacbiet2.jpg" alt="Hoa Dịp Đặc Biệt 2" />
+        <h3>Hộp hoa sinh nhật rực rỡ</h3>
+        <p>Giá: 700.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Thiệp chúc mừng hoa văn', 20000, 'phukien2.jpg')"
+          onclick="addToCart('Hộp hoa sinh nhật rực rỡ', 700000, 'hoadacbiet2.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien3.jpg" alt="Phụ Kiện 3" />
-        <h3>Hộp quà gỗ sang trọng</h3>
-        <p>Giá: 150.000đ</p>
+        <img src="images/hoadacbiet3.jpg" alt="Hoa Dịp Đặc Biệt 3" />
+        <h3>Bó hoa chúc mừng thăng chức</h3>
+        <p>Giá: 650.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Hộp quà gỗ sang trọng', 150000, 'phukien3.jpg')"
+          onclick="addToCart('Bó hoa chúc mừng thăng chức', 650000, 'hoadacbiet3.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien4.jpg" alt="Phụ Kiện 4" />
-        <h3>Túi giấy hoa văn cao cấp</h3>
-        <p>Giá: 30.000đ</p>
+        <img src="images/hoadacbiet4.jpg" alt="Hoa Dịp Đặc Biệt 4" />
+        <h3>Giỏ hoa khai trương sang trọng</h3>
+        <p>Giá: 1.200.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Túi giấy hoa văn cao cấp', 30000, 'phukien4.jpg')"
+          onclick="addToCart('Giỏ hoa khai trương sang trọng', 1200000, 'hoadacbiet4.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien5.jpg" alt="Phụ Kiện 5" />
-        <h3>Nơ trang trí bó hoa</h3>
-        <p>Giá: 25.000đ</p>
+        <img src="images/hoadacbiet5.jpg" alt="Hoa Dịp Đặc Biệt 5" />
+        <h3>Hộp hoa kỷ niệm tình yêu</h3>
+        <p>Giá: 800.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Nơ trang trí bó hoa', 25000, 'phukien5.jpg')"
+          onclick="addToCart('Hộp hoa kỷ niệm tình yêu', 800000, 'hoadacbiet5.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien6.jpg" alt="Phụ Kiện 6" />
-        <h3>Bình gốm nhỏ trang trí</h3>
-        <p>Giá: 200.000đ</p>
+        <img src="images/hoadacbiet6.jpg" alt="Hoa Dịp Đặc Biệt 6" />
+        <h3>Bó hoa chúc mừng tốt nghiệp</h3>
+        <p>Giá: 600.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Bình gốm nhỏ trang trí', 200000, 'phukien6.jpg')"
+          onclick="addToCart('Bó hoa chúc mừng tốt nghiệp', 600000, 'hoadacbiet6.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien7.jpg" alt="Phụ Kiện 7" />
-        <h3>Khăn lụa bọc hoa</h3>
-        <p>Giá: 80.000đ</p>
+        <img src="images/hoadacbiet7.jpg" alt="Hoa Dịp Đặc Biệt 7" />
+        <h3>Giỏ hoa cưới hồng phấn</h3>
+        <p>Giá: 1.100.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Khăn lụa bọc hoa', 80000, 'phukien7.jpg')"
+          onclick="addToCart('Giỏ hoa cưới hồng phấn', 1100000, 'hoadacbiet7.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien8.jpg" alt="Phụ Kiện 8" />
-        <h3>Hộp quà trái tim lãng mạn</h3>
-        <p>Giá: 120.000đ</p>
+        <img src="images/hoadacbiet8.jpg" alt="Hoa Dịp Đặc Biệt 8" />
+        <h3>Hộp hoa chúc mừng tân gia</h3>
+        <p>Giá: 900.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Hộp quà trái tim lãng mạn', 120000, 'phukien8.jpg')"
+          onclick="addToCart('Hộp hoa chúc mừng tân gia', 900000, 'hoadacbiet8.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien9.jpg" alt="Phụ Kiện 9" />
-        <h3>Đèn LED trang trí bó hoa</h3>
-        <p>Giá: 60.000đ</p>
+        <img src="images/hoadacbiet9.jpg" alt="Hoa Dịp Đặc Biệt 9" />
+        <h3>Bó hoa chúc mừng thành công</h3>
+        <p>Giá: 750.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Đèn LED trang trí bó hoa', 60000, 'phukien9.jpg')"
+          onclick="addToCart('Bó hoa chúc mừng thành công', 750000, 'hoadacbiet9.jpg')"
           >Thêm vào giỏ</a
         >
       </div>

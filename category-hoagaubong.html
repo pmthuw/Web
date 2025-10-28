@@ -18,10 +18,12 @@
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
           <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
-          <li><a href="category-hoavieng.html">Hoa Viếng</a></li>
+          <li>
+            <a href="category-hoagaubong.html" class="active">Hoa Gấu Bông</a>
+          </li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
-          <li><a href="category-hoadacbiet.html">Hoa Dịp Đặc Biệt</a></li>
-          <li><a href="category-phukien.html" class="active">Phụ Kiện</a></li>
+          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
         </ul>
       </nav>
       <div class="auth">
@@ -35,7 +37,7 @@
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Tìm kiếm phụ kiện..."
+        placeholder="Tìm kiếm hoa gấu bông..."
         onkeyup="searchFlowers()"
       />
       <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
@@ -43,125 +45,125 @@
 
     <!-- 🎉 Banner khuyến mãi -->
     <div class="promo-banner">
-      <h2>🎀 Phụ kiện làm đẹp bó hoa của bạn 🎀</h2>
-      <p>Mua 2 tặng 1 cho tất cả phụ kiện trong tuần này 🛒</p>
+      <h1>Thay lời muốn nói</h1>
+      <h2>🐻Gửi gắm qua chú gấu bông nhỏ🐻</h2>
     </div>
 
-    <!-- 🌷 Danh sách sản phẩm Phụ Kiện -->
+    <!-- 🌷 Danh sách sản phẩm gấu bông -->
     <main class="product-container">
       <div class="product">
-        <img src="images/phukien1.jpg" alt="Phụ Kiện 1" />
-        <h3>Ruy băng lụa cao cấp</h3>
-        <p>Giá: 50.000đ</p>
+        <img src="images/hoavieng1.jpg" alt="Hoa Gấu Bông 1" />
+        <h3>Kệ hoa viếng trắng thanh lịch</h3>
+        <p>Giá: 1.200.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Ruy băng lụa cao cấp', 50000, 'phukien1.jpg')"
+          onclick="addToCart('Kệ hoa viếng trắng thanh lịch', 1200000, 'hoagaubong1.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien2.jpg" alt="Phụ Kiện 2" />
-        <h3>Thiệp chúc mừng hoa văn</h3>
-        <p>Giá: 20.000đ</p>
+        <img src="images/hoavieng2.jpg" alt="Hoa Gấu Bông 2" />
+        <h3>Vòng hoa viếng tím trang trọng</h3>
+        <p>Giá: 1.500.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Thiệp chúc mừng hoa văn', 20000, 'phukien2.jpg')"
+          onclick="addToCart('Vòng hoa viếng tím trang trọng', 1500000, 'hoagaubong2.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien3.jpg" alt="Phụ Kiện 3" />
-        <h3>Hộp quà gỗ sang trọng</h3>
-        <p>Giá: 150.000đ</p>
+        <img src="images/hoavieng3.jpg" alt="Hoa Gấu Bông 3" />
+        <h3>Kệ hoa viếng trắng - vàng</h3>
+        <p>Giá: 1.300.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Hộp quà gỗ sang trọng', 150000, 'phukien3.jpg')"
+          onclick="addToCart('Kệ hoa viếng trắng - vàng', 1300000, 'hoagaubong3.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien4.jpg" alt="Phụ Kiện 4" />
-        <h3>Túi giấy hoa văn cao cấp</h3>
-        <p>Giá: 30.000đ</p>
+        <img src="images/hoavieng4.jpg" alt="Hoa Gấu Bông 4" />
+        <h3>Vòng hoa cúc trắng tinh khôi</h3>
+        <p>Giá: 1.100.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Túi giấy hoa văn cao cấp', 30000, 'phukien4.jpg')"
+          onclick="addToCart('Vòng hoa cúc trắng tinh khôi', 1100000, 'hoagaubong4.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien5.jpg" alt="Phụ Kiện 5" />
-        <h3>Nơ trang trí bó hoa</h3>
-        <p>Giá: 25.000đ</p>
+        <img src="images/hoavieng5.jpg" alt="Hoa Gấu Bông 5" />
+        <h3>Kệ hoa viếng sang trọng</h3>
+        <p>Giá: 1.800.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Nơ trang trí bó hoa', 25000, 'phukien5.jpg')"
+          onclick="addToCart('Kệ hoa viếng sang trọng', 1800000, 'hoagaubong5.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien6.jpg" alt="Phụ Kiện 6" />
-        <h3>Bình gốm nhỏ trang trí</h3>
-        <p>Giá: 200.000đ</p>
+        <img src="images/hoavieng6.jpg" alt="Hoa Gấu Bông 6" />
+        <h3>Vòng hoa trắng - tím ý nghĩa</h3>
+        <p>Giá: 1.400.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Bình gốm nhỏ trang trí', 200000, 'phukien6.jpg')"
+          onclick="addToCart('Vòng hoa trắng - tím ý nghĩa', 1400000, 'hoagaubong6.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien7.jpg" alt="Phụ Kiện 7" />
-        <h3>Khăn lụa bọc hoa</h3>
-        <p>Giá: 80.000đ</p>
+        <img src="images/hoavieng7.jpg" alt="Hoa Gấu Bông 7" />
+        <h3>Kệ hoa viếng cúc vàng</h3>
+        <p>Giá: 1.250.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Khăn lụa bọc hoa', 80000, 'phukien7.jpg')"
+          onclick="addToCart('Kệ hoa viếng cúc vàng', 1250000, 'hoagaubong7.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien8.jpg" alt="Phụ Kiện 8" />
-        <h3>Hộp quà trái tim lãng mạn</h3>
-        <p>Giá: 120.000đ</p>
+        <img src="images/hoavieng8.jpg" alt="Hoa Gấu Bông 8" />
+        <h3>Vòng hoa viếng trắng cao cấp</h3>
+        <p>Giá: 1.600.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Hộp quà trái tim lãng mạn', 120000, 'phukien8.jpg')"
+          onclick="addToCart('Vòng hoa viếng trắng cao cấp', 1600000, 'hoagaubong8.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien9.jpg" alt="Phụ Kiện 9" />
-        <h3>Đèn LED trang trí bó hoa</h3>
-        <p>Giá: 60.000đ</p>
+        <img src="images/hoavieng9.jpg" alt="Hoa Gấu Bông 9" />
+        <h3>Kệ hoa viếng đa sắc màu</h3>
+        <p>Giá: 1.700.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Đèn LED trang trí bó hoa', 60000, 'phukien9.jpg')"
+          onclick="addToCart('Kệ hoa viếng đa sắc màu', 1700000, 'hoagaubong9.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
