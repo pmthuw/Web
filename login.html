@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - WindFlower</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500\&family=Quicksand:wght@400;500\&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- 🌸 Header -->
+    <header>
+      <h1 class="logo">🌸 Flower Connect</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="category-hoahong.html">Hoa Hồng</a></li>
+          <li><a href="category-hoavieng.html">Hoa Viếng</a></li>
+          <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
+          <li><a href="category-hoadacbiet.html">Hoa Dịp Đặc Biệt</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a href="login.html" class="btn active">Đăng nhập</a>
+        <a href="register.html" class="btn">Đăng ký</a>
+      </div>
+    </header>
+    <!-- 📋 Form đăng nhập -->
+    <main class="login-container">
+      <h2>Đăng nhập</h2>
+      <form id="loginForm" action="#" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Nhập email của bạn"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Nhập mật khẩu"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn">Đăng nhập</button>
+        </div>
+        <p>Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+      </form>
+    </main>
+    <footer>
+      <p>© 2025 Flower Connect.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoa Hồng - WindFlower</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- 🌸 Header -->
+    <header>
+      <h1 class="logo">🌸 Flower Connect</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="category-hoahong.html" class="active">Hoa Hồng</a></li>
+          <li><a href="category-hoavieng.html">Hoa Viếng</a></li>
+          <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
+          <li><a href="category-hoadacbiet.html">Hoa Dịp Đặc Biệt</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a href="login.html" class="btn">Đăng nhập</a>
+        <a href="register.html" class="btn">Đăng ký</a>
+      </div>
+    </header>
+
+    <!-- 🔍 Thanh tìm kiếm -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Tìm kiếm hoa hồng..."
+        onkeyup="searchFlowers()"
+      />
+      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
+    </div>
+
+    <!-- 🎉 Banner khuyến mãi -->
+    <div class="promo-banner">
+      <h2>🌹 Bó hoa Hồng ngọt ngào cho mọi dịp 🌹</h2>
+      <p>Giảm giá 10% cho các đơn hàng từ 2 bó trở lên!</p>
+    </div>
+
+    <!-- 🌷 Danh sách sản phẩm Hoa Hồng -->
+    <main class="product-container">
+      <div class="product">
+        <img src="images/hoahong1.jpg" alt="Hoa Hồng 1" />
+        <h3>Bó hoa Hồng đỏ rực rỡ</h3>
+        <p>Giá: 450.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng đỏ rực rỡ', 450000, 'hoahong1.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong2.jpg" alt="Hoa Hồng 2" />
+        <h3>Bó hoa Hồng hồng phấn</h3>
+        <p>Giá: 420.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng hồng phấn', 420000, 'hoahong2.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong3.jpg" alt="Hoa Hồng 3" />
+        <h3>Bó hoa Hồng trắng tinh khôi</h3>
+        <p>Giá: 460.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng trắng tinh khôi', 460000, 'hoahong3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong4.jpg" alt="Hoa Hồng 4" />
+        <h3>Bó hoa Hồng tím & đỏ kết hợp</h3>
+        <p>Giá: 500.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng tím & đỏ kết hợp', 500000, 'hoahong4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong5.jpg" alt="Hoa Hồng 5" />
+        <h3>Bó hoa Hồng vàng may mắn</h3>
+        <p>Giá: 480.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng vàng may mắn', 480000, 'hoahong5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong6.jpg" alt="Hoa Hồng 6" />
+        <h3>Bó hoa Hồng đỏ & trắng kết hợp</h3>
+        <p>Giá: 520.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng đỏ & trắng kết hợp', 520000, 'hoahong6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong7.jpg" alt="Hoa Hồng 7" />
+        <h3>Bó hoa Hồng hồng & trắng ngọt ngào</h3>
+        <p>Giá: 430.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng hồng & trắng ngọt ngào', 430000, 'hoahong7.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong8.jpg" alt="Hoa Hồng 8" />
+        <h3>Bó hoa Hồng cam & đỏ lãng mạn</h3>
+        <p>Giá: 490.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng cam & đỏ lãng mạn', 490000, 'hoahong8.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong9.jpg" alt="Hoa Hồng 9" />
+        <h3>Bó hoa Hồng trắng & tím</h3>
+        <p>Giá: 470.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng trắng & tím', 470000, 'hoahong9.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong10.jpg" alt="Hoa Hồng 10" />
+        <h3>Bó hoa Hồng đỏ thắm tình yêu</h3>
+        <p>Giá: 510.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng đỏ thắm tình yêu', 510000, 'hoahong10.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong11.jpg" alt="Hoa Hồng 11" />
+        <h3>Bó hoa Hồng hồng phấn lãng mạn</h3>
+        <p>Giá: 440.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng hồng phấn lãng mạn', 440000, 'hoahong11.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong12.jpg" alt="Hoa Hồng 12" />
+        <h3>Bó hoa Hồng đỏ & cam rực rỡ</h3>
+        <p>Giá: 495.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng đỏ & cam rực rỡ', 495000, 'hoahong12.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoahong13.jpg" alt="Hoa Hồng 13" />
+        <h3>Bó hoa Hồng trắng & đỏ kết hợp</h3>
+        <p>Giá: 500.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa Hồng trắng & đỏ kết hợp', 500000, 'hoahong13.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+    </main>
+
+    <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
+    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
+
+    <script>
+      function addToCart(name, price, image) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let existingItem = cart.find((item) => item.name === name);
+        if (existingItem) {
+          existingItem.quantity = (existingItem.quantity || 1) + 1;
+        } else {
+          cart.push({ name, price, image, quantity: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(`${name} đã được thêm vào giỏ hàng!`);
+      }
+
+      function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartIconMini = document.getElementById("cartIconMini");
+        if (cartIconMini) {
+          cartIconMini.dataset.count = cart.length > 0 ? cart.length : "";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+  </body>
+</html>
