@@ -12,16 +12,16 @@
   </head>
   <body>
     <!-- 🌸 Header -->
-    <header>
+    <header class="page-header">
       <h1 class="logo">🌸 Flower Connect</h1>
       <nav>
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
           <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
-          <li><a href="category-hoavieng.html">Hoa Viếng</a></li>
+          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
-          <li><a href="category-hoadacbiet.html">Hoa Dịp Đặc Biệt</a></li>
-          <li><a href="category-phukien.html" class="active">Phụ Kiện</a></li>
+          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
+          <li><a href="javascript:void(0)" class="active">Phụ Kiện</a></li>
         </ul>
       </nav>
       <div class="auth">
@@ -35,7 +35,7 @@
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Tìm kiếm phụ kiện..."
+        placeholder="Tìm kiếm sản phẩm..."
         onkeyup="searchFlowers()"
       />
       <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
@@ -50,14 +50,118 @@
     <!-- 🌷 Danh sách sản phẩm Phụ Kiện -->
     <main class="product-container">
       <div class="product">
-        <img src="images/phukien1.jpg" alt="Phụ Kiện 1" />
-        <h3>Ruy băng lụa cao cấp</h3>
-        <p>Giá: 50.000đ</p>
+        <img src="image/phukien1.jpg" alt="Phụ Kiện 1" />
+        <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
+        <p>Giá: 20.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Ruy băng lụa cao cấp', 50000, 'phukien1.jpg')"
+          onclick="addToCart('Thiệp Hoa Khô Kỉ Niệm', 20000, 'phukien1.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/phukien2.jpg" alt="Phụ Kiện 2" />
+        <h3>Thiệp Chúc Mừng Hoa Văn</h3>
+        <p>Giá: 20.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Thiệp chúc mừng hoa văn', 20000, 'phukien2.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/phukien3.jpg" alt="Phụ Kiện 3" />
+        <h3>Hộp quà gỗ sang trọng</h3>
+        <p>Giá: 150.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp quà gỗ sang trọng', 150000, 'phukien3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/phukien4.jpg" alt="Phụ Kiện 4" />
+        <h3>Túi giấy hoa văn cao cấp</h3>
+        <p>Giá: 30.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Túi giấy hoa văn cao cấp', 30000, 'phukien4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/phukien5.jpg" alt="Phụ Kiện 5" />
+        <h3>Nơ Đỏ</h3>
+        <p>Giá: 25.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Nơ Đỏ', 25000, 'phukien5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/phukien6.jpg" alt="Phụ Kiện 6" />
+        <h3>Bình gốm nhỏ trang trí</h3>
+        <p>Giá: 200.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bình gốm nhỏ trang trí', 200000, 'phukien6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/phukien7.jpg" alt="Phụ Kiện 7" />
+        <h3>Khăn lụa bọc hoa</h3>
+        <p>Giá: 80.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Khăn lụa bọc hoa', 80000, 'phukien7.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/phukien8.jpg" alt="Phụ Kiện 8" />
+        <h3>Hộp quà trái tim lãng mạn</h3>
+        <p>Giá: 120.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp quà trái tim lãng mạn', 120000, 'phukien8.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/phukien9.jpg" alt="Phụ Kiện 9" />
+        <h3>Đèn LED trang trí bó hoa</h3>
+        <p>Giá: 60.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Đèn LED trang trí bó hoa', 60000, 'phukien9.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
@@ -115,57 +219,63 @@
       </div>
 
       <div class="product">
-        <img src="images/phukien6.jpg" alt="Phụ Kiện 6" />
-        <h3>Bình gốm nhỏ trang trí</h3>
-        <p>Giá: 200.000đ</p>
+        <img src="images/phukien2.jpg" alt="Phụ Kiện 2" />
+        <h3>Thiệp chúc mừng hoa văn</h3>
+        <p>Giá: 20.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Bình gốm nhỏ trang trí', 200000, 'phukien6.jpg')"
+          onclick="addToCart('Thiệp chúc mừng hoa văn', 20000, 'phukien2.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien7.jpg" alt="Phụ Kiện 7" />
-        <h3>Khăn lụa bọc hoa</h3>
-        <p>Giá: 80.000đ</p>
+        <img src="images/phukien3.jpg" alt="Phụ Kiện 3" />
+        <h3>Hộp quà gỗ sang trọng</h3>
+        <p>Giá: 150.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Khăn lụa bọc hoa', 80000, 'phukien7.jpg')"
+          onclick="addToCart('Hộp quà gỗ sang trọng', 150000, 'phukien3.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien8.jpg" alt="Phụ Kiện 8" />
-        <h3>Hộp quà trái tim lãng mạn</h3>
-        <p>Giá: 120.000đ</p>
+        <img src="images/phukien4.jpg" alt="Phụ Kiện 4" />
+        <h3>Túi giấy hoa văn cao cấp</h3>
+        <p>Giá: 30.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Hộp quà trái tim lãng mạn', 120000, 'phukien8.jpg')"
+          onclick="addToCart('Túi giấy hoa văn cao cấp', 30000, 'phukien4.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
 
       <div class="product">
-        <img src="images/phukien9.jpg" alt="Phụ Kiện 9" />
-        <h3>Đèn LED trang trí bó hoa</h3>
-        <p>Giá: 60.000đ</p>
+        <img src="images/phukien5.jpg" alt="Phụ Kiện 5" />
+        <h3>Nơ trang trí bó hoa</h3>
+        <p>Giá: 25.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Đèn LED trang trí bó hoa', 60000, 'phukien9.jpg')"
+          onclick="addToCart('Nơ trang trí bó hoa', 25000, 'phukien5.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
     </main>
+    <!-- 🌼 Phân trang -->
+    <div class="pagination">
+      <button id="prevBtn">&lt;</button>
+      <span id="pageInfo"></span>
+      <button id="nextBtn">&gt;</button>
+    </div>
 
     <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
     <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
@@ -193,6 +303,75 @@
       }
 
       document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+    <script>
+      const products = document.querySelectorAll(".product");
+      const productsPerPage = 8; // số sản phẩm mỗi trang
+      let currentPage = 1;
+      const totalPages = Math.ceil(products.length / productsPerPage);
+
+      const pagination = document.querySelector(".pagination");
+
+      function showPage(page) {
+        products.forEach((product, index) => {
+          product.style.display =
+            index >= (page - 1) * productsPerPage &&
+            index < page * productsPerPage
+              ? "block"
+              : "none";
+        });
+        currentPage = page;
+        renderPagination();
+      }
+
+      function renderPagination() {
+        pagination.innerHTML = "";
+
+        const prev = document.createElement("button");
+        prev.textContent = "<";
+        prev.disabled = currentPage === 1;
+        prev.onclick = () => showPage(currentPage - 1);
+        pagination.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.className = i === currentPage ? "active" : "";
+          btn.onclick = () => showPage(i);
+          pagination.appendChild(btn);
+        }
+
+        const next = document.createElement("button");
+        next.textContent = ">";
+        next.disabled = currentPage === totalPages;
+        next.onclick = () => showPage(currentPage + 1);
+        pagination.appendChild(next);
+      }
+
+      showPage(currentPage);
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const authDiv = document.querySelector(".auth");
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (currentUser) {
+          // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
+          authDiv.innerHTML = `
+        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+      `;
+
+          // Xử lý khi bấm nút Đăng xuất
+          document
+            .getElementById("logoutBtn")
+            .addEventListener("click", function () {
+              localStorage.removeItem("currentUser");
+              alert("Bạn đã đăng xuất");
+              window.location.reload(); // load lại để hiện nút đăng nhập
+            });
+        }
+      });
     </script>
   </body>
 </html>

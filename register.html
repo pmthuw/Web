@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>c05.nhahodau.net</title>
+    <title>Đăng ký - Flower Connect</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
@@ -17,9 +17,7 @@
       <nav>
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
-          <li>
-            <a href="category-hoatinhyeu.html">Hoa Tình Yêu</a>
-          </li>
+          <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
           <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
           <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
@@ -46,6 +44,7 @@
             required
           />
         </div>
+
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -55,7 +54,9 @@
             placeholder="Nhập email của bạn"
             required
           />
+          <p id="emailError" class="error-message"></p>
         </div>
+
         <div class="form-group">
           <label for="password">Mật khẩu</label>
           <input
@@ -66,6 +67,7 @@
             required
           />
         </div>
+
         <div class="form-group">
           <label for="confirm-password">Xác nhận mật khẩu</label>
           <input
@@ -75,7 +77,9 @@
             placeholder="Xác nhận mật khẩu"
             required
           />
+          <p id="passwordError" class="error-message"></p>
         </div>
+
         <div class="form-group">
           <button type="submit" class="btn">Đăng ký</button>
         </div>
@@ -86,5 +90,50 @@
     <footer>
       <p>© 2025 Flower Connect.</p>
     </footer>
+
+    <script>
+      const registerForm = document.getElementById("registerForm");
+
+      registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document
+          .getElementById("confirm-password")
+          .value.trim();
+
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Kiểm tra email trùng
+        if (users.some((user) => user.email === email)) {
+          emailError.textContent = "Email này đã được đăng ký.";
+          return;
+        }
+
+        // Kiểm tra mật khẩu trùng khớp
+        if (password !== confirmPassword) {
+          passwordError.textContent = "Mật khẩu không trùng khớp.";
+          return;
+        }
+
+        // Lưu tài khoản
+        users.push({ name, email, password });
+        localStorage.setItem("users", JSON.stringify(users));
+
+        // Tự đăng nhập luôn
+        localStorage.setItem("currentUser", JSON.stringify({ name, email }));
+
+        alert("Đăng ký thành công!");
+        window.location.href = "index.html";
+      });
+    </script>
   </body>
 </html>

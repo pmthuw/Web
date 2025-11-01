@@ -253,11 +253,11 @@ function showOrderHistory() {
             <p>🕊️ Bạn chưa mua sản phẩm nào.</p>
             <p>Hãy xem các sản phẩm nổi bật dưới đây:</p>
             <div class="suggested-products">
-                <a href="category-hoahong.html" class="suggest-btn">🌹 Hoa hồng</a>
-                <a href="category-hoangayle.html" class="suggest-btn">🎉 Hoa ngày lễ</a>
-                <a href="category-hoadacbiet.html" class="suggest-btn">💖 Hoa dịp đặc biệt</a>
-                <a href="category-hoavieng.html" class="suggest-btn">🕊️ Hoa kính viếng</a>
-                <a href="category-phukien.html" class="suggest-btn">🎁 Phụ kiện</a>
+                <a href="category-hoatinhyeu.html" class="suggest-btn">Hoa Tình Yêu</a>
+                <a href="category-hoangayle.html" class="suggest-btn">Hoa Ngày Lễ</a>
+                <a href="category-hoagaubong.html" class="suggest-btn">Hoa Gấu Bông</a>
+                <a href="category-hoagio.html" class="suggest-btn">Hoa Giỏ</a>
+                <a href="category-phukien.html" class="suggest-btn">Phụ kiện</a>
             </div>
         `;
   }

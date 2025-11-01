@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>c05.nhahodau.net</title>
+    <title>Đăng nhập - Flower Connect</title>
     <link rel="stylesheet" href="style.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500\&family=Quicksand:wght@400;500\&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -17,9 +17,7 @@
       <nav>
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
-          <li>
-            <a href="category-hoatinhyeu.html">Hoa Tình Yêu</a>
-          </li>
+          <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
           <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
           <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
@@ -31,38 +29,79 @@
         <a href="register.html" class="btn">Đăng ký</a>
       </div>
     </header>
+
     <!-- 📋 Form đăng nhập -->
     <main class="login-container">
       <h2>Đăng nhập</h2>
-      <form id="loginForm" action="#" method="POST">
+      <form id="loginForm">
         <div class="form-group">
           <label for="email">Email</label>
           <input
             type="email"
             id="email"
-            name="email"
             placeholder="Nhập email của bạn"
             required
           />
         </div>
+
         <div class="form-group">
           <label for="password">Mật khẩu</label>
           <input
             type="password"
             id="password"
-            name="password"
             placeholder="Nhập mật khẩu"
             required
           />
+          <div class="password-bottom">
+            <p id="errorMsg" class="error-message"></p>
+            <a href="#" id="forgotPassword">Quên mật khẩu?</a>
+          </div>
         </div>
+
         <div class="form-group">
           <button type="submit" class="btn">Đăng nhập</button>
         </div>
+
         <p>Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
       </form>
     </main>
     <footer>
-      <p>© 2025 Flower Connect.</p>
+      <p>© 2025 Flower Connect. 🌸</p>
     </footer>
+
+    <script>
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const errorMsg = document.getElementById("errorMsg");
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user && user.email === email && user.password === password) {
+          errorMsg.textContent = ""; // xoá lỗi nếu có
+          alert("Đăng nhập thành công!");
+          window.location.href = "index.html";
+        } else {
+          errorMsg.textContent = "Sai email hoặc mật khẩu!";
+        }
+      });
+      const forgotPassword = document.getElementById("forgotPassword");
+
+      forgotPassword.addEventListener("click", function (e) {
+        e.preventDefault();
+        const email = prompt("Nhập email của bạn để nhận mật khẩu:");
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user && user.email === email) {
+          alert("Mật khẩu của bạn là: " + user.password);
+        } else {
+          alert("Email không tồn tại!");
+        }
+      });
+    </script>
   </body>
 </html>

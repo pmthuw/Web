@@ -4,19 +4,19 @@ body {
   font-family: "Quicksand";
   background-color: #fff;
   color: #333;
-}
+  text-transform:capitalize;
 
 /* 🌷 HEADER */
 header {
-  background-color: #ffffff;
-  border-bottom: 2px solid #f8bcd4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 50px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background-color: #ffffff !important;
+  border-bottom: 2px solid #f8bcd4 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 15px 50px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
 }
 
 .logo {
@@ -32,7 +32,6 @@ nav ul {
   margin: 0;
   padding: 0;
 }
-
 nav ul li a {
   text-decoration: none;
   color: #333;
@@ -40,10 +39,10 @@ nav ul li a {
   padding: 6px 10px;
   border-radius: 6px;
   transition: 0.3s;
-  display: grid;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
 }
-
 nav ul li a:hover,
 nav ul li a.active {
   background-color: #f8bcd4;
@@ -164,10 +163,14 @@ nav ul li a.active {
 
 /* 🏵️ SẢN PHẨM */
 .product-container {
+  position: relative;
+  top: -10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 25px;
   padding: 0 60px 50px;
+
+  justify-content: center;
 }
 
 .product {
@@ -719,4 +722,245 @@ footer {
   align-items: center;
   justify-content: center;
   font-size: 12px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 6px;
+}
+
+.password-bottom {
+  display: flex;
+  justify-content: space-between; /* căn đều 2 bên */
+  align-items: center; /* canh giữa theo chiều dọc */
+  margin-top: 5px; /* cách nhẹ dưới ô nhập mật khẩu */
+}
+
+.password-bottom {
+  display: flex;
+  justify-content: space-between; /* căn đều 2 bên */
+  align-items: center; /* canh giữa theo chiều dọc */
+  margin-top: 5px; /* cách nhẹ dưới ô nhập mật khẩu */
+}
+
+.error-message {
+  color: red !important;
+  font-size: 14px;
+  margin: 0; /* bỏ khoảng cách thừa */
+  line-height: 1.2; /* canh dòng cho đều */
+}
+
+#forgotPassword {
+  color: #d6336c;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+  line-height: 1.2;
+}
+
+#forgotPassword:hover {
+  color: #ff66a3;
+}
+/* 🌸 Giao diện tổng thể */
+body {
+  background: #fff5f8;
+  font-family: "Quicksand", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.logo {
+  font-family: "Dancing Script", cursive;
+  font-size: 28px;
+  color: #d6336c;
+}
+/*Head*/
+header {
+  background: #ffdee1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+.logo {
+  font-family: "Dancing Script", cursive;
+  font-size: 28px;
+  color: #d6336c;
+}
+
+/* 🌼 Nút đăng xuất */
+.btn-logout {
+  background: #d6336c;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: #ff66a3;
+}
+
+/* 🌹 Phần chính */
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff0f5;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #d6336c;
+  margin-bottom: 10px;
+}
+
+p {
+  text-align: center;
+  color: #555;
+}
+
+/* 🌷 Bảng sản phẩm */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ffb3c6;
+  text-align: left;
+}
+
+th {
+  background: #ffdee1;
+  color: #d6336c;
+}
+
+tr:hover {
+  background: #ffe6ec;
+}
+
+/* 🌸 Nút xóa */
+.delete-btn {
+  background: #ff80aa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  background: #ff4d88;
+}
+
+/* 🌼 Ô thêm sản phẩm */
+.add-product {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.add-product input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #d6336c;
+  outline: none;
+  transition: 0.3s;
+}
+
+.add-product input:focus {
+  border-color: #ff66a3;
+}
+
+.add-product button {
+  background: #d6336c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-product button:hover {
+  background: #ff66a3;
+}
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffe8f1;
+  text-align: center;
+  padding: 15px;
+  border-top: 2px solid #f8bcd4;
+}
+/* 🌸 PHỤ KIỆN (tách riêng và canh giữa) */
+.accessory-section {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.accessory-section h2 {
+  color: #f080a0;
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.accessory-container {
+  display: flex;
+  justify-content: center; /* 🔹 Căn giữa toàn bộ khung */
+  flex-wrap: wrap;
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto; /* 🔹 Giữ giữa trang */
+  padding: 0 20px;
+}
+
+.accessory {
+  background-color: #fff;
+  border: 2px solid #f8bcd4;
+  border-radius: 16px;
+  text-align: center;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(248, 188, 212, 0.5);
+  transition: 0.3s;
+}
+
+.accessory:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(248, 188, 212, 0.7);
+}
+
+.accessory img {
+  width: 100%;
+  aspect-ratio: 5/4;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.accessory h3 {
+  color: #f080a0;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.accessory p {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 10px;
 }

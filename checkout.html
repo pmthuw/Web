@@ -125,4 +125,27 @@
       </div>
     </main>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const authDiv = document.querySelector(".auth");
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (currentUser) {
+        // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
+        authDiv.innerHTML = `
+        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+      `;
+
+        // Xử lý khi bấm nút Đăng xuất
+        document
+          .getElementById("logoutBtn")
+          .addEventListener("click", function () {
+            localStorage.removeItem("currentUser");
+            alert("Bạn đã đăng xuất");
+            window.location.reload(); // load lại để hiện nút đăng nhập
+          });
+      }
+    });
+  </script>
 </html>

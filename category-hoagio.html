@@ -37,7 +37,7 @@
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Tìm kiếm hoa gio..."
+        placeholder="Tìm kiếm sản phẩm..."
         onkeyup="searchFlowers()"
       />
       <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
@@ -52,14 +52,222 @@
     <!-- 🌷 Danh sách sản phẩm Hoa Dịp Đặc Biệt -->
     <main class="product-container">
       <div class="product">
-        <img src="images/hoadacbiet1.jpg" alt="Hoa Dịp Đặc Biệt 1" />
-        <h3>Bó hoa cưới trắng tinh khôi</h3>
+        <img src="image/hoagio1.jpg" alt="Hoa Giỏ 1" />
+        <h3>Kẹo Ngọt Mùa Hè</h3>
+        <p>Giá: 300.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Kẹo Ngọt Mùa Hè', 300000, 'hoagio1.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio2.jpg" alt="Hoa Giỏ 2" />
+        <h3>Giai Điệu Pastel</h3>
+        <p>Giá: 400.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa sinh nhật rực rỡ', 400000, 'hoagio2.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio3.jpg" alt="Hoa Giỏ 3" />
+        <h3>Triệu Vì Sao Hồng</h3>
+        <p>Giá: 650.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Triệu Vì Sao Hồng', 650000, 'hoagio3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio4.jpg" alt="Hoa Giỏ 4" />
+        <h3>Bình Minh Hồng</h3>
+        <p>Giá: 200.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bình Minh Hồng', 200000, 'hoagio4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio5.jpg" alt="Hoa Giỏ 5" />
+        <h3>Chiếc Cổng Mộng Mơ</h3>
+        <p>Giá: 300.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Chiếc Cổng Mộng Mơ', 300000, 'hoagio5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio6.jpg" alt="Hoa Giỏ 6" />
+        <h3>Lâu Đài Núi Lửa</h3>
         <p>Giá: 1.000.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
           href="#"
           class="cart-btn"
-          onclick="addToCart('Bó hoa cưới trắng tinh khôi', 1000000, 'hoadacbiet1.jpg')"
+          onclick="addToCart('Lâu Đài Núi Lửa', 1000000, 'hoagio6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio7.jpg" alt="Hoa Giỏ 7" />
+        <h3>Ánh Sáng Quyệt Quế</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Ánh Sáng Nguyệt Quế', 600000, 'hoagio7.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio8.jpg" alt="Hoa Giỏ 8" />
+        <h3>Mùa Xuân Sắc Màu</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Mùa Xuân Sắc Màu', 600000, 'hoagio8.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio9.jpg" alt="Hoa Giỏ 9" />
+        <h3>Vườn Nhung Hồng</h3>
+        <p>Giá: 300.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Vườn Nhung Hồng', 300000, 'hoagi9.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio10.jpg" alt="Hoa Giỏ 10" />
+        <h3>Kho Báu Vũ Hội</h3>
+        <p>Giá: 700.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Kho Báu Vũ Hội', 700000, 'hoagio10.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet3.jpg" alt="Hoa Dịp Đặc Biệt 3" />
+        <h3>Bó hoa chúc mừng thăng chức</h3>
+        <p>Giá: 650.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa chúc mừng thăng chức', 650000, 'hoadacbiet3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet4.jpg" alt="Hoa Dịp Đặc Biệt 4" />
+        <h3>Giỏ hoa khai trương sang trọng</h3>
+        <p>Giá: 1.200.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Giỏ hoa khai trương sang trọng', 1200000, 'hoadacbiet4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet5.jpg" alt="Hoa Dịp Đặc Biệt 5" />
+        <h3>Hộp hoa kỷ niệm tình yêu</h3>
+        <p>Giá: 800.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa kỷ niệm tình yêu', 800000, 'hoadacbiet5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet6.jpg" alt="Hoa Dịp Đặc Biệt 6" />
+        <h3>Bó hoa chúc mừng tốt nghiệp</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa chúc mừng tốt nghiệp', 600000, 'hoadacbiet6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet7.jpg" alt="Hoa Dịp Đặc Biệt 7" />
+        <h3>Giỏ hoa cưới hồng phấn</h3>
+        <p>Giá: 1.100.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Giỏ hoa cưới hồng phấn', 1100000, 'hoadacbiet7.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet8.jpg" alt="Hoa Dịp Đặc Biệt 8" />
+        <h3>Hộp hoa chúc mừng tân gia</h3>
+        <p>Giá: 900.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa chúc mừng tân gia', 900000, 'hoadacbiet8.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet9.jpg" alt="Hoa Dịp Đặc Biệt 9" />
+        <h3>Bó hoa chúc mừng thành công</h3>
+        <p>Giá: 750.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa chúc mừng thành công', 750000, 'hoadacbiet9.jpg')"
           >Thêm vào giỏ</a
         >
       </div>
@@ -167,7 +375,78 @@
           >Thêm vào giỏ</a
         >
       </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet2.jpg" alt="Hoa Dịp Đặc Biệt 2" />
+        <h3>Hộp hoa sinh nhật rực rỡ</h3>
+        <p>Giá: 700.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa sinh nhật rực rỡ', 700000, 'hoadacbiet2.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet3.jpg" alt="Hoa Dịp Đặc Biệt 3" />
+        <h3>Bó hoa chúc mừng thăng chức</h3>
+        <p>Giá: 650.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa chúc mừng thăng chức', 650000, 'hoadacbiet3.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet4.jpg" alt="Hoa Dịp Đặc Biệt 4" />
+        <h3>Giỏ hoa khai trương sang trọng</h3>
+        <p>Giá: 1.200.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Giỏ hoa khai trương sang trọng', 1200000, 'hoadacbiet4.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet5.jpg" alt="Hoa Dịp Đặc Biệt 5" />
+        <h3>Hộp hoa kỷ niệm tình yêu</h3>
+        <p>Giá: 800.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Hộp hoa kỷ niệm tình yêu', 800000, 'hoadacbiet5.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
+
+      <div class="product">
+        <img src="images/hoadacbiet6.jpg" alt="Hoa Dịp Đặc Biệt 6" />
+        <h3>Bó hoa chúc mừng tốt nghiệp</h3>
+        <p>Giá: 600.000đ</p>
+        <a href="checkout.html" class="buy-btn">Mua ngay</a>
+        <a
+          href="#"
+          class="cart-btn"
+          onclick="addToCart('Bó hoa chúc mừng tốt nghiệp', 600000, 'hoadacbiet6.jpg')"
+          >Thêm vào giỏ</a
+        >
+      </div>
     </main>
+    <!-- 🌼 Phân trang -->
+    <div class="pagination">
+      <button id="prevBtn">&lt;</button>
+      <span id="pageInfo"></span>
+      <button id="nextBtn">&gt;</button>
+    </div>
 
     <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
     <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
@@ -195,6 +474,75 @@
       }
 
       document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+    <script>
+      const products = document.querySelectorAll(".product");
+      const productsPerPage = 8; // số sản phẩm mỗi trang
+      let currentPage = 1;
+      const totalPages = Math.ceil(products.length / productsPerPage);
+
+      const pagination = document.querySelector(".pagination");
+
+      function showPage(page) {
+        products.forEach((product, index) => {
+          product.style.display =
+            index >= (page - 1) * productsPerPage &&
+            index < page * productsPerPage
+              ? "block"
+              : "none";
+        });
+        currentPage = page;
+        renderPagination();
+      }
+
+      function renderPagination() {
+        pagination.innerHTML = "";
+
+        const prev = document.createElement("button");
+        prev.textContent = "<";
+        prev.disabled = currentPage === 1;
+        prev.onclick = () => showPage(currentPage - 1);
+        pagination.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.className = i === currentPage ? "active" : "";
+          btn.onclick = () => showPage(i);
+          pagination.appendChild(btn);
+        }
+
+        const next = document.createElement("button");
+        next.textContent = ">";
+        next.disabled = currentPage === totalPages;
+        next.onclick = () => showPage(currentPage + 1);
+        pagination.appendChild(next);
+      }
+
+      showPage(currentPage);
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const authDiv = document.querySelector(".auth");
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (currentUser) {
+          // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
+          authDiv.innerHTML = `
+        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+      `;
+
+          // Xử lý khi bấm nút Đăng xuất
+          document
+            .getElementById("logoutBtn")
+            .addEventListener("click", function () {
+              localStorage.removeItem("currentUser");
+              alert("Bạn đã đăng xuất");
+              window.location.reload(); // load lại để hiện nút đăng nhập
+            });
+        }
+      });
     </script>
   </body>
 </html>
