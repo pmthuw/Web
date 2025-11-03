@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c05.nhahodau.net</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1 class="logo">🌸 Flower Connect</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Trang chủ</a></li>
+          <li>
+            <a href="category-hoatinhyeu.html">Hoa Tình Yêu</a>
+          </li>
+          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
+          <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
+          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
+          <li><a href="category-phukien.html">Phụ Kiện</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a href="login.html" class="btn">Đăng nhập</a>
+        <a href="register.html" class="btn">Đăng ký</a>
+      </div>
+    </header>
+
+    <!-- 🔍 Thanh tìm kiếm -->
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Tìm kiếm sản phẩm..."
+        onkeyup="searchFlowers()"
+      />
+      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="promo-banner">
+      <h2>🎁Ưu đãi đặc biệt cho tất cả các sản phẩm🎁</h2>
+      <p>Giảm giá 10% cho các đơn hàng đầu tiên!</p>
+    </div>
+
+    <!-- Gợi ý danh mục -->
+    <section class="suggest">
+      <h2>DANH MỤC SẢN PHẨM</h2>
+    </section>
+
+    <!-- Các sản phẩm nổi bật (ví dụ mỗi danh mục 2 sản phẩm) -->
+    <section class="product-container">
+      <div class="product">
+        <img src="image/hoatinhyeu.jpg" alt="Hoa tình yêu" />
+        <h3>Hoa Tình Yêu</h3>
+        <a href="category-hoatinhyeu.html" class="buy-btn">Xem chi tiết</a>
+      </div>
+      <div class="product">
+        <img src="image/hoagaubong.jpg" alt="Hoa gấu bông" />
+        <h3>Hoa Gấu Bông</h3>
+        <a href="category-hoagaubong.html" class="buy-btn">Xem chi tiết</a>
+      </div>
+
+      <div class="product">
+        <img src="image/hoangayle.jpg" alt="Hoa Ngày Lễ" />
+        <h3>Hoa Ngày Lễ</h3>
+        <a href="category-hoangayle.html" class="buy-btn">Xem chi tiết</a>
+      </div>
+
+      <div class="product">
+        <img src="image/hoagio.jpg" alt="Hoa Giỏ" />
+        <h3>Hoa Giỏ</h3>
+
+        <a href="category-hoadacbiet.html" class="buy-btn">Xem chi tiết</a>
+      </div>
+
+      <div class="product">
+        <img src="image/phukien.jpg" alt="Phụ Kiện" />
+        <h3>Hộp quà & Phụ kiện</h3>
+
+        <a href="category-phukien.html" class="buy-btn">Xem chi tiết</a>
+      </div>
+    </section>
+<div id="product-detail">
+  <img id="productImage" src="" alt="Product Image" />
+  <h2 id="productName"></h2>
+  <p id="productPrice"></p>
+
+  <button onclick="buyNow()" class="buy-btn">Mua ngay</button>
+  <button onclick="addCurrentToCart()" class="cart-btn">Thêm vào giỏ</button>
+</div>
+
+<script>
+  // lấy dữ liệu sản phẩm từ URL
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  const price = params.get("price");
+  const image = params.get("image");
+
+  // đưa dữ liệu vào giao diện
+  document.getElementById("productName").textContent = name;
+  document.getElementById("productPrice").textContent = "Giá: " + price + "đ";
+  document.getElementById("productImage").src = "image/" + image;
+
+  function addCurrentToCart() {
+    addToCart(name, Number(price), image);
+  }
+
+  function buyNow() {
+    addToCart(name, Number(price), image);
+    window.location.href = "checkout.html";
+  }
+</script>

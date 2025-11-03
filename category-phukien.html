@@ -50,12 +50,14 @@
     <!-- 🌷 Danh sách sản phẩm Phụ Kiện -->
     <main class="product-container">
       <div class="product">
-        <img src="image/phukien1.jpg" alt="Phụ Kiện 1" />
-        <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
+        <a href="chitietphukien.html">
+          <img src="image/phukien1.jpg" alt="Phụ Kiện 1" />
+          <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
+        </a>
         <p>Giá: 20.000đ</p>
         <a href="checkout.html" class="buy-btn">Mua ngay</a>
         <a
-          href="#"
+          href=""
           class="cart-btn"
           onclick="addToCart('Thiệp Hoa Khô Kỉ Niệm', 20000, 'phukien1.jpg')"
           >Thêm vào giỏ</a
@@ -322,6 +324,7 @@
         });
         currentPage = page;
         renderPagination();
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
       }
 
       function renderPagination() {

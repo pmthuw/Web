@@ -554,6 +554,7 @@
         });
         currentPage = page;
         renderPagination();
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
       }
 
       function renderPagination() {
@@ -583,27 +584,33 @@
       showPage(currentPage);
     </script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const authDiv = document.querySelector(".auth");
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            document.addEventListener("DOMContentLoaded", () => {
+              const authDiv = document.querySelector(".auth");
+              const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-        if (currentUser) {
-          // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
-          authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
-        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-      `;
+              if (currentUser) {
+                // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
+                authDiv.innerHTML = `
+              <span class="welcome">Xin chào, ${currentUser.name} </span>
+              <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+            `;
 
-          // Xử lý khi bấm nút Đăng xuất
-          document
-            .getElementById("logoutBtn")
-            .addEventListener("click", function () {
-              localStorage.removeItem("currentUser");
-              alert("Bạn đã đăng xuất");
-              window.location.reload(); // load lại để hiện nút đăng nhập
+                // Xử lý khi bấm nút Đăng xuất
+                document
+                  .getElementById("logoutBtn")
+                  .addEventListener("click", function () {
+                    localStorage.removeItem("currentUser");
+                    alert("Bạn đã đăng xuất");
+                    window.location.reload(); // load lại để hiện nút đăng nhập
+                  });
+              }
             });
-        }
-      });
+            unction viewProduct(name, price, image, description) {
+        localStorage.setItem("productDetail", JSON.stringify({
+          name, price, image, description
+        }));
+        window.location.href = "product.html";
+      }
     </script>
   </body>
 </html>

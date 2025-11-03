@@ -1,0 +1,68 @@
+footer {
+    background: #fff;
+    padding: 50px 0;
+    border-top: 2px solid #eee;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    width: 90%;
+    margin: auto;
+
+    /* Chia 4 cột */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.footer-column p,
+.footer-column ul li a {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.footer-column ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: #d44a8f;
+}
+
+/* Icon mạng xã hội */
+.social-icons a img {
+    width: 32px;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+.social-icons a img:hover {
+    transform: scale(1.1);
+}
+
+/* Dòng bản quyền */
+.footer-copy {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #777;
+}
