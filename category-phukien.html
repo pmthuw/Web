@@ -50,21 +50,22 @@
     <!-- 🌷 Danh sách sản phẩm Phụ Kiện -->
     <main class="product-container">
       <div class="product">
-        <a href="chitietphukien.html">
-          <img src="image/phukien1.jpg" alt="Phụ Kiện 1" />
-          <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
-        </a>
-        <p>Giá: 20.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a
-          href=""
-          class="cart-btn"
-          onclick="addToCart('Thiệp Hoa Khô Kỉ Niệm', 20000, 'phukien1.jpg')"
-          >Thêm vào giỏ</a
-        >
-      </div>
+
+    <a href="chitietphukien.html">
+    <img src="image/phukien1.jpg" alt="Phụ Kiện 1">
+    <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
+    </a>
+    <p>Giá: 20.000đ</p>
+    <a href="checkout.html" class="buy-btn">Mua ngay</a>
+    <a
+    href=""
+    class="cart-btn"
+    onclick="addToCart('Thiệp Hoa Khô Kỉ Niệm', 20000, 'phukien1.jpg')"
+  >Thêm vào giỏ</a>
+</div>
 
       <div class="product">
+        <a href="chitiet/chitietphukien2.html"></a>
         <img src="image/phukien2.jpg" alt="Phụ Kiện 2" />
         <h3>Thiệp Chúc Mừng Hoa Văn</h3>
         <p>Giá: 20.000đ</p>
@@ -78,6 +79,7 @@
       </div>
 
       <div class="product">
+        <a href="chitietphukien3.html"></a>
         <img src="image/phukien3.jpg" alt="Phụ Kiện 3" />
         <h3>Hộp quà gỗ sang trọng</h3>
         <p>Giá: 150.000đ</p>
@@ -91,6 +93,7 @@
       </div>
 
       <div class="product">
+        <a href="chitietphukien4.html"></a>
         <img src="image/phukien4.jpg" alt="Phụ Kiện 4" />
         <h3>Túi giấy hoa văn cao cấp</h3>
         <p>Giá: 30.000đ</p>
@@ -104,6 +107,7 @@
       </div>
 
       <div class="product">
+        <a href="chitietphukien5.html"></a>
         <img src="image/phukien5.jpg" alt="Phụ Kiện 5" />
         <h3>Nơ Đỏ</h3>
         <p>Giá: 25.000đ</p>
@@ -324,7 +328,6 @@
         });
         currentPage = page;
         renderPagination();
-        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 50);
       }
 
       function renderPagination() {
