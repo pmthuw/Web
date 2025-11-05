@@ -357,5 +357,53 @@
         });
       });
     </script>
+
+    <script>
+      // Khi đăng nhập thành công, đảm bảo các nút được gắn lại sự kiện
+      document.addEventListener("DOMContentLoaded", () => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const productElements = document.querySelectorAll(".product");
+
+        productElements.forEach((el) => {
+          const name = el.querySelector("h3").innerText;
+          const price =
+            el.querySelector("p")?.innerText.replace("Giá: ", "") || "";
+          const image = el.querySelector("img").src;
+
+          const buyBtn = el.querySelector(".buy-btn");
+          const cartBtn = el.querySelector(".cart-btn");
+
+          if (buyBtn)
+            buyBtn.onclick = (e) => {
+              e.preventDefault();
+              if (!currentUser) {
+                localStorage.setItem(
+                  "redirectAfterLogin",
+                  window.location.href
+                );
+                alert("⚠️ Bạn cần đăng nhập trước khi mua hàng!");
+                window.location.href = "login.html";
+              } else {
+                window.location.href = "checkout.html";
+              }
+            };
+
+          if (cartBtn)
+            cartBtn.onclick = (e) => {
+              e.preventDefault();
+              if (!currentUser) {
+                localStorage.setItem(
+                  "redirectAfterLogin",
+                  window.location.href
+                );
+                alert("⚠️ Bạn cần đăng nhập trước khi thêm vào giỏ hàng!");
+                window.location.href = "login.html";
+              } else {
+                addToCart(name, price, image);
+              }
+            };
+        });
+      });
+    </script>
   </body>
 </html>

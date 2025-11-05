@@ -97,10 +97,16 @@
             JSON.stringify({ name: foundUser.name, email: foundUser.email })
           );
 
-          // 🔹 Chuyển về trang chủ
-          window.location.href = "index.html";
+          // 🔹 Chuyển hướng về trang trước khi đăng nhập (nếu có)
+          const redirect = localStorage.getItem("redirectAfterLogin");
+          if (redirect) {
+            localStorage.removeItem("redirectAfterLogin"); // Xóa để tránh quay vòng
+            window.location.href = redirect;
+          } else {
+            window.location.href = "index.html";
+          }
         } else {
-          errorMsg.textContent = "Sai email hoặc mật khẩu!";
+          errorMsg.textContent = "❌ Sai email hoặc mật khẩu!";
         }
       });
 
