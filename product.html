@@ -86,33 +86,38 @@
         <a href="category-phukien.html" class="buy-btn">Xem chi tiết</a>
       </div>
     </section>
-<div id="product-detail">
-  <img id="productImage" src="" alt="Product Image" />
-  <h2 id="productName"></h2>
-  <p id="productPrice"></p>
+    <div id="product-detail">
+      <img id="productImage" src="" alt="Product Image" />
+      <h2 id="productName"></h2>
+      <p id="productPrice"></p>
 
-  <button onclick="buyNow()" class="buy-btn">Mua ngay</button>
-  <button onclick="addCurrentToCart()" class="cart-btn">Thêm vào giỏ</button>
-</div>
+      <button onclick="buyNow()" class="buy-btn">Mua ngay</button>
+      <button onclick="addCurrentToCart()" class="cart-btn">
+        Thêm vào giỏ
+      </button>
+    </div>
 
-<script>
-  // lấy dữ liệu sản phẩm từ URL
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
-  const price = params.get("price");
-  const image = params.get("image");
+    <script>
+      // lấy dữ liệu sản phẩm từ URL
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name");
+      const price = params.get("price");
+      const image = params.get("image");
 
-  // đưa dữ liệu vào giao diện
-  document.getElementById("productName").textContent = name;
-  document.getElementById("productPrice").textContent = "Giá: " + price + "đ";
-  document.getElementById("productImage").src = "image/" + image;
+      // đưa dữ liệu vào giao diện
+      document.getElementById("productName").textContent = name;
+      document.getElementById("productPrice").textContent =
+        "Giá: " + price + "đ";
+      document.getElementById("productImage").src = "image/" + image;
 
-  function addCurrentToCart() {
-    addToCart(name, Number(price), image);
-  }
+      function addCurrentToCart() {
+        addToCart(name, Number(price), image);
+      }
 
-  function buyNow() {
-    addToCart(name, Number(price), image);
-    window.location.href = "checkout.html";
-  }
-</script>
+      function buyNow() {
+        addToCart(name, Number(price), image);
+        window.location.href = "checkout.html";
+      }
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-// ======================= TÌM KIẾM SẢN PHẨM =======================
+b; // ======================= TÌM KIẾM SẢN PHẨM =======================
 
 // 🌸 Hàm tìm kiếm hoa
 function searchFlowers() {
@@ -300,3 +300,17 @@ localStorage.setItem(
     },
   ])
 );
+// Trang báo phải đăng nhập mới thực hiện chức năng.
+// Gán này vào trước </body> bên trong <script>...</script>
+// Đặt bên trong thẻ <a...> onclick = "checkLogin(event)"
+isLoggedIn = false;
+function checkLogin(event) {
+  if (!isLoggedIn) {
+    event.preventDefault();
+    alert("⚠️ Bạn phải đăng nhập trước khi xem chi tiết!");
+    const confirmLogin = confirm("Bạn có muốn đến trang đăng nhập không?");
+    if (confirmLogin) {
+      window.location.href = "login.html";
+    }
+  }
+}
