@@ -79,24 +79,41 @@
         const password = document.getElementById("password").value.trim();
         const errorMsg = document.getElementById("errorMsg");
 
-        const user = JSON.parse(localStorage.getItem("user"));
+        // 🔹 Lấy danh sách người dùng đã đăng ký
+        const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (user && user.email === email && user.password === password) {
-          errorMsg.textContent = ""; // xoá lỗi nếu có
+        // 🔹 Tìm user trùng khớp email và mật khẩu
+        const foundUser = users.find(
+          (user) => user.email === email && user.password === password
+        );
+
+        if (foundUser) {
+          errorMsg.textContent = "";
           alert("Đăng nhập thành công!");
+
+          // 🔹 Lưu user hiện tại
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ name: foundUser.name, email: foundUser.email })
+          );
+
+          // 🔹 Chuyển về trang chủ
           window.location.href = "index.html";
         } else {
           errorMsg.textContent = "Sai email hoặc mật khẩu!";
         }
       });
+
+      // 🔹 Quên mật khẩu
       const forgotPassword = document.getElementById("forgotPassword");
 
       forgotPassword.addEventListener("click", function (e) {
         e.preventDefault();
-        const email = prompt("Nhập email của bạn để nhận mật khẩu:");
-        const user = JSON.parse(localStorage.getItem("user"));
+        const email = prompt("Nhập email của bạn để nhận lại mật khẩu:");
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const user = users.find((u) => u.email === email);
 
-        if (user && user.email === email) {
+        if (user) {
           alert("Mật khẩu của bạn là: " + user.password);
         } else {
           alert("Email không tồn tại!");
