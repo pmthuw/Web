@@ -1,64 +1,125 @@
 <!DOCTYPE html>
+
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
+    <header class="product-header">
+      <a href="index.html" class="back-btn">← Quay lại</a>
+    </header>
 
-<header class="product-header">
-    <a href="index.html" class="back-btn">← Quay lại</a>
-</header>
+    <div class="product-page">
+      <!-- Cột ảnh -->
+      <div class="product-image">
+        <img id="product-img" src="image/phukien4.jpg" alt="" />
+      </div>
 
-<div class="product-page">
-
-    <!-- Cột ảnh -->
-    <div class="product-image">
-        <img id="product-img" src="image/phukien1.jpg" alt="">
-    </div>
-
-    <!-- Cột nội dung -->
-    <div class="product-info">
+      <!-- Cột nội dung -->
+      <div class="product-info">
         <h2 id="product-name">Túi Giấy Hoa Văn Cao Cấp</h2>
         <p>30.000 đồng</p>
 
-        <p class="sub-title">Nâng tầm giá trị của sản phẩm và thể hiện gu thẩm mỹ tinh tế</p>
+        <p class="sub-title">
+          Nghệ thuật của sự gói ghém – Chạm khắc vẻ đẹp tinh tế
+        </p>
 
         <ul class="product-detail">
-            <li><b>Phù hợp:</b> Sinh Nhật, Hẹn Hò, Tỏ Tình, Tốt Nghiệp</li>
-            <li> Định lượng: 250gsm </li>
-            <li><b>Size:</b> 27x15x24 cm</li>
-            <li>Hoa văn được thiết kế độc quyền tinh xảo</li>
-            <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày</li>
+          <li>
+            <b>Ý Nghĩa:</b> Món quà chỉ thực sự hoàn hảo khi được trao tặng một
+            cách trọn vẹn.
+          </li>
+          <li>
+            Họa tiết hoa văn in nổi hoặc dập chìm tinh xảo, quai xách bằng ruy
+            băng hoặc dây dù cao cấp, chắc chắn.
+          </li>
+
+          <li>
+            <b>Chất liệu:</b> Đựng các bó hoa nhỏ/vừa, hộp quà trang sức, nến
+            thơm, hoặc bất kỳ tặng phẩm nào cần sự tôn vinh về hình thức
+          </li>
+          <li>
+            <b>Phù hợp:</b> Sinh nhật, kỷ niệm, 20/10, hoặc gửi tặng người yêu,
+            mẹ, chị gái.
+          </li>
+          <li>
+            <b>Thiết kế:</b> Túi được đóng gói phẳng, dễ dàng vận chuyển và lắp
+            ráp. Đảm bảo món quà của bạn luôn được bảo vệ an toàn và trang
+            trọng.
+          </li>
+          <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
         </ul>
+
+        <p class="note">
+          (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ
+          xác nhận trước khi cắm.
+        </p>
+
         <div class="quantity-box">
-            <label>Số lượng:</label>
-            <div class="qty-control">
-                <button onclick="changeQty(-1)">-</button>
-                <input id="qty" type="number" value="1" min="1">
-                <button onclick="changeQty(1)">+</button>
-            </div>
+          <label>Số lượng:</label>
+          <div class="qty-control">
+            <button onclick="changeQty(-1)">-</button>
+            <input id="qty" type="number" value="1" min="1" />
+            <button onclick="changeQty(1)">+</button>
+          </div>
         </div>
 
         <div class="action-wrap">
-            <button class="add-cart">🛒 Thêm vào giỏ</button>
-            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+          <button class="add-cart">🛒 Thêm vào giỏ</button>
+          <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
         </div>
-
+      </div>
     </div>
-</div>
 
-<script>
-function changeQty(v){
-    let q = document.getElementById("qty");
-    q.value = Math.max(1, parseInt(q.value) + v);
-}
-</script>
+    <script>
+      // Hàm thay đổi số lượng
+      function changeQty(num) {
+        const qtyInput = document.getElementById("qty");
+        let qty = parseInt(qtyInput.value) + num;
+        if (qty < 1) qty = 1;
+        qtyInput.value = qty;
+      }
 
+      // Hàm lấy thông tin sản phẩm hiện tại
+      function getProductInfo() {
+        return {
+          name: document.getElementById("product-name").innerText,
+          price: 260000, // giá cố định ví dụ, có thể lấy từ text
+          qty: parseInt(document.getElementById("qty").value),
+          img: "image/gau1.jpg", // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+        };
+      }
 
-</body>
+      // Khi nhấn "Thêm vào giỏ"
+      document
+        .querySelector(".add-cart")
+        .addEventListener("click", function () {
+          const product = getProductInfo();
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+          // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+          const existing = cart.find((item) => item.name === product.name);
+          if (existing) {
+            existing.qty += product.qty;
+          } else {
+            cart.push(product);
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("🛒 Đã thêm vào giỏ hàng!");
+        });
+
+      // Khi nhấn "ĐẶT HOA NGAY"
+      document.querySelector(".buy-now").addEventListener("click", function () {
+        const product = getProductInfo();
+        // Lưu riêng sản phẩm này để hiển thị tại checkout
+        localStorage.setItem("checkoutItem", JSON.stringify(product));
+        window.location.href = "checkout.html";
+      });
+    </script>
+  </body>
 </html>
-

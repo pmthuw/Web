@@ -269,7 +269,12 @@
     </footer>
 
     <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
-    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
+    <!-- 🌸 Icon giỏ hàng mini góc phải dưới -->
+    <a href="cart.html" class="floating-cart">
+      <img src="images/cart-icon.png" alt="Giỏ hàng" class="cart-icon" />
+      <span id="cartCount" class="cart-count">0</span>
+    </a>
+
     <script>
       function addToCart(name, price, image) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];

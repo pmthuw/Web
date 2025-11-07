@@ -1,69 +1,128 @@
 <!DOCTYPE html>
+
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
+    <header class="product-header">
+      <a href="index.html" class="back-btn">← Quay lại</a>
+    </header>
 
-<header class="product-header">
-    <a href="index.html" class="back-btn">← Quay lại</a>
-</header>
+    <div class="product-page">
+      <!-- Cột ảnh -->
+      <div class="product-image">
+        <img id="product-img" src="image/phukien7.jpg" alt="" />
+      </div>
 
-<div class="product-page">
+      <!-- Cột nội dung -->
+      <div class="product-info">
+        <h2 id="product-name">Khăn Lụa Bọc Hoa</h2>
+        <p>80.000 đồng</p>
 
-    <!-- Cột ảnh -->
-    <div class="product-image">
-        <img id="product-img" src="image/phukien1.jpg" alt="">
-    </div>
-
-    <!-- Cột nội dung -->
-    <div class="product-info">
-        <h2 id="product-name">Thiệp Hoa Khô Kỉ Niệm</h2>
-        <p>20.000 đồng</p>
-
-        <p class="sub-title">Thiệp Hoa Khô Kỉ Niệm</p>
+        <p class="sub-title">Mềm mại như mây – Tôn vinh vẻ đẹp kiêu sa</p>
 
         <ul class="product-detail">
-            <li><b>Phù hợp:</b> Sinh Nhật, Hẹn Hò, Tỏ Tình, Tốt Nghiệp</li>
-            <li> Một bức thư từ tấm lòng giúp gắn kết hơn tình cảm của bạn và những người xung quanh</li>
-            <li><b>Size:</b> 27x15x24 cm</li>
-            <li><b>Phụ kiện:</b> Thiệp Giấy + Lá + Hoa Khô Ngẫu Nhiên + Kí Tặng</li>
-            <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày</li>
+          <li>
+            <b>Ý Nghĩa:</b> Không chỉ là lớp giấy gói thông thường, mà là một
+            tấm lụa mỏng manh được thiết kế để ôm ấp và tôn vinh vẻ kiêu sa của
+            từng đóa hoa. Chất liệu lụa cao cấp mang lại cảm giác mềm mại, dịu
+            dàng khi chạm vào, tạo nên những nếp gấp bay bổng, lãng mạn. Khăn
+            lụa tạo ra hiệu ứng mờ ảo, giúp bó hoa trở nên bí ẩn, quyến rũ và
+            thể hiện sự tinh tế tuyệt đối của người gửi. Đây là lựa chọn hoàn
+            hảo để biến bó hoa của bạn thành một tác phẩm nghệ thuật sang trọng.
+          </li>
+          <li>
+            Đại diện cho sự quan tâm, chiều chuộng và gu thẩm mỹ thanh lịch, cao
+            cấp.
+          </li>
+
+          <li>
+            <b>Chất liệu:</b>
+            Vải lụa Chiffon hoặc Organza cao cấp, siêu mỏng, nhẹ và có độ rũ mềm
+            mại tự nhiên.
+          </li>
+          <li>
+            <b>Phù hợp:</b> Sinh nhật, kỷ niệm, 20/10, hoặc gửi tặng người yêu,
+            mẹ, chị gái.
+          </li>
+          <li>
+            <b>Thiết kế:</b>Kích thước lớn, hoàn hảo để tạo nhiều lớp bọc bồng
+            bềnh hoặc làm điểm nhấn nổi bật trên bó hoa.
+          </li>
+          <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
         </ul>
 
         <p class="note">
-            (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ xác nhận trước khi cắm.
+          (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ
+          xác nhận trước khi cắm.
         </p>
 
         <div class="quantity-box">
-            <label>Số lượng:</label>
-            <div class="qty-control">
-                <button onclick="changeQty(-1)">-</button>
-                <input id="qty" type="number" value="1" min="1">
-                <button onclick="changeQty(1)">+</button>
-            </div>
+          <label>Số lượng:</label>
+          <div class="qty-control">
+            <button onclick="changeQty(-1)">-</button>
+            <input id="qty" type="number" value="1" min="1" />
+            <button onclick="changeQty(1)">+</button>
+          </div>
         </div>
 
         <div class="action-wrap">
-            <button class="add-cart">🛒 Thêm vào giỏ</button>
-            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+          <button class="add-cart">🛒 Thêm vào giỏ</button>
+          <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
         </div>
-
+      </div>
     </div>
-</div>
 
-<script>
-function changeQty(v){
-    let q = document.getElementById("qty");
-    q.value = Math.max(1, parseInt(q.value) + v);
-}
-</script>
+    <script>
+      // Hàm thay đổi số lượng
+      function changeQty(num) {
+        const qtyInput = document.getElementById("qty");
+        let qty = parseInt(qtyInput.value) + num;
+        if (qty < 1) qty = 1;
+        qtyInput.value = qty;
+      }
 
+      // Hàm lấy thông tin sản phẩm hiện tại
+      function getProductInfo() {
+        return {
+          name: document.getElementById("product-name").innerText,
+          price: 260000, // giá cố định ví dụ, có thể lấy từ text
+          qty: parseInt(document.getElementById("qty").value),
+          img: "image/gau1.jpg", // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+        };
+      }
 
-</body>
+      // Khi nhấn "Thêm vào giỏ"
+      document
+        .querySelector(".add-cart")
+        .addEventListener("click", function () {
+          const product = getProductInfo();
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+          // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+          const existing = cart.find((item) => item.name === product.name);
+          if (existing) {
+            existing.qty += product.qty;
+          } else {
+            cart.push(product);
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("🛒 Đã thêm vào giỏ hàng!");
+        });
+
+      // Khi nhấn "ĐẶT HOA NGAY"
+      document.querySelector(".buy-now").addEventListener("click", function () {
+        const product = getProductInfo();
+        // Lưu riêng sản phẩm này để hiển thị tại checkout
+        localStorage.setItem("checkoutItem", JSON.stringify(product));
+        window.location.href = "checkout.html";
+      });
+    </script>
+  </body>
 </html>
-

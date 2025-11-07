@@ -76,24 +76,36 @@
         let total = 0;
 
         cart.forEach((item) => {
+          // Bắt đầu khắc phục lỗi: Đảm bảo giá là một số.
+          // Giả sử giá được lưu dưới dạng chuỗi có dấu chấm phân cách hàng nghìn (ví dụ: "1.500.000")
+          const cleanPriceString = item.price
+            .toString()
+            .replace(/\./g, "")
+            .replace(/,/g, "");
+          const price = parseFloat(cleanPriceString); // Kiểm tra nếu price không phải là số hợp lệ
+
+          if (isNaN(price)) {
+            console.error("Giá sản phẩm không hợp lệ:", item.name, item.price);
+            return; // Bỏ qua sản phẩm này hoặc đặt giá là 0
+          }
+
+          const itemTotal = price * (item.quantity || 1); // Sử dụng giá đã được chuyển đổi
+
           const row = document.createElement("tr");
-          const itemTotal = item.price * (item.quantity || 1);
           row.innerHTML = `
-            <td><img src="${item.image}" alt="${
+            <td><img src="${item.image}" alt="${
             item.name
           }" style="width: 60px; height: 60px; border-radius: 8px;"></td>
-            <td>${item.name}</td>
-            <td>${item.price.toLocaleString()}đ</td>
-            <td><input type="number" value="${
-              item.quantity
-            }" min="1" onchange="updateQuantity('${
+            <td>${item.name}</td>
+            <td>${price.toLocaleString()}đ</td> 
+            <td><input type="number" value="${
+            item.quantity
+          }" min="1" onchange="updateQuantity('${item.name}', this.value)"></td>
+            <td>${itemTotal.toLocaleString()}đ</td>
+            <td><button onclick="removeFromCart('${
             item.name
-          }', this.value)"></td>
-            <td>${itemTotal.toLocaleString()}đ</td>
-            <td><button onclick="removeFromCart('${
-              item.name
-            }')">Xóa</button></td>
-          `;
+          }')">Xóa</button></td>
+          `;
           cartBody.appendChild(row);
           total += itemTotal;
         });

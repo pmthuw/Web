@@ -23,19 +23,28 @@
         <h2 id="product-name">Thiệp Hoa Khô Kỉ Niệm</h2>
         <p>20.000 đồng</p>
 
-        <p class="sub-title">Thiệp Hoa Khô Kỉ Niệm</p>
+        <p class="sub-title">
+          Mỗi cánh hoa là một lời thì thầm của tạo hóa, rằng vẻ đẹp có thể mong
+          manh, nhưng tình cảm chân thật là vĩnh cửu.
+        </p>
 
         <ul class="product-detail">
-          <li><b>Phù hợp:</b> Sinh Nhật, Hẹn Hò, Tỏ Tình, Tốt Nghiệp</li>
+          <li>
+            <b>Ý Nghĩa:</b> Tập trung vào ý tưởng "Lưu giữ khoảnh khắc và tình
+            cảm bền chặt".
+          </li>
           <li>
             Một bức thư từ tấm lòng giúp gắn kết hơn tình cảm của bạn và những
             người xung quanh
           </li>
-          <li><b>Size:</b> 27x15x24 cm</li>
           <li>
-            <b>Phụ kiện:</b> Thiệp Giấy + Lá + Hoa Khô Ngẫu Nhiên + Kí Tặng
+            <b>Phù hợp:</b> Sinh nhật, kỷ niệm, 20/10, hoặc gửi tặng người yêu,
+            mẹ, chị gái.
           </li>
-          <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày</li>
+          <li>
+            <b>Thiết kế:</b> Thiệp Giấy + Lá + Hoa Khô Ngẫu Nhiên + Kí Tặng
+          </li>
+          <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
         </ul>
 
         <p class="note">
@@ -60,10 +69,50 @@
     </div>
 
     <script>
-      function changeQty(v) {
-        let q = document.getElementById("qty");
-        q.value = Math.max(1, parseInt(q.value) + v);
+      // Hàm thay đổi số lượng
+      function changeQty(num) {
+        const qtyInput = document.getElementById("qty");
+        let qty = parseInt(qtyInput.value) + num;
+        if (qty < 1) qty = 1;
+        qtyInput.value = qty;
       }
+
+      // Hàm lấy thông tin sản phẩm hiện tại
+      function getProductInfo() {
+        return {
+          name: document.getElementById("product-name").innerText,
+          price: 260000, // giá cố định ví dụ, có thể lấy từ text
+          qty: parseInt(document.getElementById("qty").value),
+          img: "image/gau1.jpg", // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+        };
+      }
+
+      // Khi nhấn "Thêm vào giỏ"
+      document
+        .querySelector(".add-cart")
+        .addEventListener("click", function () {
+          const product = getProductInfo();
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+          // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+          const existing = cart.find((item) => item.name === product.name);
+          if (existing) {
+            existing.qty += product.qty;
+          } else {
+            cart.push(product);
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("🛒 Đã thêm vào giỏ hàng!");
+        });
+
+      // Khi nhấn "ĐẶT HOA NGAY"
+      document.querySelector(".buy-now").addEventListener("click", function () {
+        const product = getProductInfo();
+        // Lưu riêng sản phẩm này để hiển thị tại checkout
+        localStorage.setItem("checkoutItem", JSON.stringify(product));
+        window.location.href = "checkout.html";
+      });
     </script>
   </body>
 </html>

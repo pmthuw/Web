@@ -1,68 +1,121 @@
-<!DOCTYPE html>html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
+    <header class="product-header">
+      <a href="index.html" class="back-btn">← Quay lại</a>
+    </header>
 
-<header class="product-header">
-    <a href="index.html" class="back-btn">← Quay lại</a>
-</header>
+    <div class="product-page">
+      <!-- Cột ảnh -->
+      <div class="product-image">
+        <img id="product-img" src="image/phukien2.jpg" alt="" />
+      </div>
 
-<div class="product-page">
-
-    <!-- Cột ảnh -->
-    <div class="product-image">
-        <img id="product-img" src="image/phukien2.jpg" alt="">
-    </div>
-
-    <!-- Cột nội dung -->
-    <div class="product-info">
+      <!-- Cột nội dung -->
+      <div class="product-info">
         <h2 id="product-name">Thiệp Chúc Mừng Hoa Văn</h2>
         <p>20.000 đồng</p>
 
-        <p class="sub-title">Thiệp Chúc Mừng Hoa Văn</p>
+        <p class="sub-title">
+          Trong thế giới số hóa vội vã, một tấm thiệp viết tay vẫn giữ trọn vẹn
+          giá trị của sự trân trọng. Thiệp Chúc Mừng Hoa Văn là sự kết hợp hoàn
+          hảo giữa nét cổ điển và hiện đại, với những họa tiết hoa văn được chạm
+          khắc tinh xảo. Đây không chỉ là phương tiện truyền tải thông điệp, mà
+          còn là một món quà lưu niệm sang trọng, thể hiện sự chăm chút và đẳng
+          cấp của người gửi.
+        </p>
 
         <ul class="product-detail">
-            <li><b>Phù hợp:</b> Sinh Nhật, Hẹn Hò, Tỏ Tình, Tốt Nghiệp</li>
-            <li> Một bức thư từ tấm lòng giúp gắn kết hơn tình cảm của bạn và những người xung quanh</li>
-            <li><b>Size:</b> 27x15x24 cm</li>
-            <li><b>Phụ kiện:</b> Thiệp Giấy + Hoa Khô Ngẫu Nhiên + Kí Tặng</li>
-            <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày</li>
+          <li>
+            <b>Ý Nghĩa:</b> Một bức thư từ tấm lòng giúp gắn kết hơn tình cảm của bạn và những người xung quanh</li>
+     
+          </li>
+          <li>
+            Khi ánh mặt trời hôn lên cánh hoa, đóa hoa ấy mang theo vẻ đẹp của khoảnh khắc. Khi tình yêu chạm vào, bó hoa ấy mang theo vẻ đẹp của cả một đời người.
+          </li>
+          <li>
+            <b>Phù hợp:</b> Sinh nhật, kỷ niệm, 20/10, hoặc gửi tặng người yêu,
+            mẹ, chị gái.
+          </li>
+          <li>
+            <b>Thiết kế:</b> Thiệp Giấy + Hoa Khô Ngẫu Nhiên + Kí Tặng
+          </li>
+          <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
         </ul>
 
         <p class="note">
-            (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ xác nhận trước khi cắm.
+          (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ
+          xác nhận trước khi cắm.
         </p>
 
         <div class="quantity-box">
-            <label>Số lượng:</label>
-            <div class="qty-control">
-                <button onclick="changeQty(-1)">-</button>
-                <input id="qty" type="number" value="1" min="1">
-                <button onclick="changeQty(1)">+</button>
-            </div>
+          <label>Số lượng:</label>
+          <div class="qty-control">
+            <button onclick="changeQty(-1)">-</button>
+            <input id="qty" type="number" value="1" min="1" />
+            <button onclick="changeQty(1)">+</button>
+          </div>
         </div>
 
         <div class="action-wrap">
-            <button class="add-cart">🛒 Thêm vào giỏ</button>
-            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+          <button class="add-cart">🛒 Thêm vào giỏ</button>
+          <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
         </div>
-
+      </div>
     </div>
-</div>
 
-<script>
-function changeQty(v){
-    let q = document.getElementById("qty");
-    q.value = Math.max(1, parseInt(q.value) + v);
-}
-</script>
+    <script>
+      // Hàm thay đổi số lượng
+      function changeQty(num) {
+        const qtyInput = document.getElementById("qty");
+        let qty = parseInt(qtyInput.value) + num;
+        if (qty < 1) qty = 1;
+        qtyInput.value = qty;
+      }
 
+      // Hàm lấy thông tin sản phẩm hiện tại
+      function getProductInfo() {
+        return {
+          name: document.getElementById("product-name").innerText,
+          price: 260000, // giá cố định ví dụ, có thể lấy từ text
+          qty: parseInt(document.getElementById("qty").value),
+          img: "image/gau1.jpg", // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+        };
+      }
 
-</body>
+      // Khi nhấn "Thêm vào giỏ"
+      document
+        .querySelector(".add-cart")
+        .addEventListener("click", function () {
+          const product = getProductInfo();
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+          // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+          const existing = cart.find((item) => item.name === product.name);
+          if (existing) {
+            existing.qty += product.qty;
+          } else {
+            cart.push(product);
+          }
+
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("🛒 Đã thêm vào giỏ hàng!");
+        });
+
+      // Khi nhấn "ĐẶT HOA NGAY"
+      document.querySelector(".buy-now").addEventListener("click", function () {
+        const product = getProductInfo();
+        // Lưu riêng sản phẩm này để hiển thị tại checkout
+        localStorage.setItem("checkoutItem", JSON.stringify(product));
+        window.location.href = "checkout.html";
+      });
+    </script>
+  </body>
 </html>
-
