@@ -36,7 +36,7 @@
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Tìm kiếm hoa..."
+        placeholder="Tìm kiếm hoa..."
         onkeyup="searchFlowers()"
       />
       <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
@@ -48,7 +48,6 @@
       <table id="cartTable">
         <thead>
           <tr>
-            <th>Hình ảnh</th>
             <th>Tên sản phẩm</th>
             <th>Giá</th>
             <th>Số lượng</th>
@@ -69,55 +68,60 @@
     <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
 
     <script>
-      function loadCart() {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let cartBody = document.getElementById("cartBody");
-        let cartTotal = document.getElementById("cartTotal");
-        cartBody.innerHTML = "";
-        let total = 0;
+  function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartBody = document.getElementById("cartBody");
+    let cartTotal = document.getElementById("cartTotal");
+    cartBody.innerHTML = "";
+    let total = 0;
 
-        cart.forEach((item) => {
-          let row = document.createElement("tr");
-          row.innerHTML = `
-            <td><img src="images/${item.image || "default.jpg"}" alt="${
-            item.name
-          }" style="width: 50px; height: 40px;"></td>
-            <td>${item.name}</td>
-            <td>${item.price.toLocaleString()}đ</td>
-            <td>${item.quantity || 1}</td>
-            <td>${(item.price * (item.quantity || 1)).toLocaleString()}đ</td>
-            <td><button onclick="removeFromCart('${
-              item.name
-            }')">Xóa</button></td>
-        `;
-          cartBody.appendChild(row);
-          total += item.price * (item.quantity || 1);
-        });
+    cart.forEach((item, index) => {
+      let row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.price.toLocaleString()}đ</td>
+        <td>
+          <input type="number" min="1" value="${item.quantity || 1}" 
+                 onchange="updateQuantity(${index}, this.value)" 
+                 style="width: 50px; text-align: center;">
+        </td>
+        <td>${(item.price * (item.quantity || 1)).toLocaleString()}đ</td>
+        <td><button onclick="removeFromCart('${item.name}')">Xóa</button></td>
+      `;
+      cartBody.appendChild(row);
+      total += item.price * (item.quantity || 1);
+    });
 
-        cartTotal.textContent = total.toLocaleString() + "đ";
-        updateCartCount();
-      }
+    cartTotal.textContent = total.toLocaleString() + "đ";
+    updateCartCount();
+  }
 
-      function removeFromCart(itemName) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart = cart.filter((item) => item.name !== itemName);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        loadCart();
-      }
+  function updateQuantity(index, newQuantity) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    newQuantity = parseInt(newQuantity);
+    if (newQuantity < 1) newQuantity = 1;
 
-      function updateCartCount() {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let cartIconMini = document.getElementById("cartIconMini");
-        if (cartIconMini) {
-          cartIconMini.dataset.count = cart.length > 0 ? cart.length : "";
-        }
-      }
+    cart[index].quantity = newQuantity;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart(); // Cập nhật lại bảng và tổng tiền
+  }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        loadCart();
-        updateCartCount();
-      });
-    </script>
+  function removeFromCart(name) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = cart.filter(item => item.name !== name);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+  }
+
+  function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartIconMini = document.getElementById("cartIconMini");
+    let count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    cartIconMini.textContent = `🛒 (${count})`;
+  }
+
+  loadCart();
+</script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const authDiv = document.querySelector(".auth");
