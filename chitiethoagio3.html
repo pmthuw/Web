@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="product-header">
+    <a href="index.html" class="back-btn">← Quay lại</a>
+</header>
+
+<div class="product-page">
+
+    <!-- Cột ảnh -->
+    <div class="product-image">
+        <img id="product-img" src="image/hoagio3.jpg" alt="">
+    </div>
+
+    <!-- Cột nội dung -->
+    <div class="product-info">
+<h2 id="product-name">Triệu Vì Sao Hồng</h2>
+    <p>650.000 đồng</p>
+
+    <p class="sub-title">Tựa như bầu trời đầy sao trong sắc hồng ngọt ngào – bó hoa là lời tỏ tình lấp lánh dành cho người thương.</p>
+
+    <ul class="product-detail">
+        <li><b>Ý Nghĩa:</b> Biểu tượng của tình yêu ngọt ngào, sự chân thành và hàng ngàn điều ước hạnh phúc gửi đến người nhận.</li>
+        <li>Mỗi bông hoa là một “vì sao nhỏ” tỏa sáng, gói trọn những cảm xúc trong trẻo và yêu thương chân thành.</li>
+        <li><b>Phù hợp:</b> Ngày Valentine, kỷ niệm tình yêu, sinh nhật hoặc những dịp đặc biệt.</li>
+        <li><b>Thiết kế:</b> Bó hoa được kết hợp từ hoa hồng hồng pastel và baby trắng, điểm nhấn ánh nhũ nhẹ như ánh sao lung linh.</li>
+        <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
+    </ul>
+
+    <p class="note">
+        (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ xác nhận trước khi cắm.
+    </p>
+
+
+        <div class="quantity-box">
+            <label>Số lượng:</label>
+            <div class="qty-control">
+                <button onclick="changeQty(-1)">-</button>
+                <input id="qty" type="number" value="1" min="1">
+                <button onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <div class="action-wrap">
+            <button class="add-cart">🛒 Thêm vào giỏ</button>
+            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  // Hàm thay đổi số lượng
+  function changeQty(num) {
+    const qtyInput = document.getElementById("qty");
+    let qty = parseInt(qtyInput.value) + num;
+    if (qty < 1) qty = 1;
+    qtyInput.value = qty;
+  }
+
+  // Hàm lấy thông tin sản phẩm hiện tại
+  function getProductInfo() {
+    return {
+      name: document.getElementById("product-name").innerText,
+      price: 6500000, // giá cố định ví dụ, có thể lấy từ text
+      qty: parseInt(document.getElementById("qty").value),
+      img: "image/gau1.jpg" // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+    };
+  }
+
+  // Khi nhấn "Thêm vào giỏ"
+  document.querySelector(".add-cart").addEventListener("click", function () {
+    const product = getProductInfo();
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    const existing = cart.find(item => item.name === product.name);
+    if (existing) {
+      existing.qty += product.qty;
+    } else {
+      cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("🛒 Đã thêm vào giỏ hàng!");
+  });
+
+  // Khi nhấn "ĐẶT HOA NGAY"
+  document.querySelector(".buy-now").addEventListener("click", function () {
+    const product = getProductInfo();
+    // Lưu riêng sản phẩm này để hiển thị tại checkout
+    localStorage.setItem("checkoutItem", JSON.stringify(product));
+    window.location.href = "checkout.html";
+  });
+</script>
+
+
+</body>
+</html>
+

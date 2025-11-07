@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="product-header">
+    <a href="index.html" class="back-btn">← Quay lại</a>
+</header>
+
+<div class="product-page">
+
+    <!-- Cột ảnh -->
+    <div class="product-image">
+        <img id="product-img" src="image/ngayle3.jpg" alt="">
+    </div>
+
+    <!-- Cột nội dung -->
+    <div class="product-info">
+    <h2 id="product-name">Lụa Tím</h2>
+    <p>260.000 đồng</p>
+
+    <p class="sub-title">Mềm mại như lụa, dịu dàng trong sắc tím thủy chung – “Lụa Tím” là món quà tinh tế dành cho những tâm hồn sâu sắc và đầy yêu thương.</p>
+
+    <ul class="product-detail">
+        <li><b>Ý Nghĩa:</b> Tượng trưng cho sự chung thủy, lòng trân trọng và tình yêu bền bỉ qua năm tháng.</li>
+        <li>Gam tím nhẹ nhàng mang đến cảm giác an yên, thay lời gửi gắm tình cảm chân thành và sâu lắng.</li>
+        <li><b>Phù hợp:</b> Sinh nhật, kỷ niệm, 20/10, hoặc gửi tặng người yêu, mẹ, chị gái.</li>
+        <li><b>Thiết kế:</b> Bó hoa gồm hoa hồng tím, lavender khô và hoa baby trắng, được gói bằng giấy lụa tím pastel sang trọng, điểm nơ lụa mềm mại.</li>
+        <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
+    </ul>
+
+    <p class="note">
+        (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ xác nhận trước khi cắm.
+    </p>
+
+        <div class="quantity-box">
+            <label>Số lượng:</label>
+            <div class="qty-control">
+                <button onclick="changeQty(-1)">-</button>
+                <input id="qty" type="number" value="1" min="1">
+                <button onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <div class="action-wrap">
+            <button class="add-cart">🛒 Thêm vào giỏ</button>
+            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  // Hàm thay đổi số lượng
+  function changeQty(num) {
+    const qtyInput = document.getElementById("qty");
+    let qty = parseInt(qtyInput.value) + num;
+    if (qty < 1) qty = 1;
+    qtyInput.value = qty;
+  }
+
+  // Hàm lấy thông tin sản phẩm hiện tại
+  function getProductInfo() {
+    return {
+      name: document.getElementById("product-name").innerText,
+      price: 280000, // giá cố định ví dụ, có thể lấy từ text
+      qty: parseInt(document.getElementById("qty").value),
+      img: "image/gau1.jpg" // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+    };
+  }
+
+  // Khi nhấn "Thêm vào giỏ"
+  document.querySelector(".add-cart").addEventListener("click", function () {
+    const product = getProductInfo();
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    const existing = cart.find(item => item.name === product.name);
+    if (existing) {
+      existing.qty += product.qty;
+    } else {
+      cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("🛒 Đã thêm vào giỏ hàng!");
+  });
+
+  // Khi nhấn "ĐẶT HOA NGAY"
+  document.querySelector(".buy-now").addEventListener("click", function () {
+    const product = getProductInfo();
+    // Lưu riêng sản phẩm này để hiển thị tại checkout
+    localStorage.setItem("checkoutItem", JSON.stringify(product));
+    window.location.href = "checkout.html";
+  });
+</script>
+
+
+</body>
+</html>
+

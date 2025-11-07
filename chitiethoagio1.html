@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="product-header">
+    <a href="index.html" class="back-btn">← Quay lại</a>
+</header>
+
+<div class="product-page">
+
+    <!-- Cột ảnh -->
+    <div class="product-image">
+        <img id="product-img" src="image/hoagio1.jpg" alt="">
+    </div>
+
+    <!-- Cột nội dung -->
+    <div class="product-info">
+        <h2 id="product-name">Kẹo Ngọt Mùa Hè</h2>
+    <p>300.000 đồng</p>
+
+    <p class="sub-title">Mang đến hương vị tươi mới của mùa hè yêu thương.</p>
+
+    <ul class="product-detail">
+        <li><b>Ý Nghĩa:</b> Biểu tượng của sự ngọt ngào, tươi trẻ và niềm vui bất tận trong những ngày nắng.</li>
+        <li>Mỗi bông hoa là một viên kẹo ngọt chứa đựng lời chúc hạnh phúc và năng lượng tích cực.</li>
+        <li><b>Phù hợp:</b> Sinh nhật, chúc mừng, ngày lễ hoặc gửi tặng người đặc biệt.</li>
+        <li><b>Thiết kế:</b> Bó hoa phối hợp giữa hoa tươi sắc màu pastel và phụ kiện hình kẹo tạo cảm giác vui tươi, đáng yêu.</li>
+        <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày.</li>
+    </ul>
+
+    <p class="note">
+        (*) Sản phẩm hoa tươi có thể thay đổi nhẹ theo mùa. Shop sẽ liên hệ xác nhận trước khi cắm.
+    </p>
+
+        <div class="quantity-box">
+            <label>Số lượng:</label>
+            <div class="qty-control">
+                <button onclick="changeQty(-1)">-</button>
+                <input id="qty" type="number" value="1" min="1">
+                <button onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <div class="action-wrap">
+            <button class="add-cart">🛒 Thêm vào giỏ</button>
+            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  // Hàm thay đổi số lượng
+  function changeQty(num) {
+    const qtyInput = document.getElementById("qty");
+    let qty = parseInt(qtyInput.value) + num;
+    if (qty < 1) qty = 1;
+    qtyInput.value = qty;
+  }
+
+  // Hàm lấy thông tin sản phẩm hiện tại
+  function getProductInfo() {
+    return {
+      name: document.getElementById("product-name").innerText,
+      price: 300000, // giá cố định ví dụ, có thể lấy từ text
+      qty: parseInt(document.getElementById("qty").value),
+      img: "image/gau1.jpg" // hoặc lấy link ảnh từ trang chi tiết sản phẩm
+    };
+  }
+
+  // Khi nhấn "Thêm vào giỏ"
+  document.querySelector(".add-cart").addEventListener("click", function () {
+    const product = getProductInfo();
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    const existing = cart.find(item => item.name === product.name);
+    if (existing) {
+      existing.qty += product.qty;
+    } else {
+      cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("🛒 Đã thêm vào giỏ hàng!");
+  });
+
+  // Khi nhấn "ĐẶT HOA NGAY"
+  document.querySelector(".buy-now").addEventListener("click", function () {
+    const product = getProductInfo();
+    // Lưu riêng sản phẩm này để hiển thị tại checkout
+    localStorage.setItem("checkoutItem", JSON.stringify(product));
+    window.location.href = "checkout.html";
+  });
+</script>
+
+
+</body>
+</html>
+
