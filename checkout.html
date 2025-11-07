@@ -3,153 +3,178 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>c05.nhahodau.net</title>
+    <title>Thanh toán - Flower Connect</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- 🌸 Header -->
-    <header>
-      <h1 class="logo">🌸 Flower Connect</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Trang chủ</a></li>
-          <li>
-            <a href="category-hoatinhyeu-html">Hoa Tình Yêu</a>
-          </li>
-          <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
-          <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
-          <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
-          <li><a href="category-phukien.html">Phụ Kiện</a></li>
-        </ul>
-      </nav>
-      <div class="auth">
-        <a href="login.html" class="btn">Đăng nhập</a>
-        <a href="register.html" class="btn">Đăng ký</a>
-      </div>
-    </header>
-
-    <!-- 🔍 Thanh tìm kiếm -->
-    <div class="search-bar">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Tìm kiếm hoa hồng..."
-        onkeyup="searchFlowers()"
-      />
-      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
-    </div>
-
-    <!-- 🎉 Banner khuyến mãi -->
-    <div class="promo-banner">
-      <h2>🎁 Giảm giá 30% cho tất cả hoa ngày 20/11 🎁</h2>
-      <p>Ưu đãi đặc biệt cho những bó hoa hồng tươi thắm 💖</p>
-    </div>
-
-    <!-- 🌷 Danh sách sản phẩm Hoa Hồng -->
-    <main class="product-container">
-      <div class="product">
-        <img src="images/hoahong1.jpg" alt="Hoa Hồng 1" />
-        <h3>Bó hoa Hồng đỏ tình yêu</h3>
-        <p>Giá: 450.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong2.jpg" alt="Hoa Hồng 2" />
-        <h3>Hộp hoa Hồng pastel sang trọng</h3>
-        <p>Giá: 580.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong3.jpg" alt="Hoa Hồng 3" />
-        <h3>Giỏ hoa Hồng hồng nhẹ nhàng</h3>
-        <p>Giá: 520.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong4.jpg" alt="Hoa Hồng 4" />
-        <h3>Bó hoa Hồng trắng tinh khôi</h3>
-        <p>Giá: 490.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong5.jpg" alt="Hoa Hồng 5" />
-        <h3>Bó hoa Hồng kem sang trọng</h3>
-        <p>Giá: 560.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong6.jpg" alt="Hoa Hồng 6" />
-        <h3>Hoa Hồng đỏ và Baby trắng</h3>
-        <p>Giá: 600.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong7.jpg" alt="Hoa Hồng 7" />
-        <h3>Giỏ hoa Hồng mix nhiều màu</h3>
-        <p>Giá: 720.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong8.jpg" alt="Hoa Hồng 8" />
-        <h3>Bó Hồng đỏ - quà tặng kỷ niệm</h3>
-        <p>Giá: 510.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong9.jpg" alt="Hoa Hồng 9" />
-        <h3>Giỏ hoa Hồng pastel tinh tế</h3>
-        <p>Giá: 640.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="#" class="cart-btn">Thêm vào giỏ</a>
-      </div>
-
-      <div class="product">
-        <img src="images/hoahong10.jpg" alt="Hoa Hồng 10" />
-        <h3>Bó</h3>
-      </div>
-    </main>
-  </body>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const authDiv = document.querySelector(".auth");
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-      if (currentUser) {
-        // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
-        authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
-        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-      `;
-
-        // Xử lý khi bấm nút Đăng xuất
-        document
-          .getElementById("logoutBtn")
-          .addEventListener("click", function () {
-            localStorage.removeItem("currentUser");
-            alert("Bạn đã đăng xuất");
-            window.location.reload(); // load lại để hiện nút đăng nhập
-          });
+    <style>
+      body {
+        font-family: "Quicksand", sans-serif;
+        background-color: #fff8f9;
+        margin: 0;
+        padding: 0;
       }
-    });
-  </script>
+
+      .checkout-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #e91e63;
+        margin-bottom: 30px;
+      }
+
+      .checkout-section {
+        margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 15px;
+      }
+
+      .order-summary {
+        border-top: 2px solid #f1f1f1;
+        padding-top: 20px;
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .total {
+        font-weight: bold;
+        font-size: 18px;
+        color: #e91e63;
+      }
+
+      .checkout-btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #e91e63;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .checkout-btn:hover {
+        background-color: #d81b60;
+      }
+
+      .back {
+        display: inline-block;
+        margin-top: 15px;
+        color: #555;
+        text-decoration: none;
+      }
+
+      .back:hover {
+        color: #e91e63;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="checkout-container">
+      <h2>Thanh Toán Đơn Hàng</h2>
+
+      <!-- Thông tin người mua -->
+      <div class="checkout-section">
+        <h3>🧍‍♀️ Thông tin khách hàng</h3>
+        <label>Họ và tên:</label>
+        <input type="text" id="fullname" placeholder="Nhập họ tên của bạn" required />
+
+        <label>Số điện thoại:</label>
+        <input type="tel" id="phone" placeholder="Nhập số điện thoại" required />
+
+        <label>Địa chỉ giao hàng:</label>
+        <textarea id="address" rows="3" placeholder="Nhập địa chỉ chi tiết" required></textarea>
+      </div>
+
+      <!-- Phương thức thanh toán -->
+      <div class="checkout-section">
+        <h3>💳 Phương thức thanh toán</h3>
+        <select id="payment">
+          <option value="cod">Thanh toán khi nhận hàng (COD)</option>
+          <option value="momo">Ví MoMo</option>
+          <option value="bank">Chuyển khoản ngân hàng</option>
+        </select>
+      </div>
+
+      <!-- Tóm tắt đơn hàng -->
+      <div class="checkout-section order-summary">
+        <h3>🛍️ Đơn hàng của bạn</h3>
+        <div id="order-items">
+          <!-- Sản phẩm sẽ được load bằng JS -->
+        </div>
+        <div class="summary-item total">
+          <span>Tổng cộng:</span>
+          <span id="total-price">0đ</span>
+        </div>
+      </div>
+
+      <button class="checkout-btn" onclick="confirmOrder()">Xác nhận đặt hàng</button>
+      <a href="index.html" class="back">← Quay lại trang chủ</a>
+    </div>
+
+    <script>
+      // Lấy thông tin sản phẩm từ localStorage (nếu có)
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const orderContainer = document.getElementById("order-items");
+      const totalEl = document.getElementById("total-price");
+
+      if (cart.length === 0) {
+        orderContainer.innerHTML = "<p>Giỏ hàng trống!</p>";
+      } else {
+        let total = 0;
+        cart.forEach((item) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.classList.add("summary-item");
+          itemDiv.innerHTML = `
+            <span>${item.name} x ${item.quantity}</span>
+            <span>${(item.price * item.quantity).toLocaleString()}đ</span>
+          `;
+          orderContainer.appendChild(itemDiv);
+          total += item.price * item.quantity;
+        });
+        totalEl.textContent = total.toLocaleString() + "đ";
+      }
+
+      // Xác nhận đặt hàng
+      function confirmOrder() {
+        const name = document.getElementById("fullname").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const address = document.getElementById("address").value.trim();
+
+        if (!name || !phone || !address) {
+          alert("Vui lòng điền đầy đủ thông tin!");
+          return;
+        }
+
+        alert("🎉 Đặt hàng thành công! Cảm ơn bạn đã mua tại Flower Connect 💐");
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
 </html>
