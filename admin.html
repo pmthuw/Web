@@ -1,169 +1,151 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>c05.nhahodau.net</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập • AdminPink</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
-      body {
-        background: linear-gradient(180deg, #fff5f8, #ffeaf0);
-        font-family: "Quicksand", sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+      :root {
+        --pink-light: #ffe6f0;
+        --pink: #ffb6d9;
+        --pink-dark: #ff4aa6;
+      }
+      * {
+        box-sizing: border-box;
         margin: 0;
+        padding: 0;
       }
-
-      h1 {
-        font-family: "Dancing Script", cursive;
-        font-size: 40px;
-        color: #d6336c;
-        margin-bottom: 30px;
-      }
-
-      .admin-container {
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-        padding: 40px 50px;
-        text-align: center;
-        width: 360px;
-        transition: all 0.3s ease;
+      body {
+        height: 100vh;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          Helvetica, Arial;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
+        color: #3a2c34;
+        background: url("img/hh.png") center/cover no-repeat fixed;
       }
-
-      .avatar {
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        border: 3px solid #ff99b9;
-        margin-bottom: 20px;
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 182, 193, 0.15);
+        z-index: 0;
       }
-
-      .admin-name {
-        color: #d6336c;
-        font-weight: bold;
-        font-size: 18px;
-        cursor: pointer;
-        transition: 0.3s;
-        background: #fff0f6;
-        border: 2px solid #ffc1d9;
-        border-radius: 12px;
-        padding: 6px 16px;
-        display: inline-block;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      .login-box {
+        position: relative;
+        z-index: 1;
+        width: 360px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(14px);
+        border-radius: 24px;
+        padding: 36px 32px;
+        box-shadow: 0 8px 24px rgba(255, 90, 150, 0.3);
+        text-align: center;
+        animation: fadeIn 0.8s ease;
       }
-
-      .admin-name:hover {
-        color: #ff6699;
-        background: #ffe3eb;
-      }
-
-      .password-box {
-        display: none;
-        animation: fadeIn 0.4s ease;
-      }
-
-      .password-box input {
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid #d6336c;
-        outline: none;
-        width: 80%;
-        margin-bottom: 10px;
-        font-size: 15px;
-      }
-
-      .password-box button {
-        background: #d6336c;
-        color: #fff;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 15px;
-      }
-
-      .password-box button:hover {
-        background: #ff80aa;
-      }
-
-      #errorMsg {
-        color: red;
-        font-size: 14px;
-        margin-top: 5px;
-      }
-
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(-10px);
+          transform: translateY(20px);
         }
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
+
+      h1 {
+        margin-bottom: 8px;
+        font-size: 26px;
+        color: var(--pink-dark);
+        font-weight: 800;
+      }
+      p {
+        margin-top: 0;
+        margin-bottom: 28px;
+        color: #7a6570;
+        font-size: 14px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 16px;
+        border-radius: 10px;
+        border: 1px solid #f2d6e2;
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        outline: none;
+        transition: border 0.2s, box-shadow 0.2s;
+      }
+      input:focus {
+        border-color: var(--pink);
+        box-shadow: 0 0 0 2px rgba(255, 182, 217, 0.4);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(90deg, var(--pink), var(--pink-dark));
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 15px;
+        transition: opacity 0.2s, transform 0.1s;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+      button:active {
+        transform: scale(0.98);
+      }
+
+      .footer {
+        margin-top: 24px;
+        font-size: 13px;
+        color: #8b7280;
+      }
     </style>
   </head>
-
   <body>
-    <h1>🌸 Flower Connect</h1>
-
-    <div class="admin-container">
-      <img src="image/cho.png" alt="Admin Avatar" class="avatar" />
-
-      <div class="admin-name" id="adminText">Admin</div>
-
-      <div class="password-box" id="passwordBox">
-        <input
-          type="password"
-          id="adminPass"
-          placeholder="Nhập mật khẩu..."
-        /><br />
-        <button id="loginBtn">Đăng nhập</button>
-        <p id="errorMsg"></p>
-      </div>
+    <div class="overlay"></div>
+    <div class="login-box">
+      <h1>Welcome</h1>
+      <p>Đăng nhập để truy cập bảng quản trị</p>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Tên đăng nhập" required />
+        <input type="password" id="password" placeholder="Mật khẩu" required />
+        <button type="submit">Đăng nhập</button>
+      </form>
+      <div class="footer">© 2025 AdminConnect</div>
     </div>
 
     <script>
-      const adminText = document.getElementById("adminText");
-      const passwordBox = document.getElementById("passwordBox");
-      const passInput = document.getElementById("adminPass");
-      const loginBtn = document.getElementById("loginBtn");
-      const errorMsg = document.getElementById("errorMsg");
-
-      // Khi bấm vào chữ "Admin" → ẩn chữ, hiện ô nhập mật khẩu
-      adminText.addEventListener("click", () => {
-        adminText.style.display = "none";
-        passwordBox.style.display = "block";
-        passInput.focus();
-      });
-
-      // Hàm kiểm tra mật khẩu
-      function checkPassword() {
-        const pass = passInput.value.trim();
-        if (pass === "admin123") {
-          window.location.href = "index.html"; // Vô luôn
-        } else {
-          errorMsg.textContent = "Sai mật khẩu!";
-        }
-      }
-
-      // Bấm nút hoặc nhấn Enter đều vô được
-      loginBtn.addEventListener("click", checkPassword);
-      passInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") checkPassword();
-      });
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value.trim();
+          if (!username || !password) {
+            alert("Vui lòng nhập tên đăng nhập và mật khẩu");
+            return;
+          }
+          if (username === "admin" && password === "1234") {
+            window.location.href = "admin-manage.html";
+          } else {
+            alert("Sai tên đăng nhập hoặc mật khẩu!");
+          }
+        });
     </script>
   </body>
 </html>

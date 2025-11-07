@@ -87,10 +87,12 @@ function addToCart(name, price, image) {
 
 // 🪷 Cập nhật số lượng hiển thị ở góc
 function updateCartCount() {
-  const cartCount = document.querySelector("#cartCount");
-  if (cartCount) {
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = total;
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const badge = document.getElementById("cartCount");
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? "flex" : "none";
   }
 }
 
@@ -267,8 +269,8 @@ function showOrderHistory() {
 
 document.addEventListener("DOMContentLoaded", () => {
   createSuggestions();
-  updateCartCount();
   showCart();
+  updateCartCount();
   setupCheckout();
   showOrderHistory();
 

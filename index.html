@@ -99,7 +99,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Khúc Ca Tình Yêu', '450.000đ', 'image/tinhyeu15.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -111,7 +114,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Linh Vật May Mắn', '300.000đ', 'image/gau21.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -123,7 +129,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Vĩnh Cửu', '150.000đ', 'image/ngayle5.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -135,7 +144,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Cầu Vòng Ban Mai', '450.000đ', 'image/ngayle12.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -147,7 +159,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Nắng Vàng Rực Rỡ', '300.000đ', 'image/ngayle1.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -159,7 +174,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Thiệp Hoa Khô Kỷ Niệm', '20.000đ', 'image/phukien1.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -171,7 +189,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Lông Xù Đáng Yêu', '600.000đ', 'image/gau30.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -183,7 +204,10 @@
         <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
           >Mua ngay</a
         >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+        <a
+          href="#"
+          onclick="checkLoginAndAddToCart(event, 'Vườn Nhung Hồng', '450.000đ', 'image/hoagio9.jpg')"
+          class="cart-btn"
           >Thêm vào giỏ</a
         >
       </div>
@@ -246,7 +270,6 @@
 
     <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
     <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
-
     <script>
       function addToCart(name, price, image) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -268,142 +291,6 @@
           cartIconMini.dataset.count = cart.length > 0 ? cart.length : "";
         }
       }
-
-      function searchFlowers() {
-        let input = document.getElementById("searchInput");
-        let filter = input.value.toLowerCase();
-        let products = document.querySelectorAll(".product");
-        let noResult = document.getElementById("noResult");
-
-        let hasResults = false;
-        products.forEach((product) => {
-          let name = product.querySelector("h3").textContent.toLowerCase();
-          if (name.includes(filter)) {
-            product.style.display = "";
-            hasResults = true;
-          } else {
-            product.style.display = "none";
-          }
-        });
-
-        noResult.style.display = hasResults ? "none" : "block";
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        updateCartCount();
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const authDiv = document.querySelector(".auth");
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-        if (currentUser) {
-          // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
-          authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
-        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-      `;
-
-          // Xử lý khi bấm nút Đăng xuất
-          document
-            .getElementById("logoutBtn")
-            .addEventListener("click", function () {
-              localStorage.removeItem("currentUser");
-              alert("Bạn đã đăng xuất");
-              window.location.reload(); // load lại để hiện nút đăng nhập
-            });
-        }
-      });
-    </script>
-    <script>
-      // ✅ Kiểm tra trạng thái đăng nhập
-      function checkLogin(event, action, product = null) {
-        event.preventDefault();
-
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-        if (!currentUser) {
-          // Lưu lại trang hiện tại để quay lại sau đăng nhập
-          localStorage.setItem("redirectAfterLogin", window.location.href);
-          alert("⚠️ Bạn phải đăng nhập trước khi thực hiện hành động này!");
-          window.location.href = "login.html";
-          return;
-        }
-
-        // Nếu đã đăng nhập
-        if (action === "buy") {
-          window.location.href = "checkout.html";
-        } else if (action === "cart" && product) {
-          addToCart(product.name, product.price, product.image);
-        }
-      }
-
-      // ✅ Cập nhật các nút "Mua ngay" và "Thêm vào giỏ"
-      document.addEventListener("DOMContentLoaded", () => {
-        const productElements = document.querySelectorAll(".product");
-
-        productElements.forEach((el) => {
-          const name = el.querySelector("h3").innerText;
-          const price = el.querySelector("p").innerText.replace("Giá: ", "");
-          const image = el.querySelector("img").src;
-
-          const buyBtn = el.querySelector(".buy-btn");
-          const cartBtn = el.querySelector(".cart-btn");
-
-          buyBtn.onclick = (e) => checkLogin(e, "buy", { name, price, image });
-          cartBtn.onclick = (e) =>
-            checkLogin(e, "cart", { name, price, image });
-        });
-      });
-    </script>
-
-    <script>
-      // Khi đăng nhập thành công, đảm bảo các nút được gắn lại sự kiện
-      document.addEventListener("DOMContentLoaded", () => {
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        const productElements = document.querySelectorAll(".product");
-
-        productElements.forEach((el) => {
-          const name = el.querySelector("h3").innerText;
-          const price =
-            el.querySelector("p")?.innerText.replace("Giá: ", "") || "";
-          const image = el.querySelector("img").src;
-
-          const buyBtn = el.querySelector(".buy-btn");
-          const cartBtn = el.querySelector(".cart-btn");
-
-          if (buyBtn)
-            buyBtn.onclick = (e) => {
-              e.preventDefault();
-              if (!currentUser) {
-                localStorage.setItem(
-                  "redirectAfterLogin",
-                  window.location.href
-                );
-                alert("⚠️ Bạn cần đăng nhập trước khi mua hàng!");
-                window.location.href = "login.html";
-              } else {
-                window.location.href = "checkout.html";
-              }
-            };
-
-          if (cartBtn)
-            cartBtn.onclick = (e) => {
-              e.preventDefault();
-              if (!currentUser) {
-                localStorage.setItem(
-                  "redirectAfterLogin",
-                  window.location.href
-                );
-                alert("⚠️ Bạn cần đăng nhập trước khi thêm vào giỏ hàng!");
-                window.location.href = "login.html";
-              } else {
-                addToCart(name, price, image);
-              }
-            };
-        });
-      });
     </script>
 
     <script>
@@ -414,9 +301,9 @@
         if (currentUser) {
           // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-            <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
-        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-      `;
+              <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
+          <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+        `;
 
           const welcomeEl = document.getElementById("welcomeUser");
           welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
@@ -435,6 +322,135 @@
             });
         }
       });
+    </script>
+    <script>
+      // ✅ Khi bấm vào ảnh hoặc tên sản phẩm thì chuyển sang trang mô tả sản phẩm riêng
+      document.addEventListener("DOMContentLoaded", () => {
+        const products = document.querySelectorAll(".product");
+
+        products.forEach((el) => {
+          const name = el.querySelector("h3").innerText;
+          const slug = name.toLowerCase().replace(/\s+/g, "-"); // tạo slug từ tên
+          const image = el.querySelector("img");
+          const title = el.querySelector("h3");
+
+          // Khi click ảnh hoặc tên -> sang product-[slug].html
+          const goToProduct = () => {
+            window.location.href = `product-${slug}.html`;
+          };
+
+          if (image) image.addEventListener("click", goToProduct);
+          if (title) title.addEventListener("click", goToProduct);
+        });
+      });
+    </script>
+    <script>
+      // ✅ Kiểm tra đăng nhập khi bấm "Mua ngay" hoặc "Thêm vào giỏ"
+      function checkLogin(event) {
+        event.preventDefault(); // chặn mở trang checkout
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+          alert("⚠️ Bạn cần đăng nhập để thực hiện thao tác này!");
+          window.location.href = "login.html";
+        } else {
+          // Nếu đã đăng nhập thì cho phép chuyển tới trang thanh toán hoặc thêm giỏ
+          const target = event.target.getAttribute("href") || "checkout.html";
+          window.location.href = target;
+        }
+      }
+    </script>
+    <script>
+      // 🛒 Hàm thêm sản phẩm vào giỏ hàng
+      function addToCart(name, price, image) {
+        // Lấy giỏ hàng hiện tại trong localStorage (nếu chưa có thì tạo mảng rỗng)
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+        const existing = cart.find((item) => item.name === name);
+
+        if (existing) {
+          existing.quantity = (existing.quantity || 1) + 1; // tăng số lượng nếu đã có
+        } else {
+          cart.push({ name, price, image, quantity: 1 }); // thêm mới nếu chưa có
+        }
+
+        // Lưu lại giỏ hàng vào localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        alert(`${name} đã được thêm vào giỏ hàng!`);
+      }
+    </script>
+    <script>
+      // 🧩 Hàm kết hợp: kiểm tra đăng nhập rồi mới thêm vào giỏ
+      function checkLoginAndAddToCart(event, name, price, image) {
+        event.preventDefault();
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+          alert("⚠️ Bạn cần đăng nhập để thêm vào giỏ hàng!");
+          window.location.href = "login.html";
+          return;
+        }
+
+        // Nếu đã đăng nhập thì gọi hàm addToCart
+        addToCart(name, price, image);
+      }
+    </script>
+    <!-- 🛒 Giỏ mini góc phải -->
+    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
+    <span id="cartCountBadge" class="cart-count-badge">0</span>
+
+    <script>
+      // 🛍️ Hàm thêm sản phẩm vào giỏ hàng (không xoá code cũ)
+      function addToCart(name, price, image) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existing = cart.find((item) => item.name === name);
+
+        if (existing) {
+          existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+          cart.push({ name, price, image, quantity: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${name} đã được thêm vào giỏ hàng!`);
+        updateCartBadge(); // Cập nhật số hiển thị
+      }
+
+      // 🔐 Kiểm tra đăng nhập trước khi thêm
+      function checkLoginAndAddToCart(event, name, price, image) {
+        event.preventDefault();
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+          alert("⚠️ Bạn cần đăng nhập để thêm vào giỏ hàng!");
+          window.location.href = "login.html";
+          return;
+        }
+
+        addToCart(name, price, image);
+      }
+
+      // 🧮 Hàm cập nhật số lượng trên huy hiệu giỏ mini
+      function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let total = 0;
+        cart.forEach((item) => {
+          total += item.quantity || 1;
+        });
+
+        const badge = document.getElementById("cartCountBadge");
+        if (total > 0) {
+          badge.textContent = total;
+          badge.style.display = "block";
+        } else {
+          badge.style.display = "none";
+        }
+      }
+
+      // 🪄 Khi tải trang -> cập nhật huy hiệu
+      document.addEventListener("DOMContentLoaded", updateCartBadge);
     </script>
   </body>
 </html>

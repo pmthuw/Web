@@ -38,7 +38,9 @@
         font-weight: 600;
       }
 
-      input, textarea, select {
+      input,
+      textarea,
+      select {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -102,13 +104,28 @@
       <div class="checkout-section">
         <h3>🧍‍♀️ Thông tin khách hàng</h3>
         <label>Họ và tên:</label>
-        <input type="text" id="fullname" placeholder="Nhập họ tên của bạn" required />
+        <input
+          type="text"
+          id="fullname"
+          placeholder="Nhập họ tên của bạn"
+          required
+        />
 
         <label>Số điện thoại:</label>
-        <input type="tel" id="phone" placeholder="Nhập số điện thoại" required />
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Nhập số điện thoại"
+          required
+        />
 
         <label>Địa chỉ giao hàng:</label>
-        <textarea id="address" rows="3" placeholder="Nhập địa chỉ chi tiết" required></textarea>
+        <textarea
+          id="address"
+          rows="3"
+          placeholder="Nhập địa chỉ chi tiết"
+          required
+        ></textarea>
       </div>
 
       <!-- Phương thức thanh toán -->
@@ -133,7 +150,9 @@
         </div>
       </div>
 
-      <button class="checkout-btn" onclick="confirmOrder()">Xác nhận đặt hàng</button>
+      <button class="checkout-btn" onclick="confirmOrder()">
+        Xác nhận đặt hàng
+      </button>
       <a href="index.html" class="back">← Quay lại trang chủ</a>
     </div>
 
@@ -171,7 +190,9 @@
           return;
         }
 
-        alert("🎉 Đặt hàng thành công! Cảm ơn bạn đã mua tại Flower Connect 💐");
+        alert(
+          "🎉 Đặt hàng thành công! Cảm ơn bạn đã mua tại Flower Connect 💐"
+        );
         localStorage.removeItem("cart");
         window.location.href = "index.html";
       }

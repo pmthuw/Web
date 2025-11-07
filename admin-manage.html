@@ -1,0 +1,3985 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c05.nhahodau.net</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* === kiểu chữ của nguyên file === */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, sans-serif;
+      }
+      body {
+        background: #fff1f2;
+        color: #374151;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* === Sidebar === */
+      .sidebar {
+        width: 260px;
+        background: linear-gradient(to bottom, #fecdd3, #f9a8d4);
+        padding: 24px;
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+      }
+      .logo-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      .logo-text {
+        font-weight: 700;
+        font-size: 20px;
+        color: #be185d;
+      }
+
+      .menu-btn {
+        width: 100%;
+        background: transparent;
+        border: none;
+        text-align: left;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #831843;
+        cursor: pointer;
+      }
+      .menu-btn.active {
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        color: #9d174d;
+        font-weight: 600;
+      }
+      .sidebar-footer {
+        margin-top: auto;
+        font-size: 12px;
+        color: #831843;
+        text-align: center;
+      }
+      .chart-container {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      /* --- Responsive Sidebar --- */
+      .menu-toggle {
+        display: none; /* ẩn trên màn hình lớn */
+      }
+
+      /* Khi thu nhỏ (mobile hoặc tablet) */
+      @media (max-width: 768px) {
+        .sidebar {
+          left: -260px; /* ẩn sidebar ra ngoài */
+          transition: left 0.3s ease;
+          z-index: 1000;
+        }
+
+        .sidebar.active {
+          left: 0; /* hiện sidebar khi có class active */
+        }
+
+        .menu-toggle {
+          display: block;
+          position: fixed;
+          top: 16px;
+          left: 16px;
+          background: #f472b6;
+          color: white;
+          border: none;
+          padding: 10px 14px;
+          border-radius: 10px;
+          font-size: 18px;
+          cursor: pointer;
+          z-index: 1100;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      /* === Main === */
+      main {
+        flex: 1;
+        padding: 32px;
+        margin-left: 260px; /* 🌸 thêm dòng này để đẩy nội dung sang phải */
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .search-input {
+        padding: 8px 16px;
+        border-radius: 9999px;
+        border: 1px solid #fda4af;
+        background: #fff;
+        width: 280px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 9px;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      /* === Tables === */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      th {
+        color: #9ca3af;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      td {
+        font-size: 14px;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+      }
+      .status.done {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .status.cancel {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .status.pending {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+
+      /* === Buttons === */
+      .btn {
+        padding: 6px 12px;
+        border-radius: 9999px;
+        font-size: 13px;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-pink {
+        background: #f43f5e;
+        color: #fff;
+      }
+      .btn-outline {
+        border: 1px solid #fda4af;
+        color: #9d174d;
+        background: transparent;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+        filter: none !important;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 900px) {
+        .sidebar {
+          position: fixed;
+          width: 200px;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 1000;
+        }
+
+        main {
+          margin-left: 200px;
+          padding: 20px;
+        }
+
+        .menu-toggle {
+          display: block;
+          position: fixed;
+          top: 16px;
+          left: 16px;
+          background: #f472b6;
+          color: white;
+          border: none;
+          padding: 8px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          z-index: 1100;
+        }
+      }
+
+      /* Khi di chuột qua nút */
+      .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Khi bấm nút */
+      .btn:active {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
+
+      /* Nút màu hồng */
+      .btn-pink:hover {
+        background: #fb7185;
+      }
+
+      /* Nút viền */
+      .btn-outline:hover {
+        background: #ffe4e6;
+        border-color: #f43f5e;
+      }
+
+      /* === THU NHỎ KHUNG & HÌNH SẢN PHẨM === */
+      .product-item {
+        width: 180px;
+        padding: 10px;
+      }
+
+      .product-item img {
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      /* --- Màu trạng thái sản phẩm --- */
+      .status-active {
+        color: #16a34a; /* xanh lá */
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .status-pause {
+        color: #f59e0b; /* cam */
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .status-stop {
+        color: #dc2626; /* đỏ */
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+      /* Danh mục hoạt động / ngừng */
+      .active {
+        color: #16a34a;
+        font-weight: 600;
+      }
+      .inactive {
+        color: #dc2626;
+        font-weight: 600;
+      }
+      .detailBtn,
+      .deleteBtn {
+        border: 1px solid #fda4af;
+        border-radius: 6px;
+        padding: 2px 6px;
+        background: white;
+        cursor: pointer;
+        margin-right: 4px;
+        transition: 0.2s;
+      }
+
+      .detailBtn:hover,
+      .deleteBtn:hover {
+        background: #ffe4e6;
+      }
+    </style>
+
+    <style>
+      /* Tắt toàn bộ hiệu ứng khi ẩn/hiện sản phẩm */
+      #productList .product-item,
+      #productList .card {
+        transition: none !important;
+        animation: none !important;
+      }
+    </style>
+
+    <style>
+      .status {
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .status-active {
+        color: #16a34a;
+      } /* xanh */
+      .status-pause {
+        color: #f97316;
+      } /* cam */
+      .status-stop {
+        color: #dc2626;
+      } /* đỏ */
+
+      .btn {
+        border: none;
+        cursor: pointer;
+        margin-left: 4px;
+      }
+      .btn-outline {
+        background: #fff;
+        border: 1px solid #ccc;
+      }
+      .btn-pink {
+        background: #f43f5e;
+        color: #fff;
+      }
+      .order-card {
+        background: #fff;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px; /* 👈 chỉ cần dòng này */
+      }
+
+      .order-card:hover {
+        transform: translateY(-2px);
+        transition: 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">🌸</div>
+        <div>
+          <div class="logo-text">Flower Connect</div>
+          <div style="font-size: 12px">Admin Panel</div>
+        </div>
+      </div>
+
+      <button class="menu-btn active" onclick="showPage('dashboard')">
+        Dashboard
+      </button>
+      <button class="menu-btn" onclick="showPage('productManagement')">
+        Sản phẩm
+      </button>
+
+      <button class="menu-btn" onclick="showPage('orders')">Đơn hàng</button>
+      <button class="menu-btn" onclick="showPage('customers')">
+        Khách hàng
+      </button>
+      <button class="menu-btn" onclick="showPage('inventory')">Tồn kho</button>
+
+      <div class="logout-section">
+        <button class="logout-btn" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Đăng xuất</span>
+        </button>
+      </div>
+
+      <div class="sidebar-footer">Phiên bản 1.0<br />© Flower Connect</div>
+    </aside>
+    <!-- Main -->
+    <main>
+      <header>
+        <div>Xin chào, Admin!</div>
+      </header>
+
+      <!-- Dashboard -->
+      <section id="dashboard">
+        <div
+          class="grid"
+          style="grid-template-columns: 1fr 2fr; gap: 20px; align-items: start"
+        >
+          <!-- Cột trái: Thông tin -->
+          <div class="grid" style="gap: 16px">
+            <div class="card">
+              <b>Doanh thu (tháng):</b><br />
+              2.350.000.000₫ <br />
+              <span style="color: #6b7280; font-size: 13px"
+                >Tăng 32% so với tháng trước</span
+              >
+            </div>
+            <div class="card">
+              <b>Đơn hàng:</b><br />
+              12 <br />
+              <span style="color: #6b7280; font-size: 13px"
+                >Đang chờ xử lý</span
+              >
+            </div>
+            <div class="card">
+              <b>Tồn kho:</b><br />
+              56 sản phẩm <br />
+              <span style="color: #6b7280; font-size: 13px"
+                >Cập nhật hôm nay</span
+              >
+            </div>
+            <div class="card">
+              <b>Tỷ lệ chuyển đổi:</b><br />
+              2.9% <br />
+              <span style="color: #6b7280; font-size: 13px">Ổn định</span>
+            </div>
+          </div>
+
+          <!-- Cột phải: Biểu đồ lớn -->
+          <div class="card">
+            <b>Biểu đồ doanh thu</b>
+            <canvas id="revenueChart" width="270" height="130"></canvas>
+            <!--chinh bdo-->
+          </div>
+        </div>
+
+        <!-- Đơn hàng gần đây -->
+        <div class="card" style="margin-top: 24px">
+          <b>Đơn hàng gần đây</b>
+          <table>
+            <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Khách</th>
+                <th>Ngày</th>
+                <th>Trạng thái</th>
+                <th class="text-right">Tổng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1001</td>
+                <td>Bích Ngọc</td>
+                <td>25/10/2025</td>
+                <td><span class="status pending">Đang xử lý</span></td>
+                <td>850.000 ₫</td>
+              </tr>
+              <tr>
+                <td>1002</td>
+                <td>Anh Thư</td>
+                <td>24/10/2025</td>
+                <td><span class="status done">Hoàn thành</span></td>
+                <td>520.000 ₫</td>
+              </tr>
+              <tr>
+                <td>1003</td>
+                <td>B</td>
+                <td>23/10/2025</td>
+                <td><span class="status cancel">Hủy</span></td>
+                <td>380.000 ₫</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SCRIPT BIỂU ĐỒ -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        const ctx = document.getElementById("revenueChart");
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
+            datasets: [
+              {
+                label: "Doanh thu (triệu ₫)",
+                data: [3.2, 2.8, 3.5, 3.1, 3.8, 4.2],
+                borderColor: "#ec4899",
+                backgroundColor: "rgba(244,114,182,0.25)",
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: "#be185d",
+                pointRadius: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+              },
+              y: {
+                grid: { color: "#fde2e4" },
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      </script>
+
+      <!-- Quản lý sản phẩm -->
+      <section id="productManagement" class="hidden">
+        <h2 style="color: #be185d; margin-bottom: 16px">Quản lý Sản phẩm</h2>
+        <!-- Thanh chuyển tab -->
+        <div
+          class="tab-container"
+          style="margin-bottom: 20px; display: flex; gap: 8px"
+        >
+          <button class="tab-btn active" onclick="showProductTab('category')">
+            Danh mục
+          </button>
+          <button class="tab-btn" onclick="showProductTab('type')">
+            Loại sản phẩm
+          </button>
+          <button class="tab-btn" onclick="showProductTab('import')">
+            Nhập phiếu
+          </button>
+          <button class="tab-btn" onclick="showProductTab('price')">
+            Giá bán
+          </button>
+        </div>
+
+        <style>
+          .tab-btn {
+            border: 1px solid #f9a8d4;
+            background: #fff;
+            color: #be185d;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+          }
+          .tab-btn:hover {
+            background: #fce7f3;
+          }
+          .tab-btn.active {
+            background: #be185d;
+            color: #fff;
+          }
+          .detailBtn,
+          .deleteBtn {
+            border: 1px solid #fda4af;
+            border-radius: 6px;
+            padding: 2px 6px;
+            background: white;
+            cursor: pointer;
+          }
+
+          .detailBtn:hover {
+            background: #ffe4e6;
+          }
+
+          .deleteBtn:hover {
+            background: #ffe4e6;
+          }
+        </style>
+
+        <!-- Khối 1: Danh mục -->
+
+        <div id="tab-category" class="card" style="margin-bottom: 20px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <h3 style="color: #be185d">📁 Quản lý danh mục</h3>
+            <button class="btn btn-pink" id="addCatBtn">+ Thêm danh mục</button>
+          </div>
+
+          <table id="catTable">
+            <thead>
+              <tr>
+                <th>Mã DM</th>
+                <th>Tên danh mục</th>
+                <th>Số sản phẩm</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DM001</td>
+                <td>Hoa Tình Yêu</td>
+                <td>5</td>
+                <td style="color: #16a34a">Hoạt động</td>
+                <td>
+                  <button class="btn btn-outline edit-cat">Sửa</button>
+                  <button class="btn btn-outline hide-cat">Ẩn</button>
+                  <button class="btn btn-outline del-cat">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>DM002</td>
+                <td>Hoa Giáng Sinh</td>
+                <td>3</td>
+                <td style="color: #dc2626">Ngừng</td>
+                <td>
+                  <button class="btn btn-outline edit-cat">Sửa</button>
+                  <button class="btn btn-outline hide-cat">Ẩn</button>
+                  <button class="btn btn-outline del-cat">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Popup thêm / sửa danh mục -->
+        <div
+          id="catModal"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            class="card"
+            style="
+              width: 400px;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+            "
+          >
+            <h3 id="catModalTitle" style="color: #be185d">Thêm danh mục</h3>
+
+            <label>Mã danh mục</label>
+            <input
+              id="dm_ma"
+              type="text"
+              style="width: 100%; margin: 6px 0 8px 0"
+              placeholder="VD: DM006"
+            />
+
+            <label>Tên danh mục</label>
+            <input
+              id="dm_ten"
+              type="text"
+              style="width: 100%; margin: 6px 0 8px 0"
+              placeholder="VD: Hoa Giỏ"
+            />
+
+            <label>Số sản phẩm</label>
+            <input
+              id="dm_sl"
+              type="number"
+              min="0"
+              style="width: 100%; margin: 6px 0 8px 0"
+              placeholder="VD: 10"
+            />
+
+            <label>Trạng thái</label>
+            <select id="dm_tt" style="width: 100%; margin-top: 4px">
+              <option>Hoạt động</option>
+              <option>Ngừng</option>
+            </select>
+
+            <div style="text-align: right; margin-top: 14px">
+              <button onclick="closeCatModal()" class="btn btn-outline">
+                Hủy
+              </button>
+              <button id="saveCatBtn" class="btn btn-pink">Lưu</button>
+            </div>
+          </div>
+        </div>
+        <!-- Khối 2: Sản phẩm -->
+        <div
+          id="tab-type"
+          class="card"
+          style="margin-bottom: 20px; display: none"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <h3 style="color: #be185d">🌸 Quản lý loại sản phẩm</h3>
+            <button
+              class="btn btn-pink"
+              id="addTypeBtn"
+              style="position: relative; top: 40px"
+            >
+              + Thêm sản phẩm
+            </button>
+          </div>
+
+          <!-- 🔍 Thanh tìm kiếm -->
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              gap: 10px;
+            "
+          >
+            <input
+              id="searchProduct"
+              type="text"
+              placeholder="Tìm kiếm sản phẩm ..."
+              style="
+                padding: 6px 10px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+              "
+            />
+            <button
+              onclick="showAllHiddenProducts()"
+              class="btn btn-outline"
+              style="white-space: nowrap"
+            >
+              Hiện tất cả sản phẩm ẩn
+            </button>
+          </div>
+
+          <!-- BẢNG DANH SÁCH SẢN PHẨM -->
+          <table id="typeTable">
+            <thead>
+              <tr>
+                <th>Mã SP</th>
+                <th>Tên</th>
+                <th>Loại</th>
+                <th>Mô tả</th>
+                <th>Giá bán</th>
+                <th>Tồn kho</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <!-- 1. Đang bán -->
+              <tr>
+                <td>SP001</td>
+                <td>Hoa Hồng Đỏ</td>
+                <td>Hoa Tình Yêu</td>
+                <td>Hoa tượng trưng cho tình yêu nồng cháy</td>
+                <td>250,000 ₫</td>
+                <td>120</td>
+                <td>
+                  <span class="status status-active">Đang bán</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-type">Sửa</button>
+                  <button class="btn btn-outline hide-type">Ẩn</button>
+                  <button class="btn btn-outline del-type">Xóa</button>
+                </td>
+              </tr>
+
+              <!-- 2. Tạm ngừng -->
+              <tr>
+                <td>SP002</td>
+                <td>Hoa Tulip Vàng</td>
+                <td>Hoa Ngày Lễ</td>
+                <td>Hoa tulip tượng trưng cho niềm vui và hy vọng</td>
+                <td>220,000 ₫</td>
+                <td>45</td>
+                <td>
+                  <span class="status status-pause">Tạm ngừng</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-type">Sửa</button>
+                  <button class="btn btn-outline hide-type">Ẩn</button>
+                  <button class="btn btn-outline del-type">Xóa</button>
+                </td>
+              </tr>
+
+              <!-- 3. Hết hàng -->
+              <tr>
+                <td>SP003</td>
+                <td>Hoa Cẩm Chướng</td>
+                <td>Hoa Sinh Nhật</td>
+                <td>Biểu tượng cho lòng biết ơn và tình yêu bền chặt</td>
+                <td>190,000 ₫</td>
+                <td>0</td>
+                <td>
+                  <span class="status status-stop">Hết hàng</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-type">Sửa</button>
+                  <button class="btn btn-outline hide-type">Ẩn</button>
+                  <button class="btn btn-outline del-type">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Khối 3: Phiếu nhập -->
+
+        <div
+          id="tab-import"
+          class="card"
+          style="margin-bottom: 20px; display: none"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <h3 style="color: #be185d">🧾 Quản lý phiếu nhập hàng</h3>
+            <button class="btn btn-pink" id="addImportBtn">
+              + Thêm phiếu nhập
+            </button>
+          </div>
+
+          <table id="importTable">
+            <thead>
+              <tr>
+                <th>Mã phiếu</th>
+                <th>Ngày nhập</th>
+                <th>Số SP</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PN001</td>
+                <td>01/11/2025</td>
+                <td>5</td>
+                <td>1.250.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #16a34a">Hoàn thành</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>PN002</td>
+                <td>02/11/2025</td>
+                <td>8</td>
+                <td>2.430.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #f59e0b">Đang xử lý</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>PN003</td>
+                <td>03/11/2025</td>
+                <td>4</td>
+                <td>980.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #dc2626">Đã hủy</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>PN004</td>
+                <td>04/11/2025</td>
+                <td>10</td>
+                <td>3.800.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #16a34a">Hoàn thành</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>PN005</td>
+                <td>05/11/2025</td>
+                <td>6</td>
+                <td>1.550.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #f59e0b">Đang xử lý</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>PN006</td>
+                <td>06/11/2025</td>
+                <td>3</td>
+                <td>765.000 ₫</td>
+                <td>
+                  <span class="status" style="color: #dc2626">Đã hủy</span>
+                </td>
+                <td>
+                  <button class="btn btn-outline edit-import">Xem</button>
+                  <button class="btn btn-outline del-import">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Popup thêm / sửa phiếu nhập -->
+        <div
+          id="importModal"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            class="card"
+            style="
+              width: 550px;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+            "
+          >
+            <h3
+              id="importModalTitle"
+              style="color: #be185d; margin-bottom: 10px"
+            >
+              Thêm phiếu nhập
+            </h3>
+
+            <label>Mã phiếu</label>
+            <input
+              id="pn_ma"
+              type="text"
+              style="width: 100%; margin: 6px 0 8px 0"
+              placeholder="VD: PN002"
+            />
+
+            <label>Ngày nhập</label>
+            <input
+              id="pn_ngay"
+              type="date"
+              style="width: 100%; margin: 6px 0 8px 0"
+            />
+
+            <label>Danh sách sản phẩm</label>
+            <div id="productList" style="margin-top: 6px; margin-bottom: 8px">
+              <div
+                class="product-item"
+                style="display: flex; gap: 6px; margin-bottom: 4px"
+              >
+                <input
+                  type="text"
+                  placeholder="Tên sản phẩm"
+                  class="sp_ten"
+                  style="flex: 2"
+                />
+                <input
+                  type="number"
+                  placeholder="SL"
+                  class="sp_sl"
+                  style="width: 70px"
+                />
+                <input
+                  type="number"
+                  placeholder="Giá nhập"
+                  class="sp_gia"
+                  style="flex: 1"
+                />
+                <button
+                  class="btn btn-outline btn-remove"
+                  style="color: #dc2626"
+                >
+                  ❌
+                </button>
+              </div>
+            </div>
+
+            <button
+              onclick="addProductRow()"
+              class="btn btn-outline"
+              style="margin-bottom: 10px"
+            >
+              + Thêm dòng sản phẩm
+            </button>
+
+            <label>Trạng thái</label>
+            <select id="pn_tt" style="width: 100%; margin-top: 4px">
+              <option>Chưa hoàn thành</option>
+              <option>Hoàn thành</option>
+            </select>
+
+            <div style="text-align: right; margin-top: 14px">
+              <button onclick="closeImportModal()" class="btn btn-outline">
+                Hủy
+              </button>
+              <button id="saveImportBtn" class="btn btn-pink">Lưu</button>
+            </div>
+          </div>
+        </div>
+
+        <!--giá bán-->
+        <div id="tab-price" class="card" style="margin-bottom: 20px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <h3 style="color: #be185d">💰 Quản lý giá bán</h3>
+            <div>
+              <button
+                class="btn btn-pink"
+                id="addProductBtn"
+                onclick="openAddProductModal()"
+                style="margin-right: 8px"
+              >
+                + Thêm sản phẩm
+              </button>
+              <button
+                class="btn btn-pink"
+                id="updateProfitBtn"
+                onclick="openPriceModal()"
+              >
+                Cập nhật lợi nhuận
+              </button>
+            </div>
+          </div>
+
+          <!-- Ô tìm kiếm -->
+          <input
+            type="text"
+            id="searchPrice"
+            placeholder="Tìm theo tên sản phẩm..."
+            style="
+              padding: 6px 10px;
+              margin-bottom: 10px;
+              width: 250px;
+              border: 1px solid #f9a8d4;
+              border-radius: 6px;
+            "
+            oninput="searchPriceTable()"
+          />
+
+          <table id="priceTable">
+            <thead>
+              <tr>
+                <th>Mã SP</th>
+                <th>Tên sản phẩm</th>
+                <th>Loại</th>
+                <th>Giá vốn (VNĐ)</th>
+                <th>% Lợi nhuận</th>
+                <th>Giá bán (VNĐ)</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SP001</td>
+                <td>Hoa Hồng Đỏ</td>
+                <td>Hoa Tình Yêu</td>
+                <td>100,000</td>
+                <td>20%</td>
+                <td>120,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP002</td>
+                <td>Hoa Hướng Dương</td>
+                <td>Hoa Ngày Lễ</td>
+                <td>80,000</td>
+                <td>25%</td>
+                <td>100,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP003</td>
+                <td>Hoa Baby Trắng</td>
+                <td>Hoa Cưới</td>
+                <td>50,000</td>
+                <td>30%</td>
+                <td>65,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP004</td>
+                <td>Hoa Tulip Hồng</td>
+                <td>Hoa Nhập Khẩu</td>
+                <td>150,000</td>
+                <td>35%</td>
+                <td>202,500</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP005</td>
+                <td>Hoa Cẩm Chướng</td>
+                <td>Hoa Sinh Nhật</td>
+                <td>70,000</td>
+                <td>20%</td>
+                <td>84,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP006</td>
+                <td>Hoa Cúc Trắng</td>
+                <td>Hoa Tang Lễ</td>
+                <td>40,000</td>
+                <td>15%</td>
+                <td>46,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+              <tr>
+                <td>SP007</td>
+                <td>Hoa Lan Hồ Điệp</td>
+                <td>Hoa Cao Cấp</td>
+                <td>300,000</td>
+                <td>40%</td>
+                <td>420,000</td>
+                <td><button class="btn btn-outline edit-price">Sửa</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Popup cập nhật lợi nhuận -->
+        <div
+          id="priceModal"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            class="card"
+            style="
+              width: 400px;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+            "
+          >
+            <h3 style="color: #be185d">
+              ⚙️ Cập nhật lợi nhuận theo loại sản phẩm
+            </h3>
+
+            <label>Chọn loại sản phẩm</label>
+            <select id="profitType" style="width: 100%; margin: 6px 0 10px 0">
+              <option value="Hoa Tình Yêu">Hoa Tình Yêu</option>
+              <option value="Hoa Ngày Lễ">Hoa Ngày Lễ</option>
+              <option value="Hoa Giỏ">Hoa Giỏ</option>
+              <option value="Hoa Gấu Bông">Hoa Gấu Bông</option>
+              <option value="Phụ Kiện">Phụ Kiện</option>
+            </select>
+
+            <label>Tỉ lệ % lợi nhuận</label>
+            <input
+              type="number"
+              id="profitRate"
+              placeholder="VD: 20"
+              style="width: 100%; margin-bottom: 12px"
+            />
+
+            <div style="text-align: right">
+              <button class="btn btn-outline" onclick="closePriceModal()">
+                Hủy
+              </button>
+              <button class="btn btn-pink" onclick="saveProfitRate()">
+                Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popup: sửa từng sản phẩm -->
+        <div
+          id="editPriceModal"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            class="card"
+            style="
+              width: 400px;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+            "
+          >
+            <h3 style="color: #be185d">Sửa giá sản phẩm</h3>
+
+            <label>Tên sản phẩm</label>
+            <input
+              id="editName"
+              type="text"
+              disabled
+              style="width: 100%; margin-bottom: 8px"
+            />
+
+            <label>Giá vốn (VNĐ)</label>
+            <input
+              id="editCost"
+              type="number"
+              style="width: 100%; margin-bottom: 8px"
+            />
+
+            <label>% Lợi nhuận</label>
+            <input
+              id="editProfit"
+              type="number"
+              style="width: 100%; margin-bottom: 8px"
+            />
+
+            <div style="text-align: right">
+              <button class="btn btn-outline" onclick="closeEditModal()">
+                Hủy
+              </button>
+              <button class="btn btn-pink" onclick="saveEdit()">Lưu</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal thêm sản phẩm -->
+        <div
+          id="addProductModal"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            class="card"
+            style="
+              width: 400px;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+            "
+          >
+            <h3 style="color: #be185d">Thêm sản phẩm mới</h3>
+
+            <label>Tên sản phẩm</label>
+            <input
+              type="text"
+              id="newName"
+              style="width: 100%; margin-bottom: 10px"
+              placeholder="Nhập tên sản phẩm"
+            />
+
+            <label>Loại sản phẩm</label>
+            <select id="newType" style="width: 100%; margin-bottom: 10px">
+              <option value="Hoa Tình Yêu">Hoa Tình Yêu</option>
+              <option value="Hoa Ngày Lễ">Hoa Ngày Lễ</option>
+              <option value="Hoa Giỏ">Hoa Giỏ</option>
+              <option value="Hoa Gấu Bông">Hoa Gấu Bông</option>
+              <option value="Phụ Kiện">Phụ Kiện</option>
+            </select>
+
+            <label>Giá vốn (VNĐ)</label>
+            <input
+              type="number"
+              id="newCost"
+              style="width: 100%; margin-bottom: 10px"
+              placeholder="Nhập giá vốn"
+            />
+
+            <div style="text-align: right">
+              <button class="btn btn-outline" onclick="closeAddProductModal()">
+                Hủy
+              </button>
+              <button class="btn btn-pink" onclick="saveNewProduct()">
+                Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          id="globalModal"
+          style="
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+          "
+        >
+          <div
+            id="modalContent"
+            style="
+              background: #fff;
+              padding: 20px;
+              border-radius: 16px;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+              max-width: 450px;
+              width: 90%;
+              position: relative;
+            "
+          ></div>
+        </div>
+      </section>
+
+      <!--mục don hàng nhee-->
+      <style>
+        #orders * {
+          transition: none !important;
+          animation: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+        /* Tắt hiệu ứng khi bấm nút Hiện sản phẩm ẩn */
+        #toggleHidden,
+        #toggleHidden:active,
+        #toggleHidden:focus {
+          transition: none !important;
+          transform: none !important;
+          animation: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+      </style>
+
+      <section id="orders" class="hidden">
+        <h2 style="margin-bottom: 16px; color: #be185d">Quản lý đơn hàng</h2>
+
+        <!-- Thanh tìm kiếm -->
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            align-items: center;
+          "
+        >
+          <input
+            id="searchOrder"
+            placeholder="Tìm đơn hàng..."
+            style="
+              width: 220px;
+              height: 32px;
+              padding: 6px 10px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+              font-size: 14px;
+            "
+          />
+          <select
+            id="filterStatus"
+            style="
+              height: 32px;
+              font-size: 14px;
+              padding: 0 12px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+            "
+          >
+            <option value="">Tất cả</option>
+            <option value="đang xử lý">Đang xử lý</option>
+            <option value="hoàn thành">Hoàn thành</option>
+            <option value="đã hủy">Đã hủy</option>
+          </select>
+        </div>
+
+        <!-- Danh sách đơn hàng -->
+        <div id="orderList" style="display: grid; gap: 16px">
+          <!-- Mẫu đơn hàng -->
+          <div
+            class="order-card"
+            style="
+              background: #fff;
+              padding: 16px;
+              border-radius: 12px;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <b>Đơn hàng #001</b><br />
+                <span>Khách hàng: Nguyễn Hoa</span><br />
+                <span>Ngày: 30/10/2025</span><br />
+                <span>Tổng tiền: 550.000 ₫</span><br />
+                <span
+                  >Trạng thái: <b style="color: #f43f5e">Đang xử lý</b></span
+                >
+              </div>
+              <button class="btn btn-pink btn-detail">Chi tiết</button>
+            </div>
+
+            <!-- Chi tiết ẩn -->
+            <div
+              class="order-detail hidden"
+              style="
+                margin-top: 12px;
+                background: #fff0f5;
+                padding: 12px;
+                border-radius: 8px;
+              "
+            >
+              <p>🌷 Bó hoa Cúc trắng x 1</p>
+              <p>🌹 Bó hoa Hồng đỏ x 2</p>
+              <p><b>Tổng cộng: 550.000 ₫</b></p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="order-card"
+          style="
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <b>Đơn hàng #002</b><br />
+              <span>Khách hàng: Trần Minh</span><br />
+              <span>Ngày: 02/11/2025</span><br />
+              <span>Tổng tiền: 720.000 ₫</span><br />
+              <span>Trạng thái: <b style="color: #16a34a">Hoàn thành</b></span>
+            </div>
+            <button class="btn btn-pink btn-detail">Chi tiết</button>
+          </div>
+          <div
+            class="order-detail hidden"
+            style="
+              margin-top: 12px;
+              background: #fff0f5;
+              padding: 12px;
+              border-radius: 8px;
+            "
+          >
+            <p>🌼 Bó hoa Hướng Dương x 1</p>
+            <p>🌹 Bó hoa Hồng pastel x 3</p>
+            <p><b>Tổng cộng: 720.000 ₫</b></p>
+          </div>
+        </div>
+
+        <div
+          class="order-card"
+          style="
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <b>Đơn hàng #003</b><br />
+              <span>Khách hàng: Lê Thảo</span><br />
+              <span>Ngày: 05/11/2025</span><br />
+              <span>Tổng tiền: 460.000 ₫</span><br />
+              <span>Trạng thái: <b style="color: #6b7280">Đã hủy</b></span>
+            </div>
+            <button class="btn btn-pink btn-detail">Chi tiết</button>
+          </div>
+          <div
+            class="order-detail hidden"
+            style="
+              margin-top: 12px;
+              background: #fff0f5;
+              padding: 12px;
+              border-radius: 8px;
+            "
+          >
+            <p>🌺 Bó hoa Lan tím x 1</p>
+            <p>🌻 Bó hoa Baby trắng x 1</p>
+            <p><b>Tổng cộng: 460.000 ₫</b></p>
+          </div>
+        </div>
+
+        <div
+          class="order-card"
+          style="
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <b>Đơn hàng #004</b><br />
+              <span>Khách hàng: Phạm Nam</span><br />
+              <span>Ngày: 06/11/2025</span><br />
+              <span>Tổng tiền: 380.000 ₫</span><br />
+              <span>Trạng thái: <b style="color: #16a34a">Hoàn thành</b></span>
+            </div>
+            <button class="btn btn-pink btn-detail">Chi tiết</button>
+          </div>
+          <div
+            class="order-detail hidden"
+            style="
+              margin-top: 12px;
+              background: #fff0f5;
+              padding: 12px;
+              border-radius: 8px;
+            "
+          >
+            <p>🌸 Bó hoa Tulip hồng x 1</p>
+            <p>🌻 Bó hoa Hướng dương mini x 1</p>
+            <p><b>Tổng cộng: 380.000 ₫</b></p>
+          </div>
+        </div>
+
+        <div
+          class="order-card"
+          style="
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <b>Đơn hàng #005</b><br />
+              <span>Khách hàng: Bùi Hạnh</span><br />
+              <span>Ngày: 07/11/2025</span><br />
+              <span>Tổng tiền: 610.000 ₫</span><br />
+              <span>Trạng thái: <b style="color: #f43f5e">Đang xử lý</b></span>
+            </div>
+            <button class="btn btn-pink btn-detail">Chi tiết</button>
+          </div>
+          <div
+            class="order-detail hidden"
+            style="
+              margin-top: 12px;
+              background: #fff0f5;
+              padding: 12px;
+              border-radius: 8px;
+            "
+          >
+            <p>💐 Bó hoa Lily trắng x 1</p>
+            <p>🌹 Bó hoa Hồng cam x 1</p>
+            <p><b>Tổng cộng: 610.000 ₫</b></p>
+          </div>
+        </div>
+      </section>
+
+      <!--MỤC KHÁCH HÀNG NÈEEEEE-->
+
+      <section id="customers" class="hidden">
+        <h2 style="margin-bottom: 16px; color: #be185d">Quản lý khách hàng</h2>
+
+        <!-- Thanh tìm kiếm & lọc -->
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            align-items: center;
+          "
+        >
+          <input
+            type="text"
+            id="searchCustomer"
+            placeholder="Tìm khách hàng..."
+            style="
+              width: 220px;
+              height: 32px;
+              padding: 6px 10px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+              font-size: 14px;
+            "
+          />
+          <select
+            id="filterCustomer"
+            style="
+              height: 32px;
+              font-size: 14px;
+              padding: 0 12px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+            "
+          >
+            <option value="">Tất cả</option>
+            <option value="VIP">VIP</option>
+            <option value="Thường">Thường</option>
+          </select>
+          <button
+            id="addCustomer"
+            style="
+              background: #f43f5e;
+              color: white;
+              border: none;
+              padding: 6px 12px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            + Thêm khách hàng
+          </button>
+        </div>
+
+        <!-- Bảng khách hàng -->
+        <div style="overflow-x: auto">
+          <style>
+            /* ====== TỔNG THỂ BẢNG ====== */
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              font-family: "Segoe UI", sans-serif;
+              margin-top: 20px;
+              background: #fff;
+              border-radius: 12px;
+              overflow: hidden;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            }
+            th {
+              background: #fce7f3;
+              color: #be185d;
+              text-align: left;
+              padding: 12px;
+              font-weight: 600;
+            }
+            td {
+              padding: 10px 12px;
+              border-top: 1px solid #f3f4f6;
+              text-align: center;
+              vertical-align: middle;
+            }
+
+            /* ====== TIÊU ĐỀ CỘT ====== */
+            th {
+              background: #fce7f3;
+              color: #be185d;
+              font-weight: 600;
+              text-align: center; /* đổi từ left → center cho thẳng cột */
+              padding: 12px;
+            }
+
+            /* ====== Ô DỮ LIỆU ====== */
+            td {
+              padding: 10px 12px;
+              border-top: 1px solid #f3f4f6;
+              text-align: center;
+              vertical-align: middle;
+            }
+
+            /* Hiệu ứng hover */
+            tr:hover {
+              background: #fff1f2;
+            }
+
+            /* ====== CẤU HÌNH CHO BẢNG CHÍNH ====== */
+            #customerList {
+              width: 100%;
+              border-collapse: collapse;
+              table-layout: fixed; /* Giúp các cột cố định độ rộng */
+              margin: 0 auto; /* căn giữa bảng trong khung */
+            }
+
+            #customerList th,
+            #customerList td {
+              padding: 12px 8px;
+              text-align: center;
+              vertical-align: middle;
+            }
+
+            /* Cột hành động – các nút nằm cùng hàng */
+            #customerList td:last-child {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 8px;
+            }
+
+            /* Các nút */
+            #customerList button {
+              min-width: 70px;
+              text-align: center;
+              border: none;
+              border-radius: 6px;
+              padding: 6px 10px;
+              font-size: 13px;
+              cursor: pointer;
+              transition: 0.25s;
+            }
+
+            .unlockBtn {
+              min-width: 80px;
+            }
+
+            /* ====== MÀU NÚT ====== */
+            .detailBtn {
+              background: #3b82f6;
+              color: white;
+            }
+
+            .detailBtn:hover {
+              background: #2563eb;
+            }
+
+            .deleteBtn {
+              background: #ef4444;
+              color: white;
+            }
+
+            .deleteBtn:hover {
+              background: #dc2626;
+            }
+
+            .lockBtn {
+              background: #eab308;
+              color: white;
+            }
+
+            .unlockBtn {
+              background: #22c55e;
+              color: white;
+            }
+
+            /* Hiệu ứng chung */
+            #customerList button:hover {
+              opacity: 0.85;
+              transform: scale(1.05);
+            }
+
+            /* ====== TRẠNG THÁI / HẠNG ====== */
+            .status-active {
+              color: #16a34a;
+              font-weight: 600;
+            }
+
+            .status-locked {
+              color: #dc2626;
+              font-weight: 600;
+            }
+
+            tr.locked {
+              background: #fff1f2 !important;
+              opacity: 0.8;
+            }
+
+            td span.vip {
+              color: #f43f5e;
+              font-weight: 600;
+            }
+
+            td span.normal {
+              color: #3b82f6;
+              font-weight: 600;
+            }
+
+            /* ====== CỘT TÊN + EMAIL CĂN TRÁI ====== */
+            #customerList td:nth-child(2),
+            #customerList td:nth-child(3) {
+              text-align: left;
+            }
+
+            .table-container {
+              width: 100%;
+              display: flex;
+              justify-content: left;
+            }
+          </style>
+
+          <table
+            style="width: 100%; border-collapse: collapse; text-align: left"
+          >
+            <thead>
+              <tr style="background: #ffe4e6">
+                <th style="padding: 8px">Mã KH</th>
+                <th>Tên khách</th>
+                <th>Email</th>
+                <th>SĐT</th>
+                <th>Hạng</th>
+                <th>Tổng chi tiêu</th>
+                <th>Tài khoản</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="customerList">
+              <tr>
+                <td>KH001</td>
+                <td>Nguyễn Hoa</td>
+                <td>hoa.nguyen@gmail.com</td>
+                <td>0987 123 456</td>
+                <td><span style="color: #f43f5e">VIP</span></td>
+                <td>12.500.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH002</td>
+                <td>Minh Châu</td>
+                <td>chau.minh@gmail.com</td>
+                <td>0905 456 789</td>
+                <td><span style="color: #3b82f6">Thường</span></td>
+                <td>3.200.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH003</td>
+                <td>Lê Hằng</td>
+                <td>le.hang@gmail.com</td>
+                <td>0912 678 234</td>
+                <td><span style="color: #3b82f6">Thường</span></td>
+                <td>5.450.000 ₫</td>
+                <td><span style="color: #dc2626">Đã khóa</span></td>
+                <td>
+                  <button class="unlockBtn">Mở khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH004</td>
+                <td>Phạm Nam</td>
+                <td>pham.nam@gmail.com</td>
+                <td>0978 111 222</td>
+                <td><span style="color: #f43f5e">VIP</span></td>
+                <td>18.900.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH005</td>
+                <td>Bùi Hạnh</td>
+                <td>hanh.bui@gmail.com</td>
+                <td>0988 456 123</td>
+                <td><span style="color: #f43f5e">VIP</span></td>
+                <td>22.100.000 ₫</td>
+                <td><span style="color: #dc2626">Đã khóa</span></td>
+                <td>
+                  <button class="unlockBtn">Mở khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH006</td>
+                <td>Võ Minh Tuấn</td>
+                <td>tuan.vo@gmail.com</td>
+                <td>0933 998 877</td>
+                <td><span style="color: #3b82f6">Thường</span></td>
+                <td>2.350.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH007</td>
+                <td>Trần Lan</td>
+                <td>lan.tran@gmail.com</td>
+                <td>0907 222 333</td>
+                <td><span style="color: #f43f5e">VIP</span></td>
+                <td>15.600.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH008</td>
+                <td>Ngô Hải</td>
+                <td>hai.ngo@gmail.com</td>
+                <td>0921 334 556</td>
+                <td><span style="color: #3b82f6">Thường</span></td>
+                <td>4.700.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH009</td>
+                <td>Đỗ Hương</td>
+                <td>huong.do@gmail.com</td>
+                <td>0948 123 987</td>
+                <td><span style="color: #f43f5e">VIP</span></td>
+                <td>19.400.000 ₫</td>
+                <td><span style="color: #dc2626">Đã khóa</span></td>
+                <td>
+                  <button class="unlockBtn">Mở khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>KH010</td>
+                <td>Trịnh Khang</td>
+                <td>khang.trinh@gmail.com</td>
+                <td>0911 555 888</td>
+                <td><span style="color: #3b82f6">Thường</span></td>
+                <td>6.900.000 ₫</td>
+                <td><span style="color: #16a34a">Đang hoạt động</span></td>
+                <td>
+                  <button class="lockBtn">Khóa</button>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- POPUP CHI TIẾT -->
+      <div
+        id="customerModal"
+        class="hidden"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <div
+          style="
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 340px;
+            text-align: left;
+          "
+        >
+          <h3 style="color: #be185d">Chi tiết khách hàng</h3>
+          <p id="modalInfo" style="margin: 12px 0"></p>
+        </div>
+      </div>
+
+      <!-- POPUP THÊM KHÁCH HÀNG -->
+      <div
+        id="addCustomerModal"
+        class="hidden"
+        style="
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+        "
+      >
+        <div
+          style="
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: left;
+          "
+        >
+          <h3 style="color: #be185d">Thêm khách hàng mới</h3>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              margin: 12px 0;
+            "
+          >
+            <input
+              type="text"
+              id="newName"
+              placeholder="Tên khách hàng"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <input
+              type="text"
+              id="newEmail"
+              placeholder="Email"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <input
+              type="text"
+              id="newPhone"
+              placeholder="Số điện thoại"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <select
+              id="newType"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            >
+              <option value="Thường">Thường</option>
+              <option value="VIP">VIP</option>
+            </select>
+          </div>
+
+          <div
+            style="
+              text-align: right;
+              display: flex;
+              gap: 8px;
+              justify-content: flex-end;
+            "
+          >
+            <button
+              id="cancelAdd"
+              style="
+                background: white;
+                color: #f43f5e;
+                border: 1px solid #fda4af;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Hủy
+            </button>
+            <button
+              id="saveCustomer"
+              style="
+                background: #f43f5e;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!--MỤC TỒN KHO ĐÂYYYYY-->
+      <section id="inventory" class="hidden">
+        <h2 style="margin-bottom: 16px; color: #be185d">Quản lý tồn kho</h2>
+
+        <!-- Thanh tìm kiếm & lọc -->
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            align-items: center;
+          "
+        >
+          <input
+            type="text"
+            id="searchFlower"
+            placeholder="Tìm hoa..."
+            style="
+              width: 220px;
+              height: 32px;
+              padding: 6px 10px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+              font-size: 14px;
+            "
+          />
+          <select
+            id="filterType"
+            style="
+              height: 32px;
+              font-size: 14px;
+              padding: 0 12px;
+              border-radius: 8px;
+              border: 1px solid #fda4af;
+            "
+          >
+            <option value="">Tất cả</option>
+            <option value="Hoa tình yêu">Hoa tình yêu</option>
+            <option value="Hoa gấu bông">Hoa gấu bông</option>
+            <option value="Hoa ngày lễ">Hoa ngày lễ</option>
+            <option value="Hoa giỏ">Hoa giỏ</option>
+            <option value="Phụ kiện">Phụ kiện</option>
+          </select>
+          <button
+            id="addFlower"
+            style="
+              background: #f43f5e;
+              color: white;
+              border: none;
+              padding: 6px 12px;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            + Thêm hoa
+          </button>
+        </div>
+
+        <!-- Bảng tồn kho -->
+        <div style="overflow-x: auto">
+          <table
+            style="width: 100%; border-collapse: collapse; text-align: left"
+          >
+            <thead>
+              <tr style="background: #ffe4e6">
+                <th style="padding: 8px">Mã hoa</th>
+                <th>Tên hoa</th>
+                <th>Loại</th>
+                <th>Giá (₫)</th>
+                <th>Số lượng</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="flowerList">
+              <tr>
+                <td>HH001</td>
+                <td>Hoa Hồng Đỏ</td>
+                <td>Hoa tình yêu</td>
+                <td>25.000</td>
+                <td>120</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH002</td>
+                <td>Hoa Lan Trắng</td>
+                <td>Hoa ngày lễ</td>
+                <td>40.000</td>
+                <td>0</td>
+                <td><span style="color: #dc2626">Hết hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH003</td>
+                <td>Hoa Cúc Vàng</td>
+                <td>Hoa ngày lễ</td>
+                <td>18.000</td>
+                <td>75</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH004</td>
+                <td>Hoa Baby Trắng</td>
+                <td>Hoa tình yêu</td>
+                <td>22.000</td>
+                <td>30</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH005</td>
+                <td>Giỏ Hoa Hồng Tặng Sinh Nhật</td>
+                <td>Hoa giỏ</td>
+                <td>180.000</td>
+                <td>5</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH006</td>
+                <td>Hoa Gấu Bông Hồng</td>
+                <td>Hoa gấu bông</td>
+                <td>95.000</td>
+                <td>0</td>
+                <td><span style="color: #dc2626">Hết hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH007</td>
+                <td>Giỏ Hoa Cúc Trắng</td>
+                <td>Hoa giỏ</td>
+                <td>160.000</td>
+                <td>18</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH008</td>
+                <td>Hoa Ly Hồng</td>
+                <td>Hoa ngày lễ</td>
+                <td>35.000</td>
+                <td>0</td>
+                <td><span style="color: #dc2626">Hết hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH009</td>
+                <td>Hoa Hướng Dương</td>
+                <td>Hoa ngày lễ</td>
+                <td>28.000</td>
+                <td>64</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH010</td>
+                <td>Gấu Bông Ôm Tim</td>
+                <td>Hoa gấu bông</td>
+                <td>110.000</td>
+                <td>12</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH011</td>
+                <td>Bó Hoa Mix Baby Hồng</td>
+                <td>Hoa tình yêu</td>
+                <td>150.000</td>
+                <td>0</td>
+                <td><span style="color: #dc2626">Hết hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH012</td>
+                <td>Phụ Kiện Giấy Gói Hoa</td>
+                <td>Phụ kiện</td>
+                <td>10.000</td>
+                <td>500</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+              <tr>
+                <td>HH013</td>
+                <td>Ruy Băng Trang Trí</td>
+                <td>Phụ kiện</td>
+                <td>8.000</td>
+                <td>250</td>
+                <td><span style="color: #16a34a">Còn hàng</span></td>
+                <td>
+                  <button class="detailBtn">Chi tiết</button>
+                  <button class="deleteBtn">Xóa</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Popup xem chi tiết hoa -->
+      <div
+        id="flowerModal"
+        class="modal"
+        style="
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+        "
+      >
+        <div
+          style="
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 320px;
+            text-align: left;
+            position: relative;
+          "
+        >
+          <h3 style="margin-bottom: 10px">Chi tiết hoa</h3>
+          <div id="flowerInfo"></div>
+
+          <div style="margin-top: 15px; text-align: right">
+            <button
+              id="updateFlower"
+              style="
+                border: 1px solid #22c55e;
+                border-radius: 6px;
+                padding: 5px 10px;
+                background: white;
+                cursor: pointer;
+                margin-right: 5px;
+              "
+            >
+              Cập nhật
+            </button>
+            <button
+              id="closeFlowerModal"
+              style="
+                border: 1px solid #f87171;
+                border-radius: 6px;
+                padding: 5px 10px;
+                background: white;
+                cursor: pointer;
+              "
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POPUP THÊM HOA -->
+      <div
+        id="addFlowerModal"
+        class="hidden"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+        "
+      >
+        <div
+          style="
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: left;
+          "
+        >
+          <h3 style="color: #be185d">Thêm hoa mới</h3>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              margin: 12px 0;
+            "
+          >
+            <input
+              id="newFlowerName"
+              placeholder="Tên hoa"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <select
+              id="newFlowerType"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            >
+              <option value="Tất cả">Tất cả</option>
+              <option value="Hoa tình yêu">Hoa tình yêu</option>
+              <option value="Hoa gấu bông">Hoa gấu bông</option>
+              <option value="Hoa ngày lễ">Hoa ngày lễ</option>
+              <option value="Hoa giỏ">Hoa Giỏ</option>
+              <opition value="'Phụ kiện">Phụ kiện</opition>
+            </select>
+            <input
+              id="newFlowerPrice"
+              placeholder="Giá (₫)"
+              type="number"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <input
+              id="newFlowerQty"
+              placeholder="Số lượng"
+              type="number"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+          </div>
+
+          <div
+            style="
+              text-align: right;
+              display: flex;
+              gap: 8px;
+              justify-content: flex-end;
+            "
+          >
+            <button
+              id="cancelAddFlower"
+              style="
+                background: white;
+                color: #f43f5e;
+                border: 1px solid #fda4af;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Hủy
+            </button>
+            <button
+              id="saveFlower"
+              style="
+                background: #f43f5e;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!--popup cap nhap-->
+      <div
+        id="addFlowerModal"
+        class="hidden"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          justify-content: center;
+          align-items: center;
+          z-index: 999;
+        "
+      >
+        <div
+          style="
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: left;
+          "
+        >
+          <h3 id="addFlowerTitle" style="color: #be185d">Thêm hoa mới</h3>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              margin: 12px 0;
+            "
+          >
+            <input
+              id="newFlowerName"
+              placeholder="Tên hoa"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <select
+              id="newFlowerType"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            >
+              <option value="Tất cả">Tất cả</option>
+              <option value="Hoa tình yêu">Hoa tình yêu</option>
+              <option value="Hoa gấu bông">Hoa gấu bông</option>
+              <option value="Hoa ngày lễ">Hoa ngày lễ</option>
+              <option value="Hoa giỏ">Hoa giỏ</option>
+              <option value="Phụ kiện">Phụ kiện</option>
+            </select>
+            <input
+              id="newFlowerPrice"
+              placeholder="Giá (₫)"
+              type="number"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+            <input
+              id="newFlowerQty"
+              placeholder="Số lượng"
+              type="number"
+              style="
+                padding: 6px 8px;
+                border: 1px solid #fda4af;
+                border-radius: 8px;
+              "
+            />
+          </div>
+
+          <div
+            style="
+              text-align: right;
+              display: flex;
+              gap: 8px;
+              justify-content: flex-end;
+            "
+          >
+            <button
+              id="cancelAddFlower"
+              style="
+                background: white;
+                color: #f43f5e;
+                border: 1px solid #fda4af;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Hủy
+            </button>
+            <button
+              id="saveFlower"
+              style="
+                background: #f43f5e;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+              "
+            >
+              Lưu
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function showPage(pageId) {
+        document
+          .querySelectorAll("section")
+          .forEach((sec) => sec.classList.add("hidden"));
+        document.getElementById(pageId).classList.remove("hidden");
+        document
+          .querySelectorAll(".menu-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        // event may be undefined if called programmatically, guard it:
+        if (window.event && window.event.target)
+          window.event.target.classList.add("active");
+      }
+    </script>
+    <!--dashboard-->
+    <script>
+      // Get the canvas context (important: use getContext('2d'))
+      const canvas = document.getElementById("revenueChart");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
+            datasets: [
+              {
+                label: "Doanh thu (triệu ₫)",
+                data: [3.2, 2.8, 3.5, 3.1, 3.8, 4.2],
+                borderColor: "#ec4899",
+                backgroundColor: "rgba(244,114,182,0.2)",
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: "#fde2e4" }, beginAtZero: true },
+            },
+          },
+        });
+      } else {
+        console.warn("Canvas #revenueChart not found — biểu đồ không thể vẽ.");
+      }
+    </script>
+
+    <!--don hang-->
+    <script>
+      // Ẩn/hiện chi tiết + hiển thị ô cập nhật trạng thái
+      document.querySelectorAll(".btn-detail").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const card = this.closest(".order-card");
+          const detail = card.querySelector(".order-detail");
+          const statusText = card.querySelector("b[style*='color']");
+
+          detail.classList.toggle("hidden");
+
+          // Nếu chưa có ô chọn trạng thái thì thêm vào
+          if (!detail.querySelector(".update-status")) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "update-status";
+            wrapper.style =
+              "margin-top: 8px; display: flex; align-items: center; gap: 8px;";
+
+            const label = document.createElement("span");
+            label.textContent = "Cập nhật trạng thái:";
+
+            const select = document.createElement("select");
+            select.style =
+              "border:1px solid #fda4af;padding:4px 8px;border-radius:6px;";
+            select.innerHTML = `
+          <option value="đang xử lý">Đang xử lý</option>
+          <option value="hoàn thành">Hoàn thành</option>
+          <option value="đã hủy">Đã hủy</option>
+        `;
+
+            // Gán trạng thái hiện tại vào select
+            select.value = statusText.textContent.trim().toLowerCase();
+
+            // Khi người dùng đổi trạng thái → cập nhật hiển thị ngoài
+            select.addEventListener("change", () => {
+              const val = select.value;
+              statusText.textContent =
+                val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+
+              // Cập nhật màu chữ cho hợp trạng thái
+              if (val === "đang xử lý") statusText.style.color = "#f43f5e";
+              else if (val === "hoàn thành") statusText.style.color = "#16a34a";
+              else statusText.style.color = "#6b7280";
+            });
+
+            wrapper.append(label, select);
+            detail.append(wrapper);
+          }
+        });
+      });
+
+      // Tìm kiếm & lọc đơn hàng
+      const searchInput = document.getElementById("searchOrder");
+      const filterSelect = document.getElementById("filterStatus");
+      const orders = document.querySelectorAll(".order-card");
+
+      function filterOrders() {
+        const keyword = searchInput.value.toLowerCase();
+        const status = filterSelect.value;
+        orders.forEach((order) => {
+          const text = order.textContent.toLowerCase();
+          const matchKeyword = text.includes(keyword);
+          const matchStatus = !status || text.includes(status.toLowerCase());
+          order.style.display = matchKeyword && matchStatus ? "" : "none";
+        });
+      }
+
+      searchInput.addEventListener("input", filterOrders);
+      filterSelect.addEventListener("change", filterOrders);
+    </script>
+    >
+    <!--khach hang-->
+
+    <script>
+      const searchCustomer = document.getElementById("searchCustomer");
+      const filterCustomer = document.getElementById("filterCustomer");
+      const customerList = document.getElementById("customerList");
+      const modal = document.getElementById("customerModal");
+      const modalInfo = document.getElementById("modalInfo");
+
+      // --- Hàm bỏ dấu tiếng Việt ---
+      function removeVietnameseTones(str) {
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+      }
+
+      // --- Tìm kiếm ---
+      searchCustomer.addEventListener("input", () => {
+        const keyword = removeVietnameseTones(
+          searchCustomer.value.toLowerCase()
+        );
+        [...customerList.rows].forEach((row) => {
+          const name = removeVietnameseTones(
+            row.cells[1].textContent.toLowerCase()
+          );
+          row.style.display = name.includes(keyword) ? "" : "none";
+        });
+      });
+
+      // --- Lọc theo hạng ---
+      filterCustomer.addEventListener("change", () => {
+        const filter = filterCustomer.value.toLowerCase();
+        [...customerList.rows].forEach((row) => {
+          const rank = row.cells[4].textContent.toLowerCase();
+          row.style.display = !filter || rank.includes(filter) ? "" : "none";
+        });
+      });
+
+      // --- Xử lý hành động trên bảng ---
+      customerList.addEventListener("click", (e) => {
+        const btn = e.target;
+        const row = btn.closest("tr");
+
+        // Xem chi tiết
+        if (btn.classList.contains("detailBtn")) {
+          const name = row.cells[1].textContent;
+          modalInfo.innerHTML = `
+      <b>Tên:</b> ${name}<br>
+      <b>Email:</b> ${row.cells[2].textContent}<br>
+      <b>SĐT:</b> ${row.cells[3].textContent}<br>
+      <b>Hạng:</b> ${row.cells[4].textContent}<br>
+      <b>Tổng chi tiêu:</b> ${row.cells[5].textContent}<br><br>
+      <div style="text-align:right;">
+        <button id="closeDetail" style="background:#f43f5e;color:white;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">Đóng</button>
+      </div>`;
+          modal.style.display = "flex";
+          document.getElementById("closeDetail").onclick = () =>
+            (modal.style.display = "none");
+        }
+
+        // Khóa / Mở khóa
+        if (
+          btn.classList.contains("lockBtn") ||
+          btn.classList.contains("unlockBtn")
+        ) {
+          const statusCell = row.cells[6];
+          const isLocked = btn.classList.contains("unlockBtn");
+
+          if (isLocked) {
+            // Mở khóa
+            statusCell.innerHTML =
+              '<span style="color:#16a34a;">Đang hoạt động</span>';
+            btn.textContent = "Khóa";
+            btn.classList.remove("unlockBtn");
+            btn.classList.add("lockBtn");
+          } else {
+            // Khóa
+            statusCell.innerHTML =
+              '<span style="color:#dc2626;">Đã khóa</span>';
+            btn.textContent = "Mở khóa";
+            btn.classList.remove("lockBtn");
+            btn.classList.add("unlockBtn");
+          }
+        }
+
+        // Xóa khách hàng
+        if (btn.classList.contains("deleteBtn")) {
+          if (confirm("Bạn có chắc muốn xóa khách hàng này không?")) {
+            row.remove();
+          }
+        }
+      });
+
+      // --- Popup thêm khách hàng ---
+      const addCustomerBtn = document.getElementById("addCustomer");
+      const addCustomerModal = document.getElementById("addCustomerModal");
+      const cancelAdd = document.getElementById("cancelAdd");
+      const saveCustomer = document.getElementById("saveCustomer");
+
+      addCustomerBtn.onclick = () => (addCustomerModal.style.display = "flex");
+      cancelAdd.onclick = () => (addCustomerModal.style.display = "none");
+
+      // --- Lưu khách hàng mới ---
+      saveCustomer.onclick = () => {
+        const name = document.getElementById("newName").value.trim();
+        const email = document.getElementById("newEmail").value.trim();
+        const phone = document.getElementById("newPhone").value.trim();
+        const type = document.getElementById("newType").value;
+
+        if (!name || !phone) {
+          alert("Vui lòng nhập ít nhất tên và số điện thoại!");
+          return;
+        }
+
+        const id = "KH" + String(customerList.rows.length + 1).padStart(3, "0");
+        const color = type === "VIP" ? "#f43f5e" : "#3b82f6";
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+    <td>${id}</td>
+    <td>${name}</td>
+    <td>${email || "-"}</td>
+    <td>${phone}</td>
+    <td><span style="color:${color}">${type}</span></td>
+    <td>0 ₫</td>
+    <td><span style="color:#16a34a;">Đang hoạt động</span></td>
+    <td>
+      <button class="lockBtn">Khóa</button>
+      <button class="detailBtn">Chi tiết</button>
+      <button class="deleteBtn">Xóa</button>
+    </td>`;
+        customerList.appendChild(row);
+        addCustomerModal.style.display = "none";
+      };
+    </script>
+
+    <!--ton kho-->
+    <script>
+      const flowerList = document.getElementById("flowerList");
+      const flowerModal = document.getElementById("flowerModal");
+      const flowerInfo = document.getElementById("flowerInfo");
+      const closeFlowerModal = document.getElementById("closeFlowerModal");
+      const updateFlower = document.getElementById("updateFlower");
+
+      const addFlowerBtn = document.getElementById("addFlower");
+      const addFlowerModal = document.getElementById("addFlowerModal");
+      const cancelAddFlower = document.getElementById("cancelAddFlower");
+      const saveFlower = document.getElementById("saveFlower");
+      const addFlowerTitle = document.getElementById("addFlowerTitle");
+
+      const searchFlower = document.getElementById("searchFlower");
+      const filterType = document.getElementById("filterType");
+
+      let editingRow = null;
+      // tìm kiếm và lọc=))
+      function removeVietnameseTones(str) {
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D");
+      }
+
+      function filterFlowers() {
+        const keyword = removeVietnameseTones(searchFlower.value.toLowerCase());
+        const typeFilter = removeVietnameseTones(
+          filterType.value.toLowerCase()
+        );
+
+        [...flowerList.rows].forEach((row) => {
+          const name = removeVietnameseTones(
+            row.cells[1].textContent.toLowerCase()
+          );
+          const type = removeVietnameseTones(
+            row.cells[2].textContent.toLowerCase()
+          );
+
+          const matchKeyword = name.includes(keyword);
+          const matchType = !typeFilter || type.includes(typeFilter);
+
+          row.style.display = matchKeyword && matchType ? "" : "none";
+        });
+      }
+
+      if (searchFlower && filterType && flowerList) {
+        searchFlower.addEventListener("input", filterFlowers);
+        filterType.addEventListener("change", filterFlowers);
+      }
+      // Chi tiết and Xóa
+      flowerList.addEventListener("click", (e) => {
+        if (e.target.classList.contains("detailBtn")) {
+          const row = e.target.closest("tr");
+          editingRow = row;
+          flowerInfo.innerHTML = `
+        <b>Mã:</b> ${row.cells[0].textContent}<br>
+        <b>Tên hoa:</b> ${row.cells[1].textContent}<br>
+        <b>Loại:</b> ${row.cells[2].textContent}<br>
+        <b>Giá:</b> ${row.cells[3].textContent} ₫<br>
+        <b>Số lượng:</b> ${row.cells[4].textContent}<br>
+        <b>Trạng thái:</b> ${row.cells[5].textContent}
+      `;
+          flowerModal.style.display = "flex";
+        }
+
+        if (e.target.classList.contains("deleteBtn")) {
+          if (confirm("Bạn có chắc muốn xóa hoa này không?")) {
+            e.target.closest("tr").remove();
+          }
+        }
+      });
+
+      // Đóng popup chi tiết
+      closeFlowerModal.addEventListener("click", () => {
+        flowerModal.style.display = "none";
+      });
+
+      // Thêm hoa
+      addFlowerBtn.addEventListener("click", () => {
+        editingRow = null;
+        addFlowerTitle.textContent = "Thêm hoa mới";
+        addFlowerModal.style.display = "flex";
+      });
+
+      cancelAddFlower.addEventListener("click", () => {
+        addFlowerModal.style.display = "none";
+      });
+
+      // Cập nhật từ popup chi tiết
+      updateFlower.addEventListener("click", () => {
+        flowerModal.style.display = "none";
+        addFlowerTitle.textContent = "Cập nhật hoa";
+        addFlowerModal.style.display = "flex";
+
+        document.getElementById("newFlowerName").value =
+          editingRow.cells[1].textContent;
+        document.getElementById("newFlowerType").value =
+          editingRow.cells[2].textContent;
+        document.getElementById("newFlowerPrice").value =
+          editingRow.cells[3].textContent.replace(/[^\d]/g, "");
+        document.getElementById("newFlowerQty").value =
+          editingRow.cells[4].textContent;
+      });
+
+      // Lưu hoa
+      saveFlower.addEventListener("click", () => {
+        const name = document.getElementById("newFlowerName").value.trim();
+        const type = document.getElementById("newFlowerType").value;
+        const price = document.getElementById("newFlowerPrice").value;
+        const qty = document.getElementById("newFlowerQty").value;
+
+        if (!name || !price || qty === "") {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        const status =
+          qty > 0
+            ? '<span style="color:#16a34a;">Còn hàng</span>'
+            : '<span style="color:#dc2626;">Hết hàng</span>';
+
+        if (editingRow) {
+          editingRow.cells[1].textContent = name;
+          editingRow.cells[2].textContent = type;
+          editingRow.cells[3].textContent = Number(price).toLocaleString();
+          editingRow.cells[4].textContent = qty;
+          editingRow.cells[5].innerHTML = status;
+        } else {
+          const id = "HH" + String(flowerList.rows.length + 1).padStart(3, "0");
+          const row = document.createElement("tr");
+          row.innerHTML = `
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>${type}</td>
+        <td>${Number(price).toLocaleString()}</td>
+        <td>${qty}</td>
+        <td>${status}</td>
+        <td>
+          <button class="detailBtn" style="border:1px solid #fda4af;border-radius:6px;padding:2px 6px;background:white;cursor:pointer;">Chi tiết</button>
+          <button class="deleteBtn" style="border:1px solid #fda4af;border-radius:6px;padding:2px 6px;background:white;cursor:pointer;">Xóa</button>
+        </td>
+      `;
+          flowerList.appendChild(row);
+        }
+
+        addFlowerModal.style.display = "none";
+      });
+
+      // Click ngoài popup để đóng (fix bị "đơ" overlay)
+      window.addEventListener("click", (e) => {
+        if (e.target === flowerModal) flowerModal.style.display = "none";
+        if (e.target === addFlowerModal) addFlowerModal.style.display = "none";
+      });
+    </script>
+
+    <!-- Nút đăng xuất-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      .logout-section {
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+      }
+
+      .logout-btn {
+        width: 90%;
+        background: linear-gradient(135deg, #fbcfe8, #f472b6);
+        border: none;
+        color: white;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 10px 0;
+        border-radius: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 10px rgba(249, 168, 212, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .logout-btn:hover {
+        background: linear-gradient(135deg, #f9a8d4, #ec4899);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(236, 72, 153, 0.4);
+      }
+
+      .logout-btn i {
+        transition: transform 0.3s ease;
+      }
+
+      .logout-btn:hover i {
+        transform: rotate(-20deg);
+      }
+    </style>
+    <!--danh mục-->
+
+    <script>
+      const addCatBtn = document.getElementById("addCatBtn");
+      const catModal = document.getElementById("catModal");
+      const saveCatBtn = document.getElementById("saveCatBtn");
+      const catTableBody = document.querySelector("#catTable tbody");
+
+      function closeCatModal() {
+        catModal.style.display = "none";
+      }
+
+      // Mở popup thêm
+      addCatBtn.addEventListener("click", () => {
+        editingRow = null;
+        document.getElementById("catModalTitle").textContent = "Thêm danh mục";
+        document.getElementById("dm_ma").value = "";
+        document.getElementById("dm_ten").value = "";
+        document.getElementById("dm_sl").value = "";
+        document.getElementById("dm_tt").value = "Hoạt động";
+        catModal.style.display = "flex";
+      });
+
+      // Lưu danh mục (thêm hoặc sửa)
+      saveCatBtn.addEventListener("click", () => {
+        const ma = document.getElementById("dm_ma").value.trim();
+        const ten = document.getElementById("dm_ten").value.trim();
+        const sl = document.getElementById("dm_sl").value.trim() || 0;
+        const tt = document.getElementById("dm_tt").value;
+
+        if (!ma || !ten) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        if (editingRow) {
+          // Cập nhật hàng đang sửa
+          editingRow.children[0].textContent = ma;
+          editingRow.children[1].textContent = ten;
+          editingRow.children[2].textContent = sl;
+          editingRow.children[3].textContent = tt;
+          editingRow.children[3].style.color =
+            tt === "Hoạt động" ? "#16a34a" : "#dc2626";
+        } else {
+          // Tạo hàng mới
+          const row = document.createElement("tr");
+          row.innerHTML = `
+        <td>${ma}</td>
+        <td>${ten}</td>
+        <td>${sl}</td>
+        <td style="color:${
+          tt === "Hoạt động" ? "#16a34a" : "#dc2626"
+        }">${tt}</td>
+        <td>
+          <button class="btn btn-outline edit-cat">Sửa</button>
+          <button class="btn btn-outline hide-cat">Ẩn</button>
+          <button class="btn btn-outline del-cat">Xóa</button>
+        </td>
+      `;
+          catTableBody.appendChild(row);
+        }
+
+        closeCatModal();
+      });
+
+      // Sửa / Xóa / Ẩn
+      catTableBody.addEventListener("click", (e) => {
+        const btn = e.target;
+        const row = btn.closest("tr");
+        if (!row) return;
+
+        // Xóa
+        if (btn.classList.contains("del-cat")) {
+          if (confirm("Bạn có chắc muốn xóa danh mục này?")) row.remove();
+        }
+
+        // Sửa
+        if (btn.classList.contains("edit-cat")) {
+          editingRow = row;
+          document.getElementById("catModalTitle").textContent = "Sửa danh mục";
+          document.getElementById("dm_ma").value = row.children[0].textContent;
+          document.getElementById("dm_ten").value = row.children[1].textContent;
+          document.getElementById("dm_sl").value = row.children[2].textContent;
+          document.getElementById("dm_tt").value = row.children[3].textContent;
+          catModal.style.display = "flex";
+        }
+
+        // Ẩn / Hiện
+        if (btn.classList.contains("hide-cat")) {
+          if (row.style.opacity === "0.5") {
+            row.style.opacity = "1";
+            btn.textContent = "Ẩn";
+          } else {
+            row.style.opacity = "0.5";
+            btn.textContent = "Hiện";
+          }
+        }
+      });
+    </script>
+
+    <script>
+      /* ==== POPUP MODAL CHUNG ==== */
+      function openModal(content) {
+        const overlay = document.createElement("div");
+        overlay.classList.add("modal-overlay");
+        overlay.innerHTML = `
+    <div class="modal" style="
+        background:#fff;
+        padding:20px;
+        border-radius:16px;
+        box-shadow:0 4px 20px rgba(0,0,0,0.15);
+        max-width:450px;
+        width:90%;
+        position:relative;
+        animation:fadeIn 0.2s ease;">
+      ${content}
+    </div>
+  `;
+        document.body.appendChild(overlay);
+      }
+
+      function closeModal() {
+        document.querySelector(".modal-overlay")?.remove();
+      }
+
+      /* Hiệu ứng modal */
+      const style = document.createElement("style");
+      style.textContent = `
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;} to {opacity: 1;}
+  }
+`;
+      document.head.appendChild(style);
+    </script>
+
+    <!--sanpam-->
+    <script>
+      // === Modal chung ===
+      function openModal(html) {
+        const modal = document.getElementById("globalModal");
+        const content = document.getElementById("modalContent");
+        content.innerHTML = html;
+        modal.style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("globalModal").style.display = "none";
+      }
+
+      // Đóng modal khi click ra ngoài
+      document.getElementById("globalModal").addEventListener("click", (e) => {
+        if (e.target.id === "globalModal") closeModal();
+      });
+
+      // === Trạng thái ===
+      function getStatusClass(trangthai) {
+        switch (trangthai) {
+          case "Đang bán":
+            return "status-active";
+          case "Tạm ngừng":
+            return "status-pause";
+          case "Hết hàng":
+            return "status-stop";
+          default:
+            return "";
+        }
+      }
+
+      // === Ẩn các sản phẩm đã ẩn ===
+      const hiddenProducts = [];
+
+      // === Thêm sản phẩm mới ===
+      document.getElementById("addTypeBtn").addEventListener("click", () => {
+        openModal(`
+    <h3>Thêm sản phẩm mới</h3>
+    <div style="margin-top:10px">
+      <label>Loại sản phẩm</label>
+      <select id="sp_loai" style="width:100%;margin-top:6px">
+        <option>Hoa tình yêu</option>
+        <option>Hoa ngày lễ</option>
+        <option>Hoa gấu bông</option>
+        <option>Hoa giỏ</option>
+        <option>Phụ kiện</option>
+      </select>
+
+      <label style="margin-top:8px;display:block;">Mã sản phẩm</label>
+      <input id="sp_ma" type="text" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;display:block;">Tên sản phẩm</label>
+      <input id="sp_ten" type="text" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;display:block;">Mô tả</label>
+      <textarea id="sp_mota" rows="3" style="width:100%;margin-top:4px"></textarea>
+
+      <label style="margin-top:8px;display:block;">Giá bán (₫)</label>
+      <input id="sp_gia" type="number" style="width:100%;margin-top:4px" placeholder="VD: 150000" />
+
+      <label style="margin-top:8px;display:block;">Tồn kho</label>
+      <input id="sp_tonkho" type="number" style="width:100%;margin-top:4px" placeholder="VD: 25" />
+
+      <label style="margin-top:8px;display:block;">Trạng thái</label>
+      <select id="sp_trangthai" style="width:100%;margin-top:4px">
+        <option>Đang bán</option>
+        <option>Tạm ngừng</option>
+        <option>Hết hàng</option>
+      </select>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <button onclick="closeModal()" class="btn btn-outline">Hủy</button>
+      <button onclick="saveProduct()" class="btn btn-pink">Lưu</button>
+    </div>
+  `);
+      });
+
+      // === Lưu sản phẩm ===
+      function saveProduct() {
+        const ma = document.getElementById("sp_ma").value.trim();
+        const ten = document.getElementById("sp_ten").value.trim();
+        const loai = document.getElementById("sp_loai").value.trim();
+        const mota = document.getElementById("sp_mota").value.trim();
+        const gia = parseInt(document.getElementById("sp_gia").value || 0);
+        const tonkho = parseInt(
+          document.getElementById("sp_tonkho").value || 0
+        );
+        const trangthai = document.getElementById("sp_trangthai").value;
+
+        if (!ma || !ten) return alert("Vui lòng nhập mã và tên sản phẩm!");
+
+        const tbody = document.querySelector("#typeTable tbody");
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+    <td>${ma}</td>
+    <td>${ten}</td>
+    <td>${loai}</td>
+    <td>${mota || "-"}</td>
+    <td>${gia.toLocaleString()} ₫</td>
+    <td>${tonkho}</td>
+    <td><span class="status ${getStatusClass(
+      trangthai
+    )}">${trangthai}</span></td>
+    <td>
+      <button class="btn btn-outline edit-type">Sửa</button>
+      <button class="btn btn-outline hide-type">Ẩn</button>
+      <button class="btn btn-outline del-type">Xóa</button>
+    </td>
+  `;
+        tbody.appendChild(tr);
+        attachProductRowEvents(tr);
+        closeModal();
+      }
+
+      // === Gắn sự kiện cho hàng ===
+      // === Gắn sự kiện cho hàng ===
+      function attachProductRowEvents(tr) {
+        const editBtn = tr.querySelector(".edit-type");
+        const delBtn = tr.querySelector(".del-type");
+        const hideBtn = tr.querySelector(".hide-type");
+        const showBtn = tr.querySelector(".show-type");
+
+        if (editBtn) editBtn.onclick = () => editProduct(tr);
+        if (delBtn) delBtn.onclick = () => deleteProduct(tr);
+        if (hideBtn) hideBtn.onclick = () => toggleHideProduct(tr);
+
+        //  Thêm xử lý cho nút "Hiện"
+        if (showBtn) {
+          showBtn.onclick = (e) => {
+            tr.style.display = "";
+            // đổi lại nút "Hiện" thành "Ẩn"
+            e.target.textContent = "Ẩn";
+            e.target.classList.remove("show-type");
+            e.target.classList.add("hide-type");
+            attachProductRowEvents(tr); // gắn lại sự kiện đầy đủ
+            alert("Sản phẩm đã được hiển thị lại!");
+          };
+        }
+      }
+
+      // === Sửa sản phẩm ===
+      function editProduct(tr) {
+        const ma = tr.children[0].textContent;
+        const ten = tr.children[1].textContent;
+        const loai = tr.children[2].textContent;
+        const mota = tr.children[3].textContent;
+        const gia = tr.children[4].textContent.replace(/[₫,]/g, "").trim();
+        const tonkho = tr.children[5].textContent;
+        const trangthai = tr.children[6].textContent.trim();
+
+        openModal(`
+    <h3>Sửa sản phẩm</h3>
+    <div style="margin-top:10px">
+      <label>Mã sản phẩm</label>
+      <input id="sp_ma_edit" type="text" value="${ma}" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;">Tên sản phẩm</label>
+      <input id="sp_ten_edit" type="text" value="${ten}" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;">Loại</label>
+      <input id="sp_loai_edit" type="text" value="${loai}" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;">Mô tả</label>
+      <textarea id="sp_mota_edit" rows="3" style="width:100%;margin-top:4px">${mota}</textarea>
+
+      <label style="margin-top:8px;">Giá bán (₫)</label>
+      <input id="sp_gia_edit" type="number" value="${gia}" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;">Tồn kho</label>
+      <input id="sp_tonkho_edit" type="number" value="${tonkho}" style="width:100%;margin-top:4px" />
+
+      <label style="margin-top:8px;">Trạng thái</label>
+      <select id="sp_trangthai_edit" style="width:100%;margin-top:4px">
+        <option ${trangthai === "Đang bán" ? "selected" : ""}>Đang bán</option>
+        <option ${
+          trangthai === "Tạm ngừng" ? "selected" : ""
+        }>Tạm ngừng</option>
+        <option ${trangthai === "Hết hàng" ? "selected" : ""}>Hết hàng</option>
+      </select>
+    </div>
+
+    <div style="margin-top:12px;text-align:right">
+      <button onclick="closeModal()" class="btn btn-outline">Hủy</button>
+      <button onclick="saveProductEdit('${ma}')" class="btn btn-pink">Lưu</button>
+    </div>
+  `);
+      }
+
+      // === Lưu sau khi sửa ===
+      function saveProductEdit(oldMa) {
+        const rows = document.querySelectorAll("#typeTable tbody tr");
+        rows.forEach((row) => {
+          if (row.children[0].textContent === oldMa) {
+            row.children[0].textContent =
+              document.getElementById("sp_ma_edit").value;
+            row.children[1].textContent =
+              document.getElementById("sp_ten_edit").value;
+            row.children[2].textContent =
+              document.getElementById("sp_loai_edit").value;
+            row.children[3].textContent =
+              document.getElementById("sp_mota_edit").value;
+            row.children[4].textContent =
+              parseInt(
+                document.getElementById("sp_gia_edit").value || 0
+              ).toLocaleString() + " ₫";
+            row.children[5].textContent =
+              document.getElementById("sp_tonkho_edit").value;
+            const newTrangThai =
+              document.getElementById("sp_trangthai_edit").value;
+            const statusEl = row.children[6].querySelector(".status");
+            statusEl.textContent = newTrangThai;
+            statusEl.className = "status " + getStatusClass(newTrangThai);
+          }
+        });
+        closeModal();
+      }
+
+      // === Xóa sản phẩm ===
+      function deleteProduct(tr) {
+        if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) tr.remove();
+      }
+
+      // === Ẩn / Hiện sản phẩm ===
+      function toggleHideProduct(tr) {
+        const btn = tr.querySelector(".hide-type");
+        if (btn.textContent === "Ẩn") {
+          tr.style.display = "none";
+          btn.textContent = "Hiện";
+          hiddenProducts.push(tr);
+        } else {
+          tr.style.display = "";
+          btn.textContent = "Ẩn";
+          attachProductRowEvents(tr);
+          const idx = hiddenProducts.indexOf(tr);
+          if (idx > -1) hiddenProducts.splice(idx, 1);
+        }
+      }
+
+      // === Hiện lại tất cả sản phẩm ẩn ===
+      function showAllHiddenProducts() {
+        hiddenProducts.forEach((tr) => {
+          tr.style.display = "";
+          tr.querySelector(".hide-type").textContent = "Ẩn";
+          attachProductRowEvents(tr);
+        });
+        hiddenProducts.length = 0;
+      }
+
+      // === Gắn event cho các hàng có sẵn ===
+      document
+        .querySelectorAll("#typeTable tbody tr")
+        .forEach(attachProductRowEvents);
+    </script>
+    <script>
+      // --- Xử lý nút ẨN sản phẩm ---
+      document.querySelectorAll(".hide-type").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const row = e.target.closest("tr");
+          row.style.display = "none"; // ẩn dòng
+          row.classList.add("hidden-product");
+          alert("Sản phẩm đã được ẩn!");
+        });
+      });
+
+      // --- Xử lý nút HIỆN sản phẩm ---
+      document.querySelectorAll(".show-type").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const row = e.target.closest("tr");
+          row.style.display = "table-row"; // hiện dòng lại
+          row.classList.remove("hidden-product");
+          alert("Sản phẩm đã được hiển thị lại!");
+        });
+      });
+    </script>
+
+    <!--phieu nhap-->
+    <script>
+      // 🌸 QUẢN LÝ PHIẾU NHẬP HÀNG
+      const importTable = document.querySelector("#importTable tbody");
+      const addImportBtn = document.getElementById("addImportBtn");
+      const importModal = document.getElementById("importModal");
+      const importModalTitle = document.getElementById("importModalTitle");
+      const saveImportBtn = document.getElementById("saveImportBtn");
+
+      let editingImportRow = null;
+
+      // === Mở popup thêm mới ===
+      addImportBtn.addEventListener("click", () => {
+        editingImportRow = null;
+        importModalTitle.textContent = "Thêm phiếu nhập";
+        document.getElementById("pn_ma").value = "";
+        document.getElementById("pn_ngay").value = "";
+        document.getElementById("pn_tt").value = "Chưa hoàn thành";
+
+        // reset danh sách sản phẩm
+        document.getElementById("productList").innerHTML = `
+      <div class="product-item" style="display:flex;gap:6px;margin-bottom:4px">
+        <input type="text" placeholder="Tên sản phẩm" class="sp_ten" style="flex:2" />
+        <input type="number" placeholder="SL" class="sp_sl" style="width:70px" />
+        <input type="number" placeholder="Giá nhập" class="sp_gia" style="flex:1" />
+        <button class="btn btn-outline btn-remove" style="color:#dc2626">❌</button>
+      </div>`;
+
+        // Gắn nút ❌ xóa dòng
+        document
+          .querySelector("#productList .btn-remove")
+          .addEventListener("click", (e) =>
+            e.target.closest(".product-item").remove()
+          );
+
+        importModal.style.display = "flex";
+      });
+
+      // === Đóng popup ===
+      function closeImportModal() {
+        importModal.style.display = "none";
+      }
+
+      // === Thêm dòng sản phẩm trong popup ===
+      function addProductRow() {
+        const container = document.getElementById("productList");
+        const div = document.createElement("div");
+        div.className = "product-item";
+        div.style.cssText = "display:flex;gap:6px;margin-bottom:4px";
+        div.innerHTML = `
+      <input type="text" placeholder="Tên sản phẩm" class="sp_ten" style="flex:2" />
+      <input type="number" placeholder="SL" class="sp_sl" style="width:70px" />
+      <input type="number" placeholder="Giá nhập" class="sp_gia" style="flex:1" />
+      <button class="btn btn-outline btn-remove" style="color:#dc2626">❌</button>`;
+        container.appendChild(div);
+
+        div
+          .querySelector(".btn-remove")
+          .addEventListener("click", () => div.remove());
+      }
+
+      // === Lưu phiếu nhập ===
+      saveImportBtn.addEventListener("click", () => {
+        const ma = document.getElementById("pn_ma").value.trim();
+        const ngay = document.getElementById("pn_ngay").value;
+        const tt = document.getElementById("pn_tt").value;
+
+        if (!ma || !ngay) {
+          alert("Vui lòng nhập mã phiếu và ngày nhập!");
+          return;
+        }
+
+        let tong = 0;
+        let sosanpham = 0;
+        document
+          .querySelectorAll("#productList .product-item")
+          .forEach((item) => {
+            const sl = parseInt(item.querySelector(".sp_sl").value || 0);
+            const gia = parseInt(item.querySelector(".sp_gia").value || 0);
+            tong += sl * gia;
+            if (sl > 0) sosanpham++;
+          });
+
+        const tongText = tong.toLocaleString("vi-VN") + " ₫";
+        const statusColor = tt === "Hoàn thành" ? "#16a34a" : "#f59e0b";
+
+        if (editingImportRow) {
+          editingImportRow.children[0].textContent = ma;
+          editingImportRow.children[1].textContent = ngay
+            .split("-")
+            .reverse()
+            .join("/");
+          editingImportRow.children[2].textContent = sosanpham;
+          editingImportRow.children[3].textContent = tongText;
+          editingImportRow.children[4].innerHTML = `<span class="status" style="color:${statusColor}">${tt}</span>`;
+        } else {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${ma}</td>
+        <td>${ngay.split("-").reverse().join("/")}</td>
+        <td>${sosanpham}</td>
+        <td>${tongText}</td>
+        <td><span class="status" style="color:${statusColor}">${tt}</span></td>
+        <td>
+          <button class="btn btn-outline edit-import">Xem</button>
+          <button class="btn btn-outline del-import">Xóa</button>
+        </td>`;
+          importTable.appendChild(tr);
+          attachImportRowEvents(tr);
+        }
+
+        closeImportModal();
+      });
+
+      // === Sửa / Xem phiếu nhập ===
+      function editImport(tr) {
+        const ma = tr.children[0].textContent;
+        const ngay = tr.children[1].textContent.split("/").reverse().join("-");
+        const tt = tr.children[4].textContent.trim();
+
+        editingImportRow = tr;
+        importModalTitle.textContent =
+          tt === "Hoàn thành" ? "Xem phiếu nhập" : "Sửa phiếu nhập";
+        document.getElementById("pn_ma").value = ma;
+        document.getElementById("pn_ngay").value = ngay;
+        document.getElementById("pn_tt").value = tt;
+        importModal.style.display = "flex";
+
+        const disabled = tt === "Hoàn thành";
+        document
+          .querySelectorAll(
+            "#importModal input, #importModal select, #importModal button.btn-remove"
+          )
+          .forEach((el) => (el.disabled = disabled));
+        saveImportBtn.style.display = disabled ? "none" : "inline-block";
+      }
+
+      // === Xóa phiếu ===
+      function deleteImport(tr) {
+        if (confirm("Bạn có chắc muốn xóa phiếu nhập này?")) tr.remove();
+      }
+
+      // === Gắn sự kiện cho dòng ===
+      function attachImportRowEvents(tr) {
+        tr.querySelector(".edit-import").addEventListener("click", () =>
+          editImport(tr)
+        );
+        tr.querySelector(".del-import").addEventListener("click", () =>
+          deleteImport(tr)
+        );
+      }
+
+      // === Gắn sự kiện sẵn cho dòng mẫu ===
+      document
+        .querySelectorAll("#importTable tbody tr")
+        .forEach(attachImportRowEvents);
+    </script>
+    <!-- thanh cuộn nè-->
+    <script>
+      function showProductTab(tab) {
+        event.preventDefault();
+
+        // Ẩn tất cả tab
+        document.getElementById("tab-category").style.display = "none";
+        document.getElementById("tab-type").style.display = "none";
+        document.getElementById("tab-import").style.display = "none";
+
+        // Hiện tab được chọn
+        document.getElementById(`tab-${tab}`).style.display = "block";
+
+        // Cập nhật nút active
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+      }
+
+      // Khi load trang: chỉ hiển thị tab "Danh mục"
+      window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("tab-category").style.display = "block";
+        document.getElementById("tab-type").style.display = "none";
+        document.getElementById("tab-import").style.display = "none";
+      });
+    </script>
+
+    <!--don giá-->
+    <script>
+      function showProductTab(tab) {
+        event.preventDefault();
+        const tabs = ["category", "type", "import", "price"];
+        tabs.forEach((t) => {
+          const el = document.getElementById(`tab-${t}`);
+          if (el) el.style.display = "none";
+        });
+        document.getElementById(`tab-${tab}`).style.display = "block";
+
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+      }
+
+      // Khi load trang, hiển thị mặc định tab danh mục
+      window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("tab-category").style.display = "block";
+        document.getElementById("tab-type").style.display = "none";
+        document.getElementById("tab-import").style.display = "none";
+        document.getElementById("tab-price").style.display = "none";
+
+        // 🔹 Gắn sự kiện nút Sửa giá khi trang load xong
+        attachEditPriceEvents();
+      });
+
+      // ----- Popup Cập nhật lợi nhuận -----
+      function openPriceModal() {
+        document.getElementById("priceModal").style.display = "flex";
+      }
+
+      function closePriceModal() {
+        document.getElementById("priceModal").style.display = "none";
+      }
+
+      function saveProfitRate() {
+        const type = document.getElementById("profitType").value;
+        const rate = parseFloat(document.getElementById("profitRate").value);
+        if (isNaN(rate) || rate < 0) {
+          alert("Vui lòng nhập tỉ lệ lợi nhuận hợp lệ!");
+          return;
+        }
+
+        const rows = document.querySelectorAll("#priceTable tbody tr");
+        rows.forEach((r) => {
+          const loai = r.cells[2].innerText.trim();
+          const cost = parseFloat(r.cells[3].innerText.replace(/,/g, ""));
+          if (loai === type) {
+            const sell = Math.round(cost * (1 + rate / 100));
+            r.cells[4].innerText = rate + "%";
+            r.cells[5].innerText = sell.toLocaleString();
+          }
+        });
+
+        alert(`Đã cập nhật lợi nhuận ${rate}% cho loại: ${type}`);
+        closePriceModal();
+      }
+
+      // ----- Popup Sửa giá -----
+      let currentRow = null;
+
+      function attachEditPriceEvents() {
+        document.querySelectorAll(".edit-price").forEach((btn) => {
+          btn.onclick = (e) => {
+            const row = e.target.closest("tr");
+            currentRow = row;
+            document.getElementById("editName").value = row.cells[1].innerText;
+            document.getElementById("editCost").value = row.cells[3].innerText;
+            document.getElementById("editProfit").value =
+              row.cells[4].innerText;
+            document.getElementById("editPriceModal").style.display = "flex";
+          };
+        });
+      }
+
+      function closeEditModal() {
+        document.getElementById("editPriceModal").style.display = "none";
+      }
+
+      function saveEdit() {
+        const cost = parseFloat(document.getElementById("editCost").value);
+        const profit = parseFloat(document.getElementById("editProfit").value);
+
+        if (isNaN(cost) || cost < 0 || isNaN(profit) || profit < 0) {
+          alert("Giá vốn hoặc tỉ lệ lợi nhuận không hợp lệ!");
+          return;
+        }
+
+        const sell = Math.round(cost * (1 + profit / 100));
+        currentRow.cells[3].innerText = cost.toLocaleString();
+        currentRow.cells[4].innerText = profit + "%";
+        currentRow.cells[5].innerText = sell.toLocaleString();
+        closeEditModal();
+      }
+    </script>
+
+    <!--tim kiem gb-->
+    <script>
+      function searchPriceTable() {
+        const input = document
+          .getElementById("searchPrice")
+          .value.toLowerCase();
+        const rows = document.querySelectorAll("#priceTable tbody tr");
+
+        rows.forEach((row) => {
+          const name = row.cells[1].innerText.toLowerCase();
+          row.style.display = name.includes(input) ? "" : "none";
+        });
+      }
+    </script>
+    <!--them sp trong gb-->
+    <script>
+      // Mở / đóng modal thêm sản phẩm
+      function openAddProductModal() {
+        document.getElementById("addProductModal").style.display = "flex";
+      }
+
+      function closeAddProductModal() {
+        document.getElementById("addProductModal").style.display = "none";
+      }
+
+      // Lưu sản phẩm mới (tự động tính % theo loại)
+      function saveNewProduct() {
+        const name = document.getElementById("newName").value.trim();
+        const type = document.getElementById("newType").value;
+        const cost = parseFloat(document.getElementById("newCost").value);
+
+        if (!name || isNaN(cost)) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        // Tỉ lệ lợi nhuận mặc định theo loại
+        let profit = 0;
+        switch (type) {
+          case "Hoa Tình Yêu":
+            profit = 20;
+            break;
+          case "Hoa Ngày Lễ":
+            profit = 25;
+            break;
+          case "Hoa Giỏ":
+            profit = 30;
+            break;
+          case "Hoa Gấu Bông":
+            profit = 15;
+            break;
+          case "Phụ Kiện":
+            profit = 10;
+            break;
+        }
+
+        const price = Math.round(cost * (1 + profit / 100));
+
+        const table = document.querySelector("#priceTable tbody");
+        const row = document.createElement("tr");
+        row.innerHTML = `
+  <td>SP${table.rows.length + 1}</td>
+  <td>${name}</td>
+  <td>${type}</td>
+  <td>${cost.toLocaleString()}</td>
+  <td>${profit}%</td>
+  <td>${price.toLocaleString()}</td>
+  <td><button class="btn btn-outline edit-price">Sửa</button></td>
+`;
+        table.appendChild(row);
+        attachEditPriceEvents(); // gắn lại sự kiện nút Sửa cho hàng mới
+        closeAddProductModal();
+      }
+    </script>
+    <!--đăng xuất-->
+    <script>
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+          // Hành động thật của bạn, ví dụ:
+          window.location.href = "index.html";
+        }
+      });
+    </script>
+  </body>
+</html>

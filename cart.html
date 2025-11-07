@@ -3,54 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><c05.nhahodau.net></c05></title>
+    <title>Giỏ hàng - Flower Connect</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
+
   <body>
+    <!-- 🌸 HEADER -->
     <header>
       <h1 class="logo">🌸 Flower Connect</h1>
       <nav>
         <ul>
           <li><a href="index.html">Trang chủ</a></li>
-          <li>
-            <a href="category-hoatinhyeu.html">Hoa Tình Yêu</a>
-          </li>
+          <li><a href="category-hoatinhyeu.html">Hoa Tình Yêu</a></li>
           <li><a href="category-hoagaubong.html">Hoa Gấu Bông</a></li>
           <li><a href="category-hoangayle.html">Hoa Ngày Lễ</a></li>
           <li><a href="category-hoagio.html">Hoa Giỏ</a></li>
           <li><a href="category-phukien.html">Phụ Kiện</a></li>
         </ul>
       </nav>
+
       <div class="auth">
         <a href="login.html" class="btn">Đăng nhập</a>
         <a href="register.html" class="btn">Đăng ký</a>
       </div>
     </header>
 
-    <!-- Thanh tìm kiếm -->
+    <!-- 🔍 THANH TÌM KIẾM -->
     <div class="search-bar">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Tìm kiếm hoa..."
-        onkeyup="searchFlowers()"
-      />
-      <p id="noResult" style="display: none">Không tìm thấy sản phẩm.</p>
+      <input type="text" placeholder="Tìm kiếm hoa..." />
     </div>
 
-    <!-- 🛍️ Giỏ hàng -->
+    <!-- 🛍️ GIỎ HÀNG -->
     <main class="cart-container">
-      <h2>🛒 Giỏ hàng của bạn</h2>
+      <h2>🛒 Giỏ Hàng Của Bạn</h2>
       <table id="cartTable">
         <thead>
           <tr>
-            <th>Tên sản phẩm</th>
+            <th>Hình Ảnh</th>
+            <th>Tên Sản Phẩm</th>
             <th>Giá</th>
-            <th>Số lượng</th>
+            <th>Số Lượng</th>
             <th>Tổng</th>
             <th>Xóa</th>
           </tr>
@@ -59,88 +55,104 @@
       </table>
 
       <div class="cart-summary">
-        <h3>Tổng cộng: <span id="cartTotal">0đ</span></h3>
-        <a href="checkout.html" class="checkout-btn">Thanh toán</a>
+        <h3>Tổng Cộng: <span id="cartTotal">0đ</span></h3>
+        <a href="checkout.html" class="checkout-btn">Thanh Toán</a>
       </div>
     </main>
 
-    <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
-    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
+    <!-- 🛒 ICON MINI GÓC PHẢI -->
+    <a href="cart.html" class="cart-icon-mini">
+      🛒
+      <span id="cartCount" class="cart-count-badge">0</span>
+    </a>
 
     <script>
-  function loadCart() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartBody = document.getElementById("cartBody");
-    let cartTotal = document.getElementById("cartTotal");
-    cartBody.innerHTML = "";
-    let total = 0;
+      // 🧺 TẢI GIỎ HÀNG
+      function loadCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartBody = document.getElementById("cartBody");
+        const cartTotal = document.getElementById("cartTotal");
+        cartBody.innerHTML = "";
+        let total = 0;
 
-    cart.forEach((item, index) => {
-      let row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name}</td>
-        <td>${item.price.toLocaleString()}đ</td>
-        <td>
-          <input type="number" min="1" value="${item.quantity || 1}" 
-                 onchange="updateQuantity(${index}, this.value)" 
-                 style="width: 50px; text-align: center;">
-        </td>
-        <td>${(item.price * (item.quantity || 1)).toLocaleString()}đ</td>
-        <td><button onclick="removeFromCart('${item.name}')">Xóa</button></td>
-      `;
-      cartBody.appendChild(row);
-      total += item.price * (item.quantity || 1);
-    });
+        cart.forEach((item) => {
+          const row = document.createElement("tr");
+          const itemTotal = item.price * (item.quantity || 1);
+          row.innerHTML = `
+            <td><img src="${item.image}" alt="${
+            item.name
+          }" style="width: 60px; height: 60px; border-radius: 8px;"></td>
+            <td>${item.name}</td>
+            <td>${item.price.toLocaleString()}đ</td>
+            <td><input type="number" value="${
+              item.quantity
+            }" min="1" onchange="updateQuantity('${
+            item.name
+          }', this.value)"></td>
+            <td>${itemTotal.toLocaleString()}đ</td>
+            <td><button onclick="removeFromCart('${
+              item.name
+            }')">Xóa</button></td>
+          `;
+          cartBody.appendChild(row);
+          total += itemTotal;
+        });
 
-    cartTotal.textContent = total.toLocaleString() + "đ";
-    updateCartCount();
-  }
+        cartTotal.textContent = total.toLocaleString() + "đ";
+        updateCartCount();
+      }
 
-  function updateQuantity(index, newQuantity) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    newQuantity = parseInt(newQuantity);
-    if (newQuantity < 1) newQuantity = 1;
+      // 🧮 CẬP NHẬT SỐ LƯỢNG
+      function updateQuantity(name, newQuantity) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        newQuantity = parseInt(newQuantity);
+        if (newQuantity < 1) newQuantity = 1;
+        const item = cart.find((p) => p.name === name);
+        if (item) item.quantity = newQuantity;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+      }
 
-    cart[index].quantity = newQuantity;
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart(); // Cập nhật lại bảng và tổng tiền
-  }
+      // ❌ XÓA SẢN PHẨM
+      function removeFromCart(name) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart = cart.filter((p) => p.name !== name);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+      }
 
-  function removeFromCart(name) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart = cart.filter(item => item.name !== name);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
-  }
+      // 🔢 CẬP NHẬT SỐ LƯỢNG TRÊN ICON MINI
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const badge = document.getElementById("cartCount");
+        badge.textContent = count;
+        badge.style.display = count > 0 ? "block" : "none";
+      }
 
-  function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartIconMini = document.getElementById("cartIconMini");
-    let count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    cartIconMini.textContent = `🛒 (${count})`;
-  }
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCart();
+      });
+    </script>
 
-  loadCart();
-</script>
     <script>
+      // 👤 HIỂN THỊ NGƯỜI DÙNG
       document.addEventListener("DOMContentLoaded", () => {
         const authDiv = document.querySelector(".auth");
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
         if (currentUser) {
-          // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
-        <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-      `;
+            <span class="welcome">Xin chào, ${currentUser.name}</span>
+            <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+          `;
 
-          // Xử lý khi bấm nút Đăng xuất
           document
             .getElementById("logoutBtn")
             .addEventListener("click", function () {
               localStorage.removeItem("currentUser");
-              alert("Bạn đã đăng xuất");
-              window.location.reload(); // load lại để hiện nút đăng nhập
+              alert("Bạn đã đăng xuất!");
+              window.location.reload();
             });
         }
       });
