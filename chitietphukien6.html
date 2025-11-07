@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="product-header">
+    <a href="index.html" class="back-btn">← Quay lại</a>
+</header>
+
+<div class="product-page">
+
+    <!-- Cột ảnh -->
+    <div class="product-image">
+        <img id="product-img" src="image/phukien6.jpg" alt="">
+    </div>
+
+    <!-- Cột nội dung -->
+    <div class="product-info">
+        <h2 id="product-name">Bình gốm nhỏ trang tr</h2>
+        <p>200.000 đồng</p>
+
+        <p class="sub-title">Tinh tế, trang trí cho không gian mà không tốn diện tích</p>
+
+        <ul class="product-detail">
+            <li><b>Phù hợp:</b> Quà lưu niệm, quá tri ấn</li>
+            <li> Thể hiện sự tinh tế qua những món quà</li>
+            <li><b>Size:</b> 27x15x24 cm</li>
+            <li><b>Chất liệu:</b> Mên mộc, men bóng</li>
+            <li><b>Chuẩn bị:</b> Đặt trước 4 tiếng – 1 ngày</li>
+        </ul>
+        <div class="quantity-box">
+            <label>Số lượng:</label>
+            <div class="qty-control">
+                <button onclick="changeQty(-1)">-</button>
+                <input id="qty" type="number" value="1" min="1">
+                <button onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <div class="action-wrap">
+            <button class="add-cart">🛒 Thêm vào giỏ</button>
+            <button class="buy-now">🌸 ĐẶT HOA NGAY</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function changeQty(v){
+    let q = document.getElementById("qty");
+    q.value = Math.max(1, parseInt(q.value) + v);
+}
+</script>
+
+
+</body>
+</html>
+

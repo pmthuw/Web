@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hồ sơ cá nhân</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      background-color: #fff6fa; 
+      text-align: center;
+    }
+
+    .profile-card {
+      margin: 80px auto; 
+      padding: 30px; 
+      width: 400px;
+      background: white; 
+      border: 2px solid #ffb6c1; 
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .profile-card img { 
+      display: block;
+      margin: 0 auto 10px auto; 
+      width: 100px; 
+      height: 100px; 
+      border-radius: 50%; 
+      border: 3px solid pink; 
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 180px;
+      margin-left: 6px;
+    }
+
+    button { 
+      display: inline-block;
+      margin-top: 8px;
+      background: #ffc4d5; 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      padding: 6px 10px; 
+      cursor: pointer; 
+    }
+
+    button:hover {
+      background: #edc4cf;
+    }
+
+    .center-text {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .password-box {
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Avatar">
+    <h2 id="userName"></h2>
+
+    <p><b>Email:</b> <span id="userEmail"></span></p>
+    <p id="phoneSection"></p>
+    <p id="addressSection"></p>
+    <p><b>Ngày tham gia:</b> <span id="userJoin"></span></p>
+
+    <!-- Reset mật khẩu -->
+    <div id="resetSection">
+      <button id="toggleResetBtn">Đổi mật khẩu</button>
+      <div id="resetForm" class="hidden">
+        <div class="password-box">
+          <input type="password" id="oldPass" placeholder="Mật khẩu cũ">
+        </div>
+        <div class="password-box">
+          <input type="password" id="newPass" placeholder="Mật khẩu mới">
+        </div>
+        <button id="savePassBtn">Lưu mật khẩu</button>
+      </div>
+    </div>
+
+    <div class="center-text">
+      <button id="logoutBtn">Đăng xuất</button>
+    </div>
+  </div>
+
+  <script>
+    // Lấy thông tin người dùng
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) {
+      alert("Bạn cần đăng nhập trước!");
+      window.location.href = "login.html";
+    }
+
+    // Gán giá trị mặc định
+    user.phone = user.phone || "";
+    user.address = user.address || "";
+
+    // Hiển thị thông tin cơ bản
+    document.getElementById("userName").textContent = user.name;
+    document.getElementById("userEmail").textContent = user.email;
+    document.getElementById("userJoin").textContent = user.joinDate;
+
+    const phoneSection = document.getElementById("phoneSection");
+    const addressSection = document.getElementById("addressSection");
+    const resetForm = document.getElementById("resetForm");
+    const toggleResetBtn = document.getElementById("toggleResetBtn");
+
+    // Hiển thị / nhập SĐT
+    function renderPhone() {
+      if (user.phone.trim() !== "") {
+        phoneSection.innerHTML = `<b>SĐT:</b> ${user.phone}`;
+      } else {
+        phoneSection.innerHTML = `
+          <b>SĐT:</b>
+          <input type="text" id="phoneInput" placeholder="Nhập SĐT">
+          <button id="savePhoneBtn">Lưu</button>
+        `;
+        document.getElementById("savePhoneBtn").addEventListener("click", () => {
+          const newPhone = document.getElementById("phoneInput").value.trim();
+          if (newPhone === "") {
+            alert("Vui lòng nhập số điện thoại!");
+            return;
+          }
+          user.phone = newPhone;
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          renderPhone();
+        });
+      }
+    }
+
+    // Hiển thị / nhập địa chỉ
+    function renderAddress() {
+      if (user.address.trim() !== "") {
+        addressSection.innerHTML = `<b>Địa chỉ nhận hàng:</b> ${user.address}`;
+      } else {
+        addressSection.innerHTML = `
+          <b>Địa chỉ nhận hàng:</b>
+          <input type="text" id="addressInput" placeholder="Nhập địa chỉ">
+          <button id="saveAddressBtn">Lưu</button>
+        `;
+        document.getElementById("saveAddressBtn").addEventListener("click", () => {
+          const newAddress = document.getElementById("addressInput").value.trim();
+          if (newAddress === "") {
+            alert("Vui lòng nhập địa chỉ nhận hàng!");
+            return;
+          }
+          user.address = newAddress;
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          renderAddress();
+        });
+      }
+    }
+
+    renderPhone();
+    renderAddress();
+
+    // --- Khóa / mở khóa đổi mật khẩu ---
+    let resetUnlocked = false;
+
+    toggleResetBtn.addEventListener("click", () => {
+      resetUnlocked = !resetUnlocked;
+      if (resetUnlocked) {
+        toggleResetBtn.textContent = "🔓 Khóa đổi mật khẩu";
+        resetForm.classList.remove("hidden");
+      } else {
+        toggleResetBtn.textContent = "🔒 Mở khóa đổi mật khẩu";
+        resetForm.classList.add("hidden");
+      }
+    });
+
+    // --- Lưu mật khẩu mới ---
+    document.getElementById("savePassBtn").addEventListener("click", () => {
+      const oldPass = document.getElementById("oldPass").value.trim();
+      const newPass = document.getElementById("newPass").value.trim();
+
+      if (oldPass === "" || newPass === "") {
+        alert("Vui lòng nhập đầy đủ mật khẩu!");
+        return;
+      }
+
+      if (oldPass !== user.password) {
+        alert("Mật khẩu cũ không đúng!");
+        return;
+      }
+
+      user.password = newPass;
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      alert("✅ Đổi mật khẩu thành công!");
+      document.getElementById("oldPass").value = "";
+      document.getElementById("newPass").value = "";
+      resetUnlocked = false;
+      toggleResetBtn.textContent = "Đổi mật khẩu";
+      resetForm.classList.add("hidden");
+    });
+
+    // --- Đăng xuất ---
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("currentUser");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
