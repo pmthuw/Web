@@ -1253,31 +1253,3 @@ nav ul li a,
 .auth p {
   font-family: "Quicksand", sans-serif !important;
 }
-.cart-icon-mini {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-size: 30px;
-  text-decoration: none;
-
-  border-radius: 50%;
-  padding: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
-
-.cart-count-badge {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background-color: rgb(229, 223, 226);
-  color: white;
-  border-radius: 50%;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
