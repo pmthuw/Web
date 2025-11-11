@@ -10,9 +10,7 @@
       rel="stylesheet"
     />
   </head>
-
   <body>
-    <!-- 🌸 HEADER -->
     <header>
       <h1 class="logo">🌸 Flower Connect</h1>
       <nav>
@@ -25,14 +23,12 @@
           <li><a href="category-phukien.html">Phụ Kiện</a></li>
         </ul>
       </nav>
-
       <div class="auth">
         <a href="login.html" class="btn">Đăng nhập</a>
         <a href="register.html" class="btn">Đăng ký</a>
       </div>
     </header>
 
-    <!-- 🛍️ GIỎ HÀNG -->
     <main class="cart-container">
       <h2>🛒 Giỏ Hàng Của Bạn</h2>
       <table id="cartTable">
@@ -55,14 +51,12 @@
       </div>
     </main>
 
-    <!-- 🛒 ICON MINI GÓC PHẢI -->
     <a href="cart.html" class="cart-icon-mini">
       🛒
       <span id="cartCount" class="cart-count-badge">0</span>
     </a>
 
     <script>
-      // 🧺 TẢI GIỎ HÀNG
       function loadCart() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const cartBody = document.getElementById("cartBody");
@@ -71,36 +65,25 @@
         let total = 0;
 
         cart.forEach((item) => {
-          // Bắt đầu khắc phục lỗi: Đảm bảo giá là một số.
-          // Giả sử giá được lưu dưới dạng chuỗi có dấu chấm phân cách hàng nghìn (ví dụ: "1.500.000")
-          const cleanPriceString = item.price
-            .toString()
-            .replace(/\./g, "")
-            .replace(/,/g, "");
-          const price = parseFloat(cleanPriceString); // Kiểm tra nếu price không phải là số hợp lệ
-
-          if (isNaN(price)) {
-            console.error("Giá sản phẩm không hợp lệ:", item.name, item.price);
-            return; // Bỏ qua sản phẩm này hoặc đặt giá là 0
-          }
-
-          const itemTotal = price * (item.quantity || 1); // Sử dụng giá đã được chuyển đổi
+          const price =
+            parseFloat(
+              item.price.toString().replace(/\./g, "").replace(/,/g, "")
+            ) || 0;
+          const itemTotal = price * (item.quantity || 1);
 
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td><img src="${item.image}" alt="${
-            item.name
-          }" style="width: 60px; height: 60px; border-radius: 8px;"></td>
-            <td>${item.name}</td>
-            <td>${price.toLocaleString()}đ</td> 
-            <td><input type="number" value="${
-            item.quantity
-          }" min="1" onchange="updateQuantity('${item.name}', this.value)"></td>
-            <td>${itemTotal.toLocaleString()}đ</td>
-            <td><button onclick="removeFromCart('${
-            item.name
-          }')">Xóa</button></td>
-          `;
+        <td><img src="${item.image}" alt="${item.name}"></td>
+        <td>${item.name}</td>
+        <td>${price.toLocaleString()}đ</td>
+        <td><input type="number" min="1" value="${
+          item.quantity
+        }" onchange="updateQuantity('${item.name}', this.value)"></td>
+        <td>${itemTotal.toLocaleString()}đ</td>
+        <td><button class="remove-btn" onclick="removeFromCart('${
+          item.name
+        }')">Xóa</button></td>
+      `;
           cartBody.appendChild(row);
           total += itemTotal;
         });
@@ -109,18 +92,16 @@
         updateCartCount();
       }
 
-      // 🧮 CẬP NHẬT SỐ LƯỢNG
-      function updateQuantity(name, newQuantity) {
+      function updateQuantity(name, qty) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        newQuantity = parseInt(newQuantity);
-        if (newQuantity < 1) newQuantity = 1;
+        qty = parseInt(qty);
+        if (qty < 1) qty = 1;
         const item = cart.find((p) => p.name === name);
-        if (item) item.quantity = newQuantity;
+        if (item) item.quantity = qty;
         localStorage.setItem("cart", JSON.stringify(cart));
         loadCart();
       }
 
-      // ❌ XÓA SẢN PHẨM
       function removeFromCart(name) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart = cart.filter((p) => p.name !== name);
@@ -128,7 +109,6 @@
         loadCart();
       }
 
-      // 🔢 CẬP NHẬT SỐ LƯỢNG TRÊN ICON MINI
       function updateCartCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
@@ -137,32 +117,7 @@
         badge.style.display = count > 0 ? "block" : "none";
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        loadCart();
-      });
-    </script>
-
-    <script>
-      // 👤 HIỂN THỊ NGƯỜI DÙNG
-      document.addEventListener("DOMContentLoaded", () => {
-        const authDiv = document.querySelector(".auth");
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-        if (currentUser) {
-          authDiv.innerHTML = `
-            <span class="welcome">Xin chào, ${currentUser.name}</span>
-            <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-          `;
-
-          document
-            .getElementById("logoutBtn")
-            .addEventListener("click", function () {
-              localStorage.removeItem("currentUser");
-              alert("Bạn đã đăng xuất!");
-              window.location.reload();
-            });
-        }
-      });
+      document.addEventListener("DOMContentLoaded", loadCart);
     </script>
   </body>
 </html>

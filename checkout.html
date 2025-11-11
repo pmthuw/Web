@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thanh toán - Flower Connect</title>
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         font-family: "Quicksand", sans-serif;
@@ -12,7 +15,6 @@
         margin: 0;
         padding: 0;
       }
-
       .checkout-container {
         max-width: 900px;
         margin: 50px auto;
@@ -21,24 +23,22 @@
         border-radius: 16px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
-
       h2 {
         text-align: center;
         color: #e91e63;
         margin-bottom: 30px;
       }
-
       .checkout-section {
         margin-bottom: 30px;
       }
-
       label {
         display: block;
         margin-bottom: 8px;
         font-weight: 600;
       }
-
-      input, textarea, select {
+      input,
+      textarea,
+      select {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -46,24 +46,20 @@
         margin-bottom: 15px;
         font-size: 15px;
       }
-
       .order-summary {
         border-top: 2px solid #f1f1f1;
         padding-top: 20px;
       }
-
       .summary-item {
         display: flex;
         justify-content: space-between;
         margin-bottom: 8px;
       }
-
       .total {
         font-weight: bold;
         font-size: 18px;
         color: #e91e63;
       }
-
       .checkout-btn {
         display: block;
         width: 100%;
@@ -76,39 +72,50 @@
         cursor: pointer;
         transition: 0.3s;
       }
-
       .checkout-btn:hover {
         background-color: #d81b60;
       }
-
       .back {
         display: inline-block;
         margin-top: 15px;
         color: #555;
         text-decoration: none;
       }
-
       .back:hover {
         color: #e91e63;
       }
     </style>
   </head>
-
   <body>
     <div class="checkout-container">
       <h2>Thanh Toán Đơn Hàng</h2>
 
-      <!-- Thông tin người mua -->
+      <!-- Thông tin khách hàng -->
       <div class="checkout-section">
         <h3>🧍‍♀️ Thông tin khách hàng</h3>
         <label>Họ và tên:</label>
-        <input type="text" id="fullname" placeholder="Nhập họ tên của bạn" required />
+        <input
+          type="text"
+          id="fullname"
+          placeholder="Nhập họ tên của bạn"
+          required
+        />
 
         <label>Số điện thoại:</label>
-        <input type="tel" id="phone" placeholder="Nhập số điện thoại" required />
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Nhập số điện thoại"
+          required
+        />
 
         <label>Địa chỉ giao hàng:</label>
-        <textarea id="address" rows="3" placeholder="Nhập địa chỉ chi tiết" required></textarea>
+        <textarea
+          id="address"
+          rows="3"
+          placeholder="Nhập địa chỉ chi tiết"
+          required
+        ></textarea>
       </div>
 
       <!-- Phương thức thanh toán -->
@@ -124,43 +131,61 @@
       <!-- Tóm tắt đơn hàng -->
       <div class="checkout-section order-summary">
         <h3>🛍️ Đơn hàng của bạn</h3>
-        <div id="order-items">
-          <!-- Sản phẩm sẽ được load bằng JS -->
-        </div>
+        <div id="order-items"></div>
         <div class="summary-item total">
           <span>Tổng cộng:</span>
           <span id="total-price">0đ</span>
         </div>
       </div>
 
-      <button class="checkout-btn" onclick="confirmOrder()">Xác nhận đặt hàng</button>
+      <button class="checkout-btn" onclick="confirmOrder()">
+        Xác nhận đặt hàng
+      </button>
       <a href="index.html" class="back">← Quay lại trang chủ</a>
     </div>
 
     <script>
-      // Lấy thông tin sản phẩm từ localStorage (nếu có)
+      // Lấy giỏ hàng từ localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const orderContainer = document.getElementById("order-items");
       const totalEl = document.getElementById("total-price");
 
-      if (cart.length === 0) {
-        orderContainer.innerHTML = "<p>Giỏ hàng trống!</p>";
-      } else {
+      function parsePrice(price) {
+        // Chuyển giá dạng chuỗi có dấu . hoặc , thành số
+        return (
+          parseFloat(price.toString().replace(/\./g, "").replace(/,/g, "")) || 0
+        );
+      }
+
+      function loadOrder() {
+        if (cart.length === 0) {
+          orderContainer.innerHTML = "<p>Giỏ hàng trống!</p>";
+          totalEl.textContent = "0đ";
+          return;
+        }
+
+        orderContainer.innerHTML = "";
         let total = 0;
         cart.forEach((item) => {
-          const itemDiv = document.createElement("div");
-          itemDiv.classList.add("summary-item");
-          itemDiv.innerHTML = `
-            <span>${item.name} x ${item.quantity}</span>
-            <span>${(item.price * item.quantity).toLocaleString()}đ</span>
-          `;
-          orderContainer.appendChild(itemDiv);
-          total += item.price * item.quantity;
+          const price = parsePrice(item.price);
+          const quantity = item.quantity || 1;
+          const itemTotal = price * quantity;
+
+          const div = document.createElement("div");
+          div.classList.add("summary-item");
+          div.innerHTML = `<span>${
+            item.name
+          } x ${quantity}</span><span>${itemTotal.toLocaleString()}đ</span>`;
+          orderContainer.appendChild(div);
+
+          total += itemTotal;
         });
+
         totalEl.textContent = total.toLocaleString() + "đ";
       }
 
-      // Xác nhận đặt hàng
+      loadOrder();
+
       function confirmOrder() {
         const name = document.getElementById("fullname").value.trim();
         const phone = document.getElementById("phone").value.trim();
@@ -171,7 +196,9 @@
           return;
         }
 
-        alert("🎉 Đặt hàng thành công! Cảm ơn bạn đã mua tại Flower Connect 💐");
+        alert(
+          `🎉 Đặt hàng thành công! Tổng: ${totalEl.textContent}\nCảm ơn bạn đã mua tại Flower Connect 💐`
+        );
         localStorage.removeItem("cart");
         window.location.href = "index.html";
       }
