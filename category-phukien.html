@@ -53,13 +53,14 @@
         <a href="chitietphukien.html">
           <img src="image/phukien1.jpg" alt="Phụ Kiện 1" />
           <h3>Thiệp Hoa Khô Kỉ Niệm</h3>
-        </a>
-        <p>Giá: 20.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
+
+          <p>Giá: 20.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          ></a
         >
       </div>
 
@@ -67,13 +68,14 @@
         <a href="chitietphukien2.html">
           <img src="image/phukien2.jpg" alt="Phụ Kiện 2" />
           <h3>Thiệp Chúc Mừng Hoa Văn</h3>
-        </a>
-        <p>Giá: 20.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
+
+          <p>Giá: 20.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          ></a
         >
       </div>
 
@@ -416,9 +418,16 @@
         if (currentUser) {
           // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
         <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
       `;
+
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
+          welcomeEl.title = "Xem hồ sơ của bạn";
+          welcomeEl.addEventListener("click", () => {
+            window.location.href = "profile.html";
+          });
 
           // Xử lý khi bấm nút Đăng xuất
           document

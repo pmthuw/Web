@@ -52,42 +52,45 @@
     <!-- 🌷 Danh sách sản phẩm Hoa Hồng -->
     <main class="product-container">
       <div class="product">
-                <a href="chitietyeu1.html">
-        <img src="image/tinhyeu1.jpg" alt="Hoa Tình Yêu 1" />
-        <h3>Mây Đầu Hạ</h3>
-        <p>Giá: 450.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
+        <a href="chitietyeu1.html">
+          <img src="image/tinhyeu1.jpg" alt="Hoa Tình Yêu 1" />
+          <h3>Mây Đầu Hạ</h3>
+          <p>Giá: 450.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
-                <a href="chitietyeu2.html">
-        <img src="image/tinhyeu2.jpg" alt="Hoa Tình Yêu 2" />
-        <h3>Ánh Trăng</h3>
-        <p>Giá: 420.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
+        <a href="chitietyeu2.html">
+          <img src="image/tinhyeu2.jpg" alt="Hoa Tình Yêu 2" />
+          <h3>Ánh Trăng</h3>
+          <p>Giá: 420.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
-                <a href="chitietyeu3.html">
-        <img src="image/tinhyeu3.webp" alt="Hoa Tình Yêu 3" />
-        <h3>Dịu Dàng</h3>
-        <p>Giá: 460.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
+        <a href="chitietyeu3.html">
+          <img src="image/tinhyeu3.webp" alt="Hoa Tình Yêu 3" />
+          <h3>Dịu Dàng</h3>
+          <p>Giá: 460.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
@@ -575,9 +578,16 @@
         if (currentUser) {
           // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
         <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
       `;
+
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
+          welcomeEl.title = "Xem hồ sơ của bạn";
+          welcomeEl.addEventListener("click", () => {
+            window.location.href = "profile.html";
+          });
 
           // Xử lý khi bấm nút Đăng xuất
           document

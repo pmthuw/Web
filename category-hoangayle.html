@@ -53,40 +53,44 @@
     <main class="product-container">
       <div class="product">
         <a href="chitietle1.html">
-        <img src="image/ngayle1.jpg" alt="Hoa Ngày Lễ 1" />
-        
-        <h3>Nắng Vàng Rực Rỡ</h3>
-        <p>Giá: 300.000đ</p>
-        <a href="checkout.html" class="buy-btn">Mua ngay</a>
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
+          <img src="image/ngayle1.jpg" alt="Hoa Ngày Lễ 1" />
+
+          <h3>Nắng Vàng Rực Rỡ</h3>
+          <p>Giá: 300.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
-                <a href="chitietle2.html">
-        <img src="image/ngayle2.jpg" alt="Hoa Ngày Lễ 2" />
-        <h3>Bản Tình Ca</h3>
-        <p>Giá: 280.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        >
-        <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
+        <a href="chitietle2.html">
+          <img src="image/ngayle2.jpg" alt="Hoa Ngày Lễ 2" />
+          <h3>Bản Tình Ca</h3>
+          <p>Giá: 280.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          >
+          <a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
-                <a href="chitietle3.html">
-        <img src="image/ngayle3.jpg" alt="Hoa Ngày Lễ 3" />
-        <h3>Lụa Tím</h3>
-        <p>Giá: 260.000đ</p>
-        <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
-          >Mua ngay</a
-        ><a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
-          >Thêm vào giỏ</a
-        >
-        <a class="cart-btn" onclick="checkLogin(event)">Thêm vào giỏ</a>
+        <a href="chitietle3.html">
+          <img src="image/ngayle3.jpg" alt="Hoa Ngày Lễ 3" />
+          <h3>Lụa Tím</h3>
+          <p>Giá: 260.000đ</p>
+          <a href="checkout.html" onclick="checkLogin(event)" class="buy-btn"
+            >Mua ngay</a
+          ><a href="checkout.html" onclick="checkLogin(event)" class="cart-btn"
+            >Thêm vào giỏ</a
+          >
+        </a>
       </div>
 
       <div class="product">
@@ -562,9 +566,16 @@
         if (currentUser) {
           // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-        <span class="welcome">Xin chào, ${currentUser.name} </span>
+        <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
         <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
       `;
+
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
+          welcomeEl.title = "Xem hồ sơ của bạn";
+          welcomeEl.addEventListener("click", () => {
+            window.location.href = "profile.html";
+          });
 
           // Xử lý khi bấm nút Đăng xuất
           document
