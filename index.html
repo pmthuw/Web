@@ -269,11 +269,7 @@
     </footer>
 
     <!-- Icon giỏ hàng nhỏ ở góc phải dưới -->
-    <!-- 🌸 Icon giỏ hàng mini góc phải dưới -->
-    <a href="cart.html" class="floating-cart">
-      <img src="images/cart-icon.png" alt="Giỏ hàng" class="cart-icon" />
-      <span id="cartCount" class="cart-count">0</span>
-    </a>
+    <a href="cart.html" class="cart-icon-mini" id="cartIconMini">🛒</a>
 
     <script>
       function addToCart(name, price, image) {
@@ -306,9 +302,9 @@
         if (currentUser) {
           // Nếu đã đăng nhập thì ẩn nút Đăng nhập / Đăng ký
           authDiv.innerHTML = `
-              <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
-          <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-        `;
+                <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
+            <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+          `;
 
           const welcomeEl = document.getElementById("welcomeUser");
           welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay

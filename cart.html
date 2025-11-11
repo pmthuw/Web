@@ -51,11 +51,14 @@
       </div>
     </main>
 
+<<<<<<< HEAD
     <a href="cart.html" class="cart-icon-mini">
       🛒
       <span id="cartCount" class="cart-count-badge">0</span>
     </a>
 
+=======
+>>>>>>> d2ef361a6afd616f45f32d52a782643f46e79345
     <script>
       function loadCart() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -117,7 +120,42 @@
         badge.style.display = count > 0 ? "block" : "none";
       }
 
+<<<<<<< HEAD
       document.addEventListener("DOMContentLoaded", loadCart);
+=======
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCart();
+      });
+    </script>
+
+    <script>
+      // 👤 HIỂN THỊ NGƯỜI DÙNG
+      document.addEventListener("DOMContentLoaded", () => {
+        const authDiv = document.querySelector(".auth");
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (currentUser) {
+          authDiv.innerHTML = `
+            <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
+              <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+            `;
+
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
+          welcomeEl.title = "Xem hồ sơ của bạn";
+          welcomeEl.addEventListener("click", () => {
+            window.location.href = "profile.html";
+          });
+          document
+            .getElementById("logoutBtn")
+            .addEventListener("click", function () {
+              localStorage.removeItem("currentUser");
+              alert("Bạn đã đăng xuất!");
+              window.location.reload();
+            });
+        }
+      });
+>>>>>>> d2ef361a6afd616f45f32d52a782643f46e79345
     </script>
   </body>
 </html>
