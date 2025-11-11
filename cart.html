@@ -144,10 +144,16 @@
 
         if (currentUser) {
           authDiv.innerHTML = `
-            <span class="welcome">Xin chào, ${currentUser.name}</span>
-            <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
-          `;
+            <span class="welcome" id="welcomeUser">Xin chào, ${currentUser.name}</span>
+              <button class="btn logout-btn" id="logoutBtn">Đăng xuất</button>
+            `;
 
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.style.cursor = "pointer"; // hiện con trỏ tay
+          welcomeEl.title = "Xem hồ sơ của bạn";
+          welcomeEl.addEventListener("click", () => {
+            window.location.href = "profile.html";
+          });
           document
             .getElementById("logoutBtn")
             .addEventListener("click", function () {
